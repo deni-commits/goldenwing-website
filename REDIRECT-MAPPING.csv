@@ -1,0 +1,116 @@
+old_url,new_url,redirect_type,category,priority,notes
+# ============================================
+# ÖSTERREICH - WIEN LANDING PAGES
+# ============================================
+/webdesign-wien,/standorte/wien/webdesign/,301,wien,HIGH,Main city service
+/seo-agentur-wien,/standorte/wien/seo/,301,wien,HIGH,Main city service
+/branding-agentur-wien,/standorte/wien/branding/,301,wien,HIGH,Main city service
+/kreativagentur-wien,/standorte/wien/kreativagentur/,301,wien,HIGH,Main city service
+/google-ads-agentur-wien,/standorte/wien/google-ads/,301,wien,HIGH,Main city service
+/e-mail-marketing-agentur-wien,/standorte/wien/email-marketing/,301,wien,MEDIUM,Service page
+# ============================================
+# ÖSTERREICH - GRAZ LANDING PAGES
+# ============================================
+/webdesign-graz,/standorte/graz/webdesign/,301,graz,HIGH,Main city service
+/seo-agentur-graz,/standorte/graz/seo/,301,graz,HIGH,Main city service
+/online-marketing-graz,/standorte/graz/online-marketing/,301,graz,MEDIUM,Service page
+# ============================================
+# ÖSTERREICH - LINZ LANDING PAGES
+# ============================================
+/webdesign-linz,/standorte/linz/webdesign/,301,linz,HIGH,Main city service
+/seo-agentur-linz,/standorte/linz/seo/,301,linz,HIGH,Main city service
+/online-marketing-agentur-linz,/standorte/linz/online-marketing/,301,linz,MEDIUM,Service page
+/werbeagentur-linz,/standorte/linz/werbeagentur/,301,linz,MEDIUM,Service page
+# ============================================
+# ÖSTERREICH - SALZBURG LANDING PAGES
+# ============================================
+/webdesign-salzburg,/standorte/salzburg/webdesign/,301,salzburg,HIGH,Main city service
+/seo-agentur-salzburg,/standorte/salzburg/seo/,301,salzburg,HIGH,Main city service
+/werbeagentur-salzburg,/standorte/salzburg/werbeagentur/,301,salzburg,MEDIUM,Service page
+# ============================================
+# ÖSTERREICH - INNSBRUCK LANDING PAGES
+# ============================================
+/webdesign-innsbruck,/standorte/innsbruck/webdesign/,301,innsbruck,HIGH,Main city service
+/seo-agentur-innsbruck,/standorte/innsbruck/seo/,301,innsbruck,HIGH,Main city service
+/werbeagentur-innsbruck,/standorte/innsbruck/werbeagentur/,301,innsbruck,MEDIUM,Service page
+# ============================================
+# ÖSTERREICH - NATIONAL LANDING PAGES
+# ============================================
+/webdesign-oesterreich,/standorte/oesterreich/,301,austria,HIGH,Country hub
+/google-ads-agentur-oesterreich,/standorte/oesterreich/google-ads/,301,austria,MEDIUM,Service page
+# ============================================
+# DEUTSCHLAND LANDING PAGES
+# ============================================
+/webdesign-deutschland,/standorte/deutschland/,301,germany,HIGH,Country hub
+/seo-agentur-deutschland,/standorte/deutschland/seo/,301,germany,HIGH,Service page
+/branding-agentur-deutschland,/standorte/deutschland/branding/,301,germany,MEDIUM,Service page
+/webdesign-muenchen,/standorte/deutschland/muenchen/webdesign/,301,germany,HIGH,City service
+/webdesign-berlin,/standorte/deutschland/berlin/webdesign/,301,germany,HIGH,City service
+/webdesign-hamburg,/standorte/deutschland/hamburg/webdesign/,301,germany,HIGH,City service
+/webdesign-frankfurt,/standorte/deutschland/frankfurt/webdesign/,301,germany,HIGH,City service
+# ============================================
+# SCHWEIZ LANDING PAGES
+# ============================================
+/webdesign-schweiz,/standorte/schweiz/,301,switzerland,HIGH,Country hub
+/webdesign-zuerich,/standorte/schweiz/zuerich/webdesign/,301,switzerland,HIGH,City service
+/seo-agentur-schweiz,/standorte/schweiz/seo/,301,switzerland,MEDIUM,Service page
+# ============================================
+# UAE - DUBAI STANDALONE LANDING PAGES
+# ============================================
+/webdesign-dubai,/standorte/dubai/webdesign/,301,uae,HIGH,Consolidate with hub
+/webdesign-vae,/standorte/uae/,301,uae,HIGH,Country hub
+/seo-agentur-dubai,/standorte/dubai/seo/,301,uae,HIGH,Consolidate with hub
+/branding-agentur-dubai,/standorte/dubai/branding/,301,uae,MEDIUM,Consolidate with hub
+/kreativagentur-dubai,/standorte/dubai/kreativagentur/,301,uae,MEDIUM,Consolidate with hub
+/ecommerce-agentur-dubai,/standorte/dubai/ecommerce/,301,uae,MEDIUM,Consolidate with hub
+/wordpress-agentur-dubai,/standorte/dubai/wordpress/,301,uae,LOW,Consolidate with hub
+/digitales-marketing-dubai,/standorte/dubai/digital-marketing/,301,uae,MEDIUM,Consolidate with hub
+/app-entwicklung-dubai,/standorte/dubai/app-entwicklung/,301,uae,LOW,Consolidate with hub
+# ============================================
+# UAE - ABU DHABI STANDALONE LANDING PAGES
+# ============================================
+/web-design-abu-dhabi,/standorte/abu-dhabi/webdesign/,301,uae,MEDIUM,Consolidate with hub
+/webentwicklung-abu-dhabi,/standorte/abu-dhabi/webentwicklung/,301,uae,LOW,Consolidate with hub
+# ============================================
+# "BESTE X" LISTICLE PAGES -> /wissen/vergleiche/
+# ============================================
+/beste-webdesign-agenturen-wien,/wissen/vergleiche/webdesign-agenturen-wien/,301,listicle,HIGH,AEO page
+/beste-seo-agenturen-wien,/wissen/vergleiche/seo-agenturen-wien/,301,listicle,HIGH,AEO page
+/beste-branding-agenturen-wien,/wissen/vergleiche/branding-agenturen-wien/,301,listicle,HIGH,AEO page
+/beste-digital-marketing-agenturen-wien,/wissen/vergleiche/digital-marketing-agenturen-wien/,301,listicle,HIGH,AEO page
+/beste-ecommerce-agenturen-wien,/wissen/vergleiche/ecommerce-agenturen-wien/,301,listicle,HIGH,AEO page
+/beste-seo-agenturen-oesterreich,/wissen/vergleiche/seo-agenturen-oesterreich/,301,listicle,HIGH,AEO page
+/beste-website-relaunch-agenturen,/wissen/vergleiche/website-relaunch-agenturen/,301,listicle,MEDIUM,AEO page
+/beste-social-media-agenturen-wien,/wissen/vergleiche/social-media-agenturen-wien/,301,listicle,HIGH,AEO page
+/beste-online-marketing-agenturen-wien,/wissen/vergleiche/online-marketing-agenturen-wien/,301,listicle,HIGH,AEO page
+/beste-kreativagenturen-wien,/wissen/vergleiche/kreativagenturen-wien/,301,listicle,HIGH,AEO page
+/beste-google-ads-agenturen-wien,/wissen/vergleiche/google-ads-agenturen-wien/,301,listicle,HIGH,AEO page
+/beste-wordpress-agenturen-wien,/wissen/vergleiche/wordpress-agenturen-wien/,301,listicle,MEDIUM,AEO page
+/beste-content-marketing-agenturen-wien,/wissen/vergleiche/content-marketing-agenturen-wien/,301,listicle,MEDIUM,AEO page
+/beste-app-entwicklung-agenturen-wien,/wissen/vergleiche/app-entwicklung-agenturen-wien/,301,listicle,MEDIUM,AEO page
+/beste-grafikdesign-agenturen-wien,/wissen/vergleiche/grafikdesign-agenturen-wien/,301,listicle,MEDIUM,AEO page
+/beste-onlineshop-agenturen-wien,/wissen/vergleiche/onlineshop-agenturen-wien/,301,listicle,MEDIUM,AEO page
+# ============================================
+# BRANCHEN-SPEZIFISCHE SEITEN -> /branchen/
+# ============================================
+/beste-seo-agenturen-fuer-aerzte,/branchen/aerzte/seo/,301,branchen,HIGH,Industry page
+# ============================================
+# GUIDE-SEITEN -> /wissen/guides/
+# ============================================
+/webdesign-preise,/wissen/guides/webdesign-preise/,301,guides,HIGH,High traffic page
+/website-erstellen-lassen,/wissen/guides/website-erstellen-lassen/,301,guides,HIGH,High traffic page
+/barrierefreie-website,/wissen/guides/barrierefreie-website/,301,guides,MEDIUM,Niche page
+# ============================================
+# CONTENT HUBS MIGRATION
+# ============================================
+/blog,/wissen/blog/,301,content,HIGH,Major hub
+/lexikon,/wissen/lexikon/,301,content,HIGH,Major hub
+/tools,/wissen/tools/,301,content,MEDIUM,Tool hub
+/haeufige-fragen,/ressourcen/faq/,301,content,LOW,FAQ page
+# ============================================
+# DYNAMIC ROUTE PATTERNS (for middleware)
+# ============================================
+/blog/:slug,/wissen/blog/:slug,301,dynamic,HIGH,Blog posts
+/blog/kategorie/:slug,/wissen/blog/kategorie/:slug,301,dynamic,HIGH,Categories
+/lexikon/:slug,/wissen/lexikon/:slug,301,dynamic,HIGH,Glossary terms
+/tools/:slug,/wissen/tools/:slug,301,dynamic,MEDIUM,Individual tools

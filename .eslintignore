@@ -1,0 +1,4 @@
+src/scripts/
+migrations/**
+scripts/**
+*.js

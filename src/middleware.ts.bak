@@ -1,0 +1,85 @@
+/**
+ * GoldenWing Middleware
+ * 
+ * Handles:
+ * - i18n routing (de/en/ru)
+ * - SEO-safe redirects for slug corrections
+ * - Bot detection for crawler handling
+ * 
+ * @see src/middleware/ for modular implementation
+ */
+
+import createMiddleware from 'next-intl/middleware'
+import { NextRequest, NextResponse } from 'next/server'
+import { routing } from './i18n/routing'
+// isBot available from './middleware/utils' if needed for future bot-specific logic
+import { checkAndRedirect } from './middleware/redirects'
+
+// ============================================================
+// INTL MIDDLEWARE CONFIGURATION
+// ============================================================
+
+const intlMiddleware = createMiddleware({
+  ...routing,
+  localeCookie: {
+    name: 'NEXT_LOCALE',
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax' as const,
+    maxAge: 60 * 60 * 24 * 365, // 1 year
+  },
+})
+
+/**
+ * Wrapper to convert 307 redirects to 308 (permanent) for SEO
+ * next-intl uses 307 by default, but for locale prefix removal
+ * we want permanent redirects to consolidate link equity
+ */
+function withPermanentRedirect(response: NextResponse): NextResponse {
+  if (response.status === 307) {
+    const location = response.headers.get('location')
+    if (location) {
+      return NextResponse.redirect(location, 308)
+    }
+  }
+  return response
+}
+
+// ============================================================
+// MAIN MIDDLEWARE
+// ============================================================
+
+export default function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname
+
+  // Skip middleware for static files and API routes
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/media') ||
+    pathname.includes('.') // Static files like .ico, .png, etc.
+  ) {
+    return NextResponse.next()
+  }
+
+  // Check for SEO-critical slug corrections (applies to all requests)
+  const redirect = checkAndRedirect(request)
+  if (redirect) return redirect
+
+  // Note: All requests go through intlMiddleware for proper locale routing
+  // Previously bots were handled differently, but they need intlMiddleware too
+
+  // Apply i18n middleware for locale negotiation and URL rewriting
+  // Wrap with permanent redirect converter for SEO (307 → 308)
+  return withPermanentRedirect(intlMiddleware(request))
+}
+
+// ============================================================
+// MIDDLEWARE CONFIG
+// ============================================================
+
+export const config = {
+  matcher: [
+    // Match all paths except static files
+    '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|llms.txt|llms-full.txt|media/|api/).*)',
+  ],
+}

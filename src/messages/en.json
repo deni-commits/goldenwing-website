@@ -1,0 +1,1426 @@
+{
+  "common": {
+    "companyName": "GoldenWing Creative Studios",
+    "readMore": "Read more",
+    "contactUs": "Contact us",
+    "learnMore": "Learn more",
+    "getStarted": "Get started",
+    "viewAll": "View all",
+    "backToHome": "Back to home",
+    "freeConsultation": "Free Consultation",
+    "viewOurWork": "View Our Work",
+    "projectStart": "Start Project",
+    "allServices": "Explore All Services",
+    "allProjects": "All Projects",
+    "viewProject": "View Project",
+    "meetTheTeam": "Meet the Whole Team",
+    "pleaseSelect": "Please select",
+    "featured": "Featured",
+    "author": "Author",
+    "share": "Share",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "navigation": "Navigation",
+    "mainNavigation": "Main website navigation"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "projects": "Projects",
+    "references": "References",
+    "about": "About",
+    "blog": "Blog",
+    "resources": "Resources",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Creative Agency with Offices in Vienna · Dubai · California",
+    "title": "Your Vision.",
+    "titleHighlight": "Our Expertise.",
+    "titleEnd": "Perfect Execution.",
+    "description": "We professionally execute your individual wishes – from the first idea to the finished product. Tailored solutions that lead your brand to success.",
+    "locations": {
+      "vienna": "Vienna",
+      "dubai": "Dubai",
+      "roseville": "California"
+    },
+    "trustedBy": "Trusted by Leading Companies"
+  },
+  "stats": {
+    "projects": "Completed Projects",
+    "satisfaction": "Customer Satisfaction",
+    "experience": "Years of Experience"
+  },
+  "services": {
+    "title": "What We Can Do For You",
+    "subtitle": "Your wishes drive us. From the first idea to perfect execution – we make it happen.",
+    "branding": {
+      "title": "Branding",
+      "description": "Brand strategy, visual identity, brand guidelines and rebranding for an unforgettable presence."
+    },
+    "webdesign": {
+      "title": "Web Design",
+      "description": "Information architecture, UX concepts, UI design and accessible CMS development."
+    },
+    "digitalMarketing": {
+      "title": "Digital Marketing",
+      "description": "Campaign strategy, paid media, email automation and tracking optimization."
+    },
+    "seoContent": {
+      "title": "SEO & Content",
+      "description": "Technical SEO, on-page, off-page, local SEO, content strategy and production."
+    },
+    "webAppDevelopment": {
+      "title": "Web & App Development",
+      "description": "Technical architecture, development, APIs, automation and quality assurance."
+    },
+    "itCloudServices": {
+      "title": "IT & Cloud Services",
+      "description": "Cloud architecture, monitoring, maintenance, security and technical support."
+    },
+    "geoOptimierung": {
+      "title": "GEO — AI Search Optimization",
+      "description": "Optimization for ChatGPT, Perplexity & Google AI Overviews"
+    }
+  },
+  "servicesPage": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive digital solutions for your success",
+    "heroDescription": "From brand development to technical implementation – we offer everything from one source. Discover how we can help your business succeed digitally.",
+    "detailTitle": "Our Services in Detail",
+    "detailDescription": "Discover our specialized services in this area.",
+    "whatWeOffer": "What We Offer",
+    "ourProcess": "Our Process",
+    "projectDuration": "Project Duration",
+    "whatsIncluded": "What's Included?",
+    "yourBenefits": "Your Benefits",
+    "ourApproach": "Our Approach",
+    "referenceProjects": "Reference Projects",
+    "relatedServices": "Related Services",
+    "ctaTitle": "Ready for Your Project?",
+    "ctaDescription": "Let's find out together how we can help your business. Free initial consultation – no obligations.",
+    "ctaButton": "Discuss Project",
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "Answers about {service} and our services",
+    "interestedTitle": "Sounds Interesting?",
+    "interestedDescription": "Let's talk about your project. We're happy to advise you in a free initial consultation.",
+    "inquireNow": "Inquire Now",
+    "allServices": "All Services",
+    "idealFor": "Ideal for:",
+    "whatYouGet": "What You Get:",
+    "interestedIn": "Interested in {service}?",
+    "backTo": "Back to {service}"
+  },
+  "usp": {
+    "title": "Why GoldenWing?",
+    "subtitle": "Your wishes are at the center. We listen, understand and deliver – professionally and without compromise.",
+    "items": {
+      "custom": {
+        "title": "Your Idea, Our Execution",
+        "description": "We realize exactly what you envision – no matter how complex or unique."
+      },
+      "tailored": {
+        "title": "100% Custom Made",
+        "description": "No project is like another. Every solution is developed individually for you."
+      },
+      "quality": {
+        "title": "Highest Quality Standards",
+        "description": "Latest technologies, performant solutions and attention to detail in every pixel."
+      },
+      "contact": {
+        "title": "Your Personal Contact",
+        "description": "Direct line to the team – fast response times and transparent communication."
+      }
+    },
+    "quote": "\"Good Design is Good Business\"",
+    "quoteAuthor": "– Thomas Watson Jr., IBM"
+  },
+  "projects": {
+    "title": "Our Work",
+    "subtitle": "Discover what we've created for our clients.",
+    "pageTitle": "Our Projects",
+    "pageSubtitle": "Discover our successful projects and client work",
+    "heroDescription": "Every project is unique. Here we showcase selected work that reflects our clients' success.",
+    "emptyState": "Our projects are currently being updated. Please check back soon!",
+    "emptyStateAdmin": "In the meantime, you can",
+    "adminLink": "add projects in the admin area",
+    "allProjects": "All Projects",
+    "client": "Client",
+    "year": "Year",
+    "results": "Results",
+    "aboutProject": "About the Project",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "ourServices": "Our Services",
+    "viewLive": "View Live",
+    "nextProject": "Next Project",
+    "prevProject": "Previous Project",
+    "ctaTitle": "Your Project Could Be Here",
+    "ctaDescription": "Every successful project starts with a conversation. Tell us about your vision – we'll show you how we can bring it to life.",
+    "ctaButton": "Discuss Project",
+    "similarProjectTitle": "Have a Similar Project?",
+    "similarProjectDescription": "We'd love to learn more about your requirements and show you how we can help."
+  },
+  "testimonials": {
+    "title": "What Our Clients Say About Us",
+    "subtitle": "Over 500 satisfied clients trust our expertise. We listen, understand your wishes and deliver results that inspire. Read why companies in Vienna and worldwide choose GoldenWing as their creative partner."
+  },
+  "process": {
+    "title": "Our Process",
+    "subtitle": "Structured, transparent and efficient – this is how we work.",
+    "steps": {
+      "discovery": {
+        "title": "Discovery",
+        "description": "We understand your goals, target audience and challenges."
+      },
+      "strategy": {
+        "title": "Strategy",
+        "description": "We develop a customized plan for your success."
+      },
+      "implementation": {
+        "title": "Implementation",
+        "description": "We turn strategy into high-quality results."
+      },
+      "optimization": {
+        "title": "Optimization",
+        "description": "We analyze, learn and continuously improve."
+      }
+    }
+  },
+  "team": {
+    "title": "Our Team",
+    "subtitle": "The creative minds behind GoldenWing – experts with passion for exceptional results.",
+    "pageTitle": "The Team",
+    "pageSubtitle": "Meet the people behind GoldenWing"
+  },
+  "partners": {
+    "title": "Technologies & Partners",
+    "subtitle": "We work with leading technologies and trusted partners",
+    "pageTitle": "Our Partners",
+    "pageSubtitle": "Strong partnerships for better results",
+    "activePartnerships": "Active Partnerships",
+    "jointProjects": "Joint Projects",
+    "satisfactionRate": "Satisfaction Rate",
+    "benefits": {
+      "expertise": {
+        "title": "Extended Expertise",
+        "description": "Access to specialized skills and knowledge from our partners."
+      },
+      "solutions": {
+        "title": "Comprehensive Solutions",
+        "description": "Holistic project implementation from a single source."
+      },
+      "technology": {
+        "title": "Best Technologies",
+        "description": "Utilization of cutting-edge tools and platforms."
+      },
+      "scalability": {
+        "title": "Scalability",
+        "description": "Flexible resources for projects of any size."
+      }
+    }
+  },
+  "cta": {
+    "title": "Tell Us About Your Idea",
+    "subtitle": "Every great project starts with a conversation. Tell us what you have in mind – we'll show you how we can make it happen. Free and without obligation.",
+    "button": "Schedule Free Consultation"
+  },
+  "footer": {
+    "slogan": "Creative agency for advertising & brand communication.",
+    "quote": "\"Good Design is Good Business\"",
+    "services": "Services",
+    "company": "Company",
+    "contact": "Contact",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "imprint": "Imprint",
+    "terms": "Terms",
+    "cookies": "Cookie Settings",
+    "copyright": "© {year} GOLDENWING Creative Studios e.U. All rights reserved.",
+    "followUs": "Follow Us"
+  },
+  "offices": {
+    "title": "Our Locations",
+    "subtitle": "Serving You Worldwide",
+    "location": "Location",
+    "generalInquiries": "General Inquiries",
+    "openingHours": "Opening Hours",
+    "phone": "Phone",
+    "monday-friday": "Monday – Friday",
+    "headquarters": "Headquarters",
+    "vienna": {
+      "name": "Vienna,",
+      "country": "Austria",
+      "coordinates": "48.1624819° N, 16.3885093° E",
+      "address": {
+        "line1": "Czeikestrasse 4/21,",
+        "line2": "1100 Vienna,",
+        "line3": "Austria"
+      },
+      "email": "deni@goldenwing.at",
+      "phone": "+43 664 543 96 81",
+      "hours": {
+        "days": "Monday – Friday",
+        "time": "9:00 AM – 6:00 PM CET"
+      }
+    },
+    "roseville": {
+      "name": "Roseville,",
+      "country": "CA, USA",
+      "coordinates": "38.7975689° N, -121.3740698° W",
+      "address": {
+        "line1": "2700 N Hayden Pkwy,",
+        "line2": "Roseville, CA 95747,",
+        "line3": "USA"
+      },
+      "email": "office@goldenwing.us",
+      "phone": "+1 916 667 4629",
+      "hours": {
+        "days": "Monday – Friday",
+        "time": "9:00 AM – 4:00 PM PDT"
+      }
+    },
+    "dubai": {
+      "name": "Dubai,",
+      "country": "United Arab Emirates",
+      "coordinates": "25.1783748° N, 55.2638842° E",
+      "address": {
+        "line1": "DAMAC Executive Bay Tower B",
+        "line2": "Office 1406, 14th Floor",
+        "line3": "Dubai, UAE"
+      },
+      "email": "office@goldenwing.ae",
+      "phone": "+971 58 514 4360",
+      "hours": {
+        "days": "Sunday – Thursday",
+        "time": "9:00 AM – 5:00 PM GST"
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Let's Create Something Amazing Together",
+    "pageTitle": "Project Inquiry",
+    "contactDetails": "Contact Details",
+    "availability": "Availability",
+    "availabilityHours": "Mon – Fri: 9:00 AM – 6:00 PM",
+    "freeConsultation": "Free Consultation",
+    "freeConsultationDesc": "Schedule a non-binding appointment and let's talk about your project.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "company": "Company",
+      "message": "Message",
+      "budget": "Budget",
+      "budgetOptions": {
+        "under5k": "< €5,000",
+        "5kTo10k": "€5,000 – €10,000",
+        "10kTo25k": "€10,000 – €25,000",
+        "over25k": "> €25,000",
+        "unsure": "Not sure yet"
+      },
+      "service": "Desired Service",
+      "serviceOther": "Other",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "error": "An error occurred. Please try again.",
+      "privacyConsent": "I accept the",
+      "learnMore": "Privacy Policy"
+    }
+  },
+  "languages": {
+    "switchLanguage": "Switch Language",
+    "de": "Deutsch",
+    "en": "English"
+  },
+  "chat": {
+    "openChat": "Open chat",
+    "closeChat": "Close chat",
+    "assistantName": "GoldenWing Assistant",
+    "assistantStatus": "Always here for you",
+    "welcomeMessage": "Hello! I'm the GoldenWing Assistant. How can I help you today?",
+    "placeholder": "Write a message...",
+    "send": "Send",
+    "errorMessage": "Sorry, an error occurred. Please try again.",
+    "suggestions": {
+      "services": "What services do you offer?",
+      "process": "How does a project work?",
+      "pricing": "What does a website cost?"
+    }
+  },
+  "cookies": {
+    "close": "Close",
+    "message": "We use cookies to provide you with the best experience on our website.",
+    "learnMore": "Privacy Policy",
+    "essentialOnly": "Essential only",
+    "acceptAll": "Accept all"
+  },
+  "cookieSettings": {
+    "title": "Cookie Settings",
+    "subtitle": "Manage your cookie preferences",
+    "essential": {
+      "title": "Essential Cookies",
+      "description": "These cookies are required for the basic functions of the website.",
+      "always": "Always active",
+      "purposes": {
+        "title": "Purpose:",
+        "settings": "Storing your cookie settings",
+        "session": "Session management",
+        "security": "Security and authentication"
+      }
+    },
+    "analytics": {
+      "title": "Analytics Cookies",
+      "description": "Help us understand how visitors interact with the website.",
+      "purposes": {
+        "title": "Purpose:",
+        "interaction": "Understanding user interaction",
+        "performance": "Improving website performance",
+        "experience": "Optimizing user experience",
+        "statistics": "Creating anonymized statistics"
+      }
+    },
+    "marketing": {
+      "title": "Marketing Cookies",
+      "description": "Used to display relevant advertising.",
+      "purposes": {
+        "title": "Purpose:",
+        "ads": "Displaying relevant advertising",
+        "personalization": "Personalizing content",
+        "effectiveness": "Measuring advertising effectiveness",
+        "retargeting": "Retargeting on other platforms"
+      }
+    },
+    "saveSettings": "Save Settings"
+  },
+  "accessibility": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "skipToContent": "Skip to content",
+    "expandSubmenu": "Expand {menu} submenu",
+    "collapseSubmenu": "Collapse {menu} submenu",
+    "switchLanguage": "Switch language",
+    "currentLanguage": "Current language: {language}",
+    "toggleTheme": "Toggle color mode",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "goToSlide": "Go to slide {number}",
+    "socialLinks": "Social networks",
+    "visitFacebook": "Visit us on Facebook",
+    "visitInstagram": "Visit us on Instagram",
+    "visitLinkedin": "Visit us on LinkedIn",
+    "visitWhatsapp": "Contact us on WhatsApp",
+    "sendEmail": "Send email to {email}",
+    "callPhone": "Call: {phone}",
+    "externalLink": "Opens in new tab"
+  },
+  "about": {
+    "title": "About Us",
+    "pageTitle": "About Us",
+    "subtitle": "Get to know GoldenWing",
+    "heroTitle": "We are GoldenWing",
+    "heroDescription": "A creative agency based in Vienna that helps businesses succeed digitally. From brand development to technical implementation – everything from one source.",
+    "heroSecondary": "Founded from the conviction that outstanding design and strategic thinking belong together. We combine creativity with data, aesthetics with performance.",
+    "startProject": "Start Project",
+    "excellenceIn": "Excellence in",
+    "digitalDesign": "Digital Design",
+    "stats": {
+      "projects": "Projects Completed",
+      "satisfaction": "Customer Satisfaction",
+      "experience": "Years of Experience",
+      "responseTime": "Response Time"
+    },
+    "missionTitle": "Our Mission",
+    "missionDescription": "We help businesses transform their digital presence. Through strategic design and innovative technology, we create experiences that inspire and convert. Our goal is to make every project a success – measurable and sustainable.",
+    "visionTitle": "Our Vision",
+    "visionDescription": "A world where every business – regardless of its size – has access to first-class design and digital strategy. We want to be the first choice for businesses that want more than standard and are ready to shape their industry.",
+    "valuesTitle": "Our Values",
+    "valuesSubtitle": "These principles guide us in everything we do.",
+    "processTitle": "How We Work",
+    "processSubtitle": "A structured process for consistently outstanding results.",
+    "process": {
+      "understand": {
+        "title": "Understand",
+        "description": "We get to know your business, goals and target audience."
+      },
+      "strategize": {
+        "title": "Strategize",
+        "description": "We develop a customized plan for your success."
+      },
+      "create": {
+        "title": "Create",
+        "description": "We transform strategy into impressive designs and solutions."
+      },
+      "optimize": {
+        "title": "Optimize",
+        "description": "We measure, analyze and continuously improve."
+      }
+    },
+    "ctaTitle": "Ready to Collaborate?",
+    "ctaDescription": "We look forward to getting to know you and discussing your project. The first step is a non-binding conversation.",
+    "ctaButton": "Schedule Consultation"
+  },
+  "values": {
+    "title": "Our Values",
+    "pageTitle": "Our Core Values",
+    "pageSubtitle": "The principles that guide our work",
+    "goalOriented": {
+      "title": "Goal-Oriented",
+      "description": "We focus on measurable results that drive your business forward."
+    },
+    "creative": {
+      "title": "Creative",
+      "description": "Innovation and fresh ideas are the engine for outstanding projects."
+    },
+    "passionate": {
+      "title": "Passionate",
+      "description": "We love what we do – and it shows in every detail."
+    },
+    "partnership": {
+      "title": "Partnership",
+      "description": "Real collaboration at eye level for long-term success."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "We help businesses strengthen their digital presence and achieve sustainable growth."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "description": "A world where every business has access to first-class design and digital strategy."
+    },
+    "principles": {
+      "title": "Our Work Principles",
+      "subtitle": "How we put our values into practice"
+    },
+    "culture": {
+      "title": "Our Company Culture",
+      "subtitle": "What makes us unique as a team"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights, tips and news from the digital world",
+    "readMore": "Read more",
+    "minRead": "min read",
+    "faq": "Frequently Asked Questions",
+    "sources": "Sources & References",
+    "relatedServices": "Related Services",
+    "shareArticle": {
+      "title": "Did this article help you?",
+      "subtitle": "Share it with others."
+    },
+    "discussProject": {
+      "title": "Discuss a project?",
+      "subtitle": "Let's talk about your plans."
+    },
+    "categories": "Categories",
+    "allPosts": "All Posts",
+    "recentPosts": "Recent Posts",
+    "popularPosts": "Popular Posts"
+  },
+  "resources": {
+    "title": "Resources",
+    "subtitle": "Free tools, templates and guides for your success",
+    "downloads": {
+      "title": "Downloads & Templates",
+      "description": "Free templates and tools for your business"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Weekly insights delivered to your inbox"
+    },
+    "popular": {
+      "title": "Popular Resources",
+      "subtitle": "Our most-used downloads"
+    },
+    "benefits": {
+      "practical": {
+        "title": "Practical",
+        "description": "Ready-to-use templates and tools"
+      },
+      "free": {
+        "title": "Free",
+        "description": "All resources without hidden costs"
+      },
+      "current": {
+        "title": "Current",
+        "description": "Regularly updated content"
+      }
+    },
+    "noResources": "No resources available",
+    "noResourcesIn": "No resources in {category}",
+    "steps": {
+      "select": {
+        "title": "Select",
+        "description": "Choose the right resource"
+      },
+      "download": {
+        "title": "Download",
+        "description": "Free download without registration"
+      },
+      "apply": {
+        "title": "Apply",
+        "description": "Use directly in your project"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Newsletter",
+    "subtitle": "Stay informed about the latest trends",
+    "success": {
+      "title": "Thank you for subscribing!",
+      "subtitle": "What happens next?",
+      "steps": {
+        "check": "Check your inbox (and spam folder if needed)",
+        "confirm": "Click the confirmation link in the email",
+        "receive": "Receive valuable insights directly in your inbox"
+      }
+    },
+    "benefits": {
+      "exclusive": {
+        "title": "Exclusive Content",
+        "description": "Get content only available to subscribers."
+      },
+      "trends": {
+        "title": "Current Trends",
+        "description": "Stay informed about the latest developments."
+      },
+      "tips": {
+        "title": "Practical Tips",
+        "description": "Concrete instructions you can implement immediately."
+      }
+    },
+    "features": {
+      "insights": {
+        "title": "Weekly Insights",
+        "description": "Compact updates on design, marketing and technology"
+      },
+      "downloads": {
+        "title": "Exclusive Downloads",
+        "description": "Templates, checklists and tools only for subscribers"
+      },
+      "caseStudies": {
+        "title": "Case Studies & Success Stories",
+        "description": "Learn from successful projects"
+      },
+      "announcements": {
+        "title": "Early Announcements",
+        "description": "Be the first to know about new offers"
+      }
+    },
+    "faq": {
+      "frequency": {
+        "question": "How often will I receive newsletters?",
+        "answer": "We send a maximum of one newsletter per week. Quality over quantity."
+      },
+      "unsubscribe": {
+        "question": "Can I unsubscribe at any time?",
+        "answer": "Yes, every newsletter contains an unsubscribe link. One click is enough."
+      },
+      "data": {
+        "question": "What happens to my data?",
+        "answer": "Your data is only used for sending newsletters and is not shared with third parties."
+      },
+      "cost": {
+        "question": "Is the newsletter really free?",
+        "answer": "Yes, our newsletter is and will remain free. No hidden costs."
+      }
+    },
+    "form": {
+      "firstName": "First name (optional)",
+      "email": "Email address",
+      "consent": "I agree that GoldenWing 360 stores my email address and sends me newsletters. I can unsubscribe at any time.",
+      "privacyLink": "Privacy Policy",
+      "submit": "Subscribe",
+      "submitting": "Subscribing..."
+    }
+  },
+  "demo": {
+    "title": "Infographic Components",
+    "subtitle": "Examples for blog infographics",
+    "usage": "Usage in Code"
+  },
+  "meta": {
+    "home": {
+      "title": "GoldenWing Creative Studios | Branding & Web Design Agency Vienna · Dubai · California",
+      "description": "International creative agency with offices in Vienna · Dubai · California. Branding, web design, SEO & software development. Schedule your free consultation!"
+    }
+  },
+  "locations": {
+    "title": "Our Locations",
+    "subtitle": "International Presence – Local Expertise",
+    "description": "With offices in Vienna, Dubai, and California, we provide world-class creative solutions to clients worldwide. Each location combines local know-how with international standards.",
+    "viewLocation": "View Location",
+    "allLocations": "All Locations",
+    "contactLocation": "Contact Location",
+    "getDirections": "Get Directions",
+    "localTime": "Local Time",
+    "teamMembers": "Team Members",
+    "expertise": "Expertise",
+    "vienna": {
+      "title": "Vienna",
+      "subtitle": "Our Headquarters in the Heart of Europe",
+      "heroTitle": "Creative Agency in Vienna",
+      "heroDescription": "Our headquarters in Vienna is the creative hub of GoldenWing. Here we develop brand strategies, design websites, and implement digital projects for clients across Austria and Europe.",
+      "description": "From Vienna, we serve clients in Austria, Germany, and the entire DACH region. Our team combines Viennese creativity with international experience.",
+      "address": "Czeikestrasse 4/21, 1100 Vienna",
+      "specialties": "Branding, Web Design, SEO, Software Development",
+      "founded": "Founded 2018"
+    },
+    "dubai": {
+      "title": "Dubai",
+      "subtitle": "Creative Solutions for the Middle East",
+      "heroTitle": "Creative Agency in Dubai",
+      "heroDescription": "Our Dubai office combines European design expertise with the dynamic Middle Eastern market. We help businesses succeed in the region.",
+      "description": "Located in the Business Bay district, we serve clients in the UAE, Saudi Arabia, and the entire MENA region.",
+      "address": "DAMAC Executive Bay Tower B, Office 1406, Dubai",
+      "specialties": "Branding, Web Design, Digital Marketing",
+      "founded": "Founded 2022"
+    },
+    "roseville": {
+      "title": "California",
+      "subtitle": "Creative Agency in the Heart of California",
+      "heroTitle": "Creative Agency in California",
+      "heroDescription": "Our US office in Roseville, California, brings European design expertise to the American market. We help businesses strengthen their digital presence.",
+      "description": "Located in the greater Sacramento area, we serve clients on the West Coast and throughout the USA.",
+      "address": "2700 N Hayden Pkwy, Roseville, CA 95747",
+      "specialties": "Web Design, Branding, Software Development",
+      "founded": "Founded 2023"
+    },
+    "faq": {
+      "remote": {
+        "question": "Can we work together remotely?",
+        "answer": "Yes! We successfully collaborate with clients worldwide. Thanks to modern communication tools, remote collaboration works seamlessly."
+      },
+      "meetings": {
+        "question": "Are in-person meetings possible?",
+        "answer": "Absolutely. We welcome in-person meetings at our offices or at your location."
+      },
+      "timezone": {
+        "question": "How does communication work across time zones?",
+        "answer": "We're flexible and adapt to your working hours. Our global presence enables quick response times."
+      }
+    }
+  },
+  "pillarPages": {
+    "webdesign": {
+      "title": "Web Design Agency Vienna | Professional Websites",
+      "subtitle": "Professional Websites for Your Success",
+      "heroTitle": "Web Design Agency Vienna",
+      "heroDescription": "We create modern, responsive websites that perfectly showcase your brand and convert visitors into customers. From concept to launch – everything from one source.",
+      "whyUs": "Why GoldenWing for Web Design?",
+      "whyUsDescription": "We combine creative design with technical excellence. Every website is individually developed for your target audience and business goals.",
+      "services": "Our Web Design Services",
+      "process": "Our Web Design Process",
+      "pricing": "Web Design Pricing",
+      "pricingDescription": "Transparent pricing for professional web design",
+      "packages": {
+        "starter": {
+          "name": "Starter",
+          "price": "from €2,000",
+          "description": "Perfect for small businesses and startups",
+          "features": "One-Page Website, Responsive Design, Contact Form, Basic SEO, 1 Year Hosting"
+        },
+        "business": {
+          "name": "Business",
+          "price": "from €5,000",
+          "description": "For growing companies with multiple services",
+          "features": "Up to 10 Pages, CMS Integration, Blog Function, Advanced SEO, Analytics Setup"
+        },
+        "enterprise": {
+          "name": "Enterprise",
+          "price": "from €10,000",
+          "description": "Complex websites with custom features",
+          "features": "Unlimited Pages, E-Commerce Integration, Custom Features, Multi-Language, Premium Support"
+        }
+      },
+      "faq": {
+        "cost": {
+          "question": "How much does a professional website cost?",
+          "answer": "Professional web design starts at €2,000 for simple websites. Business websites with CMS cost €5,000-8,000. The exact cost depends on the project scope."
+        },
+        "duration": {
+          "question": "How long does it take to create a website?",
+          "answer": "A simple website takes 2-4 weeks. Business websites with CMS need 4-8 weeks. Complex e-commerce projects can take 8-12 weeks."
+        },
+        "cms": {
+          "question": "Can I edit my website myself?",
+          "answer": "Yes! Our Business and Enterprise packages include a user-friendly CMS. After a brief training, you can update content independently."
+        },
+        "mobile": {
+          "question": "Is the website optimized for mobile devices?",
+          "answer": "Yes, all our websites are 100% responsive and mobile-first developed."
+        }
+      }
+    },
+    "seo": {
+      "title": "SEO Agency Vienna | Search Optimization",
+      "subtitle": "More Visibility, More Customers",
+      "heroTitle": "SEO Agency Vienna",
+      "heroDescription": "We bring your website to the top of Google search results. With data-driven SEO strategy, technical optimization, and high-quality content, we sustainably increase your organic reach.",
+      "whyUs": "Why SEO with GoldenWing?",
+      "whyUsDescription": "We rely on white-hat SEO methods for sustainable success. No short-term tricks, but long-term strategies that work.",
+      "services": "Our SEO Services",
+      "servicesDescription": "Comprehensive search engine optimization for sustainable results",
+      "results": "Typical Results",
+      "process": "Our SEO Process",
+      "pricing": "SEO Pricing",
+      "pricingDescription": "Invest in sustainable growth",
+      "packages": {
+        "audit": {
+          "name": "SEO Audit",
+          "price": "€490",
+          "type": "one-time",
+          "description": "Comprehensive analysis of your website",
+          "features": "Technical Analysis, Content Evaluation, Backlink Analysis, Competitor Analysis, Recommendations"
+        },
+        "starter": {
+          "name": "SEO Starter",
+          "price": "€790",
+          "type": "per month",
+          "description": "For small websites and local businesses",
+          "features": "Keyword Research, On-Page Optimization, Google Business Profile, Monthly Reporting"
+        },
+        "business": {
+          "name": "SEO Business",
+          "price": "€1,490",
+          "type": "per month",
+          "description": "Comprehensive SEO for growing companies",
+          "features": "All Starter Features, Content Creation, Link Building, Technical SEO, Weekly Updates"
+        }
+      },
+      "faq": {
+        "duration": {
+          "question": "How long until SEO shows results?",
+          "answer": "SEO is a long-term strategy. You'll often see first improvements after 3-6 months. Significant results are typically achieved after 6-12 months."
+        },
+        "guarantee": {
+          "question": "Do you guarantee specific rankings?",
+          "answer": "Reputable SEO agencies cannot guarantee specific rankings – Google decides the placement. What we guarantee: professional work and measurable improvements."
+        },
+        "local": {
+          "question": "What is Local SEO?",
+          "answer": "Local SEO focuses on local search queries and optimizes your Google Business Profile, local directories, and location-based keywords. Ideal for businesses with a local catchment area."
+        }
+      }
+    },
+    "creative": {
+      "title": "Creative Agency Vienna | Design & Branding",
+      "subtitle": "Creative Solutions That Work",
+      "heroTitle": "Creative Agency Vienna",
+      "heroDescription": "As a full-service creative agency in Vienna, we offer everything to make your brand shine: From branding to web design to digital marketing strategies.",
+      "whyUs": "Why GoldenWing?",
+      "whyUsDescription": "We're more than an agency – we're your creative partner. With passion, expertise, and an eye for detail, we develop solutions that move your business forward.",
+      "services": "Our Services",
+      "servicesDescription": "Everything from one source – from strategy to implementation",
+      "approach": "Our Approach",
+      "approachDescription": "We listen, understand your challenges, and develop tailored solutions. No project is like another – and that's exactly how we treat it.",
+      "expertise": {
+        "branding": "Branding & Corporate Identity",
+        "webdesign": "Web Design & Development",
+        "seo": "SEO & Online Marketing",
+        "content": "Content & Social Media",
+        "strategy": "Digital Marketing",
+        "software": "Software Development"
+      },
+      "serviceDescriptions": {
+        "branding": "Brand strategy, logo design and corporate identity for an unforgettable brand presence.",
+        "webdesign": "Modern, responsive websites that perfectly present your brand and convert visitors.",
+        "seo": "Better rankings in Google and more organic traffic through professional SEO optimization.",
+        "strategy": "Target audience analysis, competitive analysis and strategic positioning for your success.",
+        "content": "Professional content creation, photography and social media content.",
+        "software": "Web apps, mobile apps and custom software solutions for your business."
+      },
+      "stats": {
+        "projects": "500+ Projects",
+        "clients": "100+ Clients",
+        "satisfaction": "98% Satisfaction"
+      },
+      "faq": {
+        "services": {
+          "question": "What services does GoldenWing offer?",
+          "answer": "We offer branding, web design, SEO, content creation, software development, and digital strategy – all from one source."
+        },
+        "process": {
+          "question": "How does collaboration work?",
+          "answer": "After a free initial consultation, we create a proposal. Upon commissioning, we start with a kickoff, followed by concept, design, development, and launch."
+        },
+        "remote": {
+          "question": "Do you work with clients outside Vienna?",
+          "answer": "Yes! With offices in Vienna, Dubai, and California, we work with clients worldwide."
+        }
+      }
+    }
+  },
+  "faqPage": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to the most important questions about our services, pricing, and working with GoldenWing.",
+    "notFound": "Question not listed?",
+    "contactUs": "Contact Us",
+    "moreInfo": "More Information",
+    "categories": {
+      "webdesign": {
+        "title": "Web Design & Websites",
+        "icon": "🌐"
+      },
+      "branding": {
+        "title": "Branding & Corporate Design",
+        "icon": "🎨"
+      },
+      "seo": {
+        "title": "SEO & Online Marketing",
+        "icon": "📈"
+      },
+      "process": {
+        "title": "Collaboration & Process",
+        "icon": "🤝"
+      },
+      "pricing": {
+        "title": "Pricing & Payment",
+        "icon": "💰"
+      }
+    },
+    "questions": {
+      "webCost": {
+        "question": "How much does a professional website cost?",
+        "answer": "Professional web design starts at €2,000 for simple websites. Business websites with CMS cost €5,000-8,000. Complex e-commerce solutions range from €10,000-20,000+."
+      },
+      "webDuration": {
+        "question": "How long does it take to create a website?",
+        "answer": "A simple website takes 2-4 weeks. Business websites with CMS need 4-8 weeks. Complex e-commerce projects can take 8-12 weeks."
+      },
+      "webCms": {
+        "question": "Can I edit my website myself?",
+        "answer": "Yes! Our Business and Enterprise packages include a user-friendly CMS."
+      },
+      "webMobile": {
+        "question": "Is the website optimized for mobile devices?",
+        "answer": "Yes, all our websites are 100% responsive and mobile-first developed."
+      },
+      "webTech": {
+        "question": "What technologies do you use?",
+        "answer": "We use modern technologies like Next.js, React, and TypeScript. For CMS, we offer WordPress and Payload CMS."
+      },
+      "webHosting": {
+        "question": "Do you also offer hosting and maintenance?",
+        "answer": "Yes, we offer complete hosting packages and ongoing maintenance. Hosting is included in the first year with most packages."
+      },
+      "brandingPackage": {
+        "question": "What does a branding package include?",
+        "answer": "A complete branding package includes: brand strategy, logo design with variants, color palette and typography, brand guidelines, and business stationery."
+      },
+      "brandingDuration": {
+        "question": "How long does it take to develop a brand identity?",
+        "answer": "A professional branding project typically takes 4-8 weeks."
+      },
+      "logoCost": {
+        "question": "How much does logo design cost?",
+        "answer": "Professional logo design starts at €1,500. Complete branding packages with guidelines start at €3,500."
+      },
+      "brandingFiles": {
+        "question": "Do I receive the files in all formats?",
+        "answer": "Yes, you receive all files in various formats (AI, EPS, PDF, SVG, PNG, JPG) for print and digital use."
+      },
+      "seoDuration": {
+        "question": "How long until SEO shows results?",
+        "answer": "You'll often see first improvements after 3-6 months. Significant results are achieved after 6-12 months."
+      },
+      "seoCost": {
+        "question": "How much does SEO cost?",
+        "answer": "Our SEO packages start at €790/month. A one-time SEO audit costs €490."
+      },
+      "seoGuarantee": {
+        "question": "Do you guarantee specific rankings?",
+        "answer": "Reputable SEO agencies cannot guarantee specific rankings. What we guarantee: professional work and measurable improvements."
+      },
+      "seoAds": {
+        "question": "Do I need SEO if I already run Google Ads?",
+        "answer": "Yes! SEO and SEA complement each other perfectly. SEO brings sustainable, free traffic, while Google Ads delivers quick results."
+      },
+      "localSeo": {
+        "question": "What is Local SEO?",
+        "answer": "Local SEO focuses on local search queries and optimizes your Google Business Profile and local directories."
+      },
+      "processOverview": {
+        "question": "How does collaboration work?",
+        "answer": "After a free initial consultation, we create a proposal. Upon commissioning, we start with kickoff, concept, design, development, and testing."
+      },
+      "singleService": {
+        "question": "Can I book individual services?",
+        "answer": "Yes, you can book both individual services and complete packages."
+      },
+      "remote": {
+        "question": "Do you work with clients outside Vienna?",
+        "answer": "Yes! With offices in Vienna, Dubai, and California, we work with clients worldwide."
+      },
+      "communication": {
+        "question": "How do we communicate during the project?",
+        "answer": "Via email, phone, video calls, or in-person meetings, depending on your preference. You have a dedicated contact person."
+      },
+      "afterLaunch": {
+        "question": "What happens after the project launch?",
+        "answer": "After launch, we offer support packages for maintenance and further development. We fix bugs free of charge in the first month."
+      },
+      "payment": {
+        "question": "What are your payment terms?",
+        "answer": "For projects over €2,000: 50% upon commissioning, 50% upon completion."
+      },
+      "hiddenCosts": {
+        "question": "Are there hidden costs?",
+        "answer": "No. Our proposal contains all discussed services transparently itemized."
+      },
+      "installments": {
+        "question": "Do you offer payment plans?",
+        "answer": "For larger projects, we can arrange flexible payment models."
+      },
+      "notSatisfied": {
+        "question": "What if I'm not satisfied with the result?",
+        "answer": "We work iteratively with feedback loops. If you're unsatisfied, we find a solution together."
+      }
+    },
+    "stillQuestions": "Still have questions?",
+    "stillQuestionsDescription": "We're happy to answer all your questions in a personal conversation.",
+    "callUs": "Call Us"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "metaTitle": "Privacy Policy | GDPR & Data Protection",
+    "metaDescription": "Privacy policy of GOLDENWING Creative Studios e.U. according to GDPR. Information about data processing and your rights.",
+    "keywords": "Privacy, GDPR, Privacy Policy, Data Protection",
+    "lastUpdated": "Last updated: December 2024",
+    "sections": {
+      "responsible": {
+        "title": "1. Data Controller",
+        "intro": "The controller responsible for data processing on this website is:",
+        "country": "Austria",
+        "email": "Email",
+        "phone": "Phone"
+      },
+      "dataCollection": {
+        "title": "2. Collection and Storage of Personal Data",
+        "contactForm": {
+          "title": "2.1 Contact Form",
+          "intro": "When you contact us via the contact form, the following data is collected:",
+          "items": {
+            "name": "Name",
+            "email": "Email address",
+            "phone": "Phone number (optional)",
+            "service": "Desired service",
+            "message": "Message content",
+            "budget": "Budget range (optional)"
+          },
+          "legal": "This data is used exclusively for processing your inquiry and is not shared with third parties. The legal basis is Art. 6 (1) lit. b GDPR (contract initiation)."
+        },
+        "serverLogs": {
+          "title": "2.2 Server Log Files",
+          "intro": "Each time you access our website, the following data is automatically collected:",
+          "items": {
+            "ip": "IP address of the requesting computer",
+            "datetime": "Date and time of access",
+            "file": "Name and URL of the retrieved file",
+            "referrer": "Website from which access was made (referrer URL)",
+            "browser": "Browser and operating system used"
+          },
+          "retention": "This data is required for technical reasons and is automatically deleted after 30 days."
+        }
+      },
+      "cookies": {
+        "title": "3. Cookies",
+        "intro": "This website uses cookies to improve the user experience. Cookies are small text files stored on your device.",
+        "types": "We use the following types of cookies:",
+        "necessary": {
+          "label": "Essential cookies",
+          "description": "These are required for the basic functions of the website and cannot be disabled."
+        },
+        "analytics": {
+          "label": "Analytics cookies",
+          "description": "These help us understand how visitors interact with the website (only with your consent)."
+        }
+      },
+      "rights": {
+        "title": "4. Your Rights",
+        "intro": "You have the following rights regarding your personal data:",
+        "access": {
+          "label": "Right of access (Art. 15 GDPR)",
+          "description": "You can request information about your processed data."
+        },
+        "rectification": {
+          "label": "Right to rectification (Art. 16 GDPR)",
+          "description": "You can request correction of inaccurate data."
+        },
+        "erasure": {
+          "label": "Right to erasure (Art. 17 GDPR)",
+          "description": "You can request deletion of your data."
+        },
+        "restriction": {
+          "label": "Right to restriction of processing (Art. 18 GDPR)",
+          "description": "You can request restriction of processing."
+        },
+        "portability": {
+          "label": "Right to data portability (Art. 20 GDPR)",
+          "description": "You can receive your data in a common format."
+        },
+        "objection": {
+          "label": "Right to object (Art. 21 GDPR)",
+          "description": "You can object to processing."
+        }
+      },
+      "thirdCountry": {
+        "title": "5. Data Transfer to Third Countries",
+        "content": "We use services that may transfer data to third countries (e.g., USA). For such transfers, we ensure that appropriate safeguards are in place to protect your data (e.g., EU Standard Contractual Clauses)."
+      },
+      "storage": {
+        "title": "6. Storage Duration",
+        "content": "We store your personal data only as long as necessary for the purposes for which it was collected or as required by law."
+      },
+      "complaint": {
+        "title": "7. Right to Complain",
+        "intro": "You have the right to lodge a complaint with the competent data protection authority:",
+        "authority": "Austrian Data Protection Authority"
+      },
+      "contact": {
+        "title": "8. Contact",
+        "intro": "If you have any questions about data protection, you can contact us at any time:"
+      }
+    }
+  },
+  "exitPopup": {
+    "close": "Close",
+    "title": "Wait! Free SEO Audit",
+    "subtitle": "Before you leave – get a free analysis of your website.",
+    "emailLabel": "Your Email",
+    "emailPlaceholder": "name@company.com",
+    "websiteLabel": "Your Website",
+    "websitePlaceholder": "www.your-website.com",
+    "websiteHint": "e.g. www.example.com or example.com",
+    "newsletterConsent": "Yes, I would like to receive monthly tips on SEO, web design, and digital marketing via email. I can unsubscribe at any time.",
+    "submitButton": "Request Free Audit",
+    "submitting": "Submitting...",
+    "successTitle": "Thank you!",
+    "successMessage": "We will send you your free SEO audit within 48 hours.",
+    "errorMessage": "An error occurred. Please try again.",
+    "noSpam": "No spam",
+    "unsubscribe": "Unsubscribe anytime",
+    "privacyText": "By submitting, you agree to our",
+    "privacyLink": "Privacy Policy"
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "emailInvalid": "Please enter a valid email address",
+    "serviceRequired": "Please select a service",
+    "messageMin": "Message must be at least 10 characters long",
+    "privacyRequired": "Please agree to the privacy policy"
+  },
+  "imprint": {
+    "title": "Legal Notice",
+    "metaTitle": "Legal Notice | Company Information",
+    "metaDescription": "Legal notice of GOLDENWING Creative Studios e.U. - Creative agency for advertising & brand communication in Vienna. Contact details and legal information.",
+    "keywords": "Legal Notice, Contact, Company Information, Legal Information",
+    "sections": {
+      "legalInfo": {
+        "title": "Information according to § 5 ECG",
+        "country": "Austria"
+      },
+      "contact": {
+        "title": "Contact",
+        "email": "Email",
+        "phone": "Phone"
+      },
+      "management": {
+        "title": "Management"
+      },
+      "businessPurpose": {
+        "title": "Business Purpose",
+        "content": "Advertising & Brand Communication"
+      },
+      "companyRegister": {
+        "title": "Commercial Register",
+        "number": "Commercial Register Number",
+        "court": "Commercial Register Court",
+        "courtName": "Vienna Commercial Court"
+      },
+      "vatId": {
+        "title": "VAT Identification Number"
+      },
+      "chamber": {
+        "title": "Chamber Membership",
+        "content": "Member of the Vienna Chamber of Commerce"
+      },
+      "authority": {
+        "title": "Supervisory Authority",
+        "content": "Municipal District Office of the 10th District"
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": {
+          "title": "Liability for Content",
+          "text": "The contents of our pages were created with the greatest care. However, we cannot guarantee the accuracy, completeness, and timeliness of the content. As a service provider, we are responsible for our own content on these pages according to general laws pursuant to § 7 (1) ECG."
+        },
+        "links": {
+          "title": "Liability for Links",
+          "text": "Our offer contains links to external websites of third parties, over whose content we have no influence. Therefore, we cannot assume any liability for these external contents. The respective provider or operator of the pages is always responsible for the contents of the linked pages."
+        }
+      },
+      "copyright": {
+        "title": "Copyright",
+        "content": "The content and works created by the site operators on these pages are subject to Austrian copyright law. Reproduction, processing, distribution, and any kind of exploitation outside the limits of copyright require the written consent of the respective author or creator. Downloads and copies of this site are only permitted for private, non-commercial use."
+      },
+      "dispute": {
+        "title": "Dispute Resolution",
+        "intro": "The European Commission provides a platform for online dispute resolution (ODR):",
+        "note": "We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board."
+      }
+    }
+  },
+  "tools": {
+    "landing": {
+      "badge": "Free Website Tools",
+      "title": "Analyze Your Website",
+      "subtitle": "Free professional tools for SEO, performance, design, and security",
+      "description": "Get actionable insights about your website instantly. No registration required."
+    },
+    "shared": {
+      "analyze": "Analyze",
+      "analyzing": "Analyzing...",
+      "urlPlaceholder": "https://your-website.com",
+      "freeLabel": "Free",
+      "noRegistration": "No registration",
+      "instantResults": "Instant results",
+      "overallScore": "Overall Score",
+      "critical": "Critical",
+      "warning": "Warning",
+      "passed": "Passed",
+      "info": "Info",
+      "all": "All",
+      "showMore": "Show {count} more",
+      "noIssuesFound": "No issues found in this category.",
+      "unlockReport": "Unlock full report",
+      "enterEmailToUnlock": "Enter email to see all details",
+      "downloadPdf": "Download PDF",
+      "pdfGenerating": "Generating...",
+      "downloadStarted": "Download started",
+      "testNow": "Test now",
+      "excellent": "Excellent",
+      "good": "Good",
+      "needsImprovement": "Needs improvement",
+      "poor": "Critical",
+      "current": "Current",
+      "target": "Target",
+      "howToFix": "How to fix this",
+      "errorInvalidUrl": "Please enter a valid URL",
+      "errorUrlRequired": "Please enter a URL",
+      "errorGeneric": "An error occurred"
+    },
+    "leadCapture": {
+      "title": "Get Full Report",
+      "subtitle": "Enter your email to unlock all details.",
+      "benefits": {
+        "fullAnalysis": "Complete analysis of all issues",
+        "solutions": "Detailed fix recommendations",
+        "pdfDownload": "PDF report download"
+      },
+      "emailPlaceholder": "your@email.com",
+      "emailRequired": "Please enter your email address",
+      "emailInvalid": "Please enter a valid email address",
+      "newsletterConsent": "I want to receive monthly SEO & web design tips (optional, unsubscribe anytime)",
+      "submit": "Unlock Report",
+      "submitting": "Unlocking...",
+      "successTitle": "Successfully unlocked!",
+      "successMessage": "You now have access to all details.",
+      "privacyNote": "Your data is safe. We never share it."
+    },
+    "analyzingState": {
+      "loading": "Loading website...",
+      "seo": "Checking SEO data...",
+      "performance": "Measuring performance...",
+      "design": "Analyzing design...",
+      "security": "Checking security...",
+      "duration": "This takes about 30-60 seconds"
+    },
+    "categories": {
+      "seo": "SEO",
+      "performance": "Performance",
+      "design": "Design",
+      "security": "Security"
+    },
+    "seoChecker": {
+      "title": "SEO Checker",
+      "badge": "Most Used",
+      "description": "Analyze meta tags, headings, images, and schema markup of your website.",
+      "heroTitle": "Free SEO Check",
+      "heroDescription": "Check your website for SEO issues. Meta tags, headings, alt texts, and more.",
+      "features": {
+        "metaTags": "Meta Tags Analysis",
+        "headings": "Heading Structure",
+        "images": "Images & Alt Texts",
+        "schema": "Schema Markup"
+      },
+      "checks": {
+        "title": {
+          "label": "Meta Title",
+          "missing": "No meta title found",
+          "tooShort": "Title is too short (under 30 characters)",
+          "tooLong": "Title is too long (over 60 characters)",
+          "good": "Title has optimal length"
+        },
+        "description": {
+          "label": "Meta Description",
+          "missing": "No meta description found",
+          "tooShort": "Description is too short (under 120 characters)",
+          "tooLong": "Description is too long (over 160 characters)",
+          "good": "Description has optimal length"
+        },
+        "h1": {
+          "label": "H1 Heading",
+          "missing": "No H1 heading found",
+          "multiple": "Multiple H1 headings found ({count})",
+          "good": "One H1 heading present"
+        },
+        "images": {
+          "label": "Image Alt Texts",
+          "missing": "{count} images without alt text",
+          "good": "All images have alt texts"
+        },
+        "schema": {
+          "label": "Schema Markup",
+          "missing": "No structured schema markup found",
+          "found": "{count} schema types found"
+        },
+        "sitemap": {
+          "label": "Sitemap",
+          "missing": "No sitemap.xml found",
+          "found": "Sitemap found"
+        },
+        "robots": {
+          "label": "Robots.txt",
+          "missing": "No robots.txt found",
+          "found": "Robots.txt found"
+        },
+        "canonical": {
+          "label": "Canonical URL",
+          "missing": "No canonical URL defined",
+          "found": "Canonical URL present"
+        }
+      }
+    },
+    "performanceChecker": {
+      "title": "Performance Checker",
+      "description": "Measure loading speed and Core Web Vitals of your website.",
+      "heroTitle": "Website Speed Test",
+      "heroDescription": "Analyze loading time and performance metrics of your website.",
+      "features": {
+        "cwv": "Core Web Vitals",
+        "loadTime": "Load Time Analysis",
+        "pageSize": "Page Size",
+        "requests": "HTTP Requests"
+      },
+      "metrics": {
+        "lcp": {
+          "label": "Largest Contentful Paint",
+          "description": "How fast the main content becomes visible"
+        },
+        "fcp": {
+          "label": "First Contentful Paint",
+          "description": "When the first content appears"
+        },
+        "cls": {
+          "label": "Cumulative Layout Shift",
+          "description": "How stable the layout is during loading"
+        },
+        "ttfb": {
+          "label": "Time to First Byte",
+          "description": "Server response time"
+        }
+      }
+    },
+    "designAnalyzer": {
+      "title": "Design Analyzer",
+      "description": "Check mobile-friendliness, Open Graph tags, and visual design.",
+      "heroTitle": "Design & Mobile Check",
+      "heroDescription": "Analyze the design and mobile optimization of your website.",
+      "features": {
+        "mobile": "Mobile-Friendly Test",
+        "ogPreview": "Social Media Preview",
+        "favicon": "Favicon Check",
+        "accessibility": "Basic Accessibility"
+      },
+      "checks": {
+        "mobileFriendly": {
+          "label": "Mobile-friendly",
+          "yes": "Website is mobile-optimized",
+          "no": "Website is not mobile-optimized"
+        },
+        "viewport": {
+          "label": "Viewport Meta",
+          "found": "Viewport correctly configured",
+          "missing": "Viewport meta tag missing"
+        },
+        "favicon": {
+          "label": "Favicon",
+          "found": "Favicon found",
+          "missing": "No favicon found"
+        },
+        "ogImage": {
+          "label": "OG Image",
+          "found": "Open Graph image present",
+          "missing": "No Open Graph image"
+        }
+      }
+    },
+    "securityChecker": {
+      "title": "Security Checker",
+      "description": "Check SSL certificate, HTTPS, and security headers.",
+      "heroTitle": "Website Security Check",
+      "heroDescription": "Analyze your website's security - SSL, HTTPS, and headers.",
+      "features": {
+        "ssl": "SSL Certificate",
+        "https": "HTTPS Check",
+        "headers": "Security Headers",
+        "mixedContent": "Mixed Content"
+      },
+      "checks": {
+        "https": {
+          "label": "HTTPS",
+          "yes": "HTTPS is active",
+          "no": "HTTPS is not active"
+        },
+        "ssl": {
+          "label": "SSL Certificate",
+          "valid": "Valid SSL certificate",
+          "invalid": "SSL certificate invalid or expired",
+          "expires": "Expires on {date}"
+        },
+        "headers": {
+          "xFrameOptions": "X-Frame-Options",
+          "csp": "Content-Security-Policy",
+          "xContentType": "X-Content-Type-Options",
+          "hsts": "Strict-Transport-Security"
+        },
+        "mixedContent": {
+          "label": "Mixed Content",
+          "none": "No mixed content",
+          "found": "Mixed content found"
+        }
+      }
+    },
+    "websiteAnalyzer": {
+      "title": "Website Analyzer",
+      "badge": "Complete Check",
+      "description": "Comprehensive analysis: SEO, performance, design, and security in one.",
+      "heroTitle": "Complete Website Analysis",
+      "heroDescription": "Get a comprehensive overview of SEO, performance, design, and security.",
+      "features": {
+        "all": "All 4 checks combined",
+        "report": "Detailed report",
+        "pdf": "PDF download",
+        "recommendations": "Prioritized recommendations"
+      }
+    }
+  }
+}

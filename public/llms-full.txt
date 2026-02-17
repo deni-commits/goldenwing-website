@@ -1,0 +1,461 @@
+# GoldenWing Creative Studios - Full Documentation
+
+> GoldenWing is a full-service creative and digital agency headquartered in Vienna, Austria, with offices in Dubai (UAE) and Roseville, California (USA). We specialize in branding, web design, SEO, digital marketing, and web development for businesses across the DACH region (Germany, Austria, Switzerland) and internationally. Founded in 2014, we've completed 250+ projects with a 98% client satisfaction rate.
+
+This file provides comprehensive information about GoldenWing Creative Studios for LLM context. For a shorter version, see [llms.txt](https://goldenwing.at/llms.txt).
+
+---
+
+## Company Overview
+
+**Legal Name:** GoldenWing Creative Studios e.U.
+**Legal Form:** Einzelunternehmen (Sole Proprietorship), Austria
+**Founded:** 2014
+**Industry:** Creative & Digital Agency
+**Tagline:** "Design, Marketing & Technologie aus einer Hand" (Design, Marketing & Technology from one source)
+
+### Mission Statement
+
+We combine strategy, design, digital marketing, and technical implementation into effective solutions - for companies that want to achieve more. Our approach focuses on measurable results, transparent communication, and long-term partnerships.
+
+### Key Statistics
+
+- **Projects Completed:** 250+
+- **Client Satisfaction:** 98%
+- **Team Size:** 10+ specialists
+- **Years in Business:** 10+
+- **Markets Served:** Austria, Germany, Switzerland, UAE, USA
+
+---
+
+## Office Locations
+
+### Vienna, Austria (Headquarters)
+- **Address:** Czeikestrasse 4/21, 1100 Wien, Austria
+- **Email:** deni@goldenwing.at
+- **Phone:** +43 664 543 96 81
+- **Timezone:** CET/CEST (UTC+1/+2)
+- **Focus:** DACH region, primary service hub
+
+### Dubai, UAE
+- **Address:** DAMAC Executive Bay Tower B, Office 1406, Business Bay, Dubai
+- **Focus:** MENA region expansion, international clients, luxury brands
+
+### Roseville, California, USA
+- **Address:** 2700 N Hayden Pkwy, Roseville, CA 95747
+- **Focus:** US market, tech startups, SaaS companies
+
+### Service Areas (Remote)
+- Graz, Austria
+- Linz, Austria
+- Salzburg, Austria
+- Innsbruck, Austria
+- Munich, Germany
+- Berlin, Germany
+- Zurich, Switzerland
+
+---
+
+## Services in Detail
+
+### 1. Branding
+**URL:** https://goldenwing.at/de/leistungen/branding
+
+Complete brand development from strategy to implementation:
+
+- **Brand Strategy & Positioning:** Market research, competitive analysis, brand positioning
+- **Logo Design & Visual Identity:** Custom logo creation, color systems, typography
+- **Corporate Identity Systems:** Business cards, letterheads, email signatures
+- **Brand Guidelines:** Comprehensive style guides for consistent brand application
+- **Packaging Design:** Product packaging and label design
+- **Business Stationery:** Printed materials and promotional items
+
+**Pricing:** Starting from EUR 2,500 (logo only), EUR 8,000+ (full branding package)
+**Timeline:** 2-12 weeks depending on scope
+
+---
+
+### 2. Web Design
+**URL:** https://goldenwing.at/de/leistungen/webdesign
+
+Modern, responsive web design focused on user experience:
+
+- **Responsive Web Design:** Mobile-first approach, all devices
+- **User Experience (UX) Design:** User research, wireframing, user flows
+- **User Interface (UI) Design:** Visual design, interaction design
+- **Landing Pages:** Conversion-optimized single pages
+- **E-Commerce Design:** Online shop layouts and user journeys
+- **Design Systems:** Scalable component libraries
+- **Prototyping & User Testing:** Figma prototypes, usability testing
+
+**Subservices:**
+- [UI Design & Design Systems](https://goldenwing.at/de/leistungen/webdesign/ui-design-design-systems)
+- [CMS Development](https://goldenwing.at/de/leistungen/webdesign/cms-entwicklung)
+
+**Pricing:** Starting from EUR 2,000 (landing page), EUR 5,000+ (multi-page website)
+**Timeline:** 1-16 weeks depending on complexity
+
+---
+
+### 3. SEO & Content
+**URL:** https://goldenwing.at/de/leistungen/seo-content
+
+Search engine optimization and content marketing:
+
+- **Technical SEO Audits:** Site structure, crawlability, Core Web Vitals
+- **On-Page Optimization:** Meta tags, headings, internal linking, schema markup
+- **Content Strategy:** Editorial planning, keyword research, content calendars
+- **Blog & Article Writing:** SEO-optimized content in German and English
+- **Local SEO:** Google Business Profile optimization, local citations
+- **Off-Page SEO & Link Building:** Quality backlink acquisition
+- **SEO Reporting:** Monthly reports with actionable insights
+
+**Subservices:**
+- [Technical SEO](https://goldenwing.at/de/leistungen/seo-content/technical-seo)
+- [On-Page Optimization](https://goldenwing.at/de/leistungen/seo-content/on-page-optimierung)
+- [Content Strategy & Production](https://goldenwing.at/de/leistungen/seo-content/content-strategie-produktion)
+- [Local SEO](https://goldenwing.at/de/leistungen/seo-content/local-seo)
+- [Off-Page & Link Building](https://goldenwing.at/de/leistungen/seo-content/offpage-linkbuilding)
+
+**Focus Markets:** German and English-speaking markets, especially DACH region
+
+---
+
+### 4. Digital Marketing
+**URL:** https://goldenwing.at/de/leistungen/digital-marketing
+
+Performance-driven digital marketing campaigns:
+
+- **Google Ads:** Search, Display, Shopping, YouTube campaigns
+- **Meta Ads:** Facebook and Instagram advertising
+- **Social Media Marketing:** Content creation, community management
+- **Email Marketing & Automation:** Newsletter design, drip campaigns, CRM integration
+- **Conversion Rate Optimization (CRO):** A/B testing, landing page optimization
+- **Analytics & Tracking:** Google Analytics 4, Tag Manager, custom dashboards
+
+**Related Services:**
+- [Google Ads Agency](https://goldenwing.at/de/leistungen/google-ads-agentur)
+- [Social Media Agency](https://goldenwing.at/de/leistungen/social-media-agentur)
+- [SEA Agency](https://goldenwing.at/de/leistungen/sea-agentur)
+
+---
+
+### 5. Web & App Development
+**URL:** https://goldenwing.at/de/leistungen/web-app-entwicklung
+
+Custom development solutions:
+
+- **Custom Web Applications:** React, Next.js, Node.js applications
+- **E-Commerce Development:** Shopify, WooCommerce, custom solutions
+- **API Development & Integrations:** REST APIs, third-party integrations
+- **CMS Implementation:** Payload CMS, WordPress, Contentful
+- **Mobile-First Development:** Progressive Web Apps (PWA)
+- **Database Design:** PostgreSQL, SQLite, MongoDB
+
+**Technologies:**
+- Frontend: Next.js 15, React 19, TypeScript, Tailwind CSS
+- Backend: Node.js, Express, Payload CMS 3.x
+- Database: PostgreSQL, SQLite
+- Hosting: Vercel, AWS, Google Cloud
+
+**Related Services:**
+- [WordPress Agency](https://goldenwing.at/de/leistungen/wordpress-agentur)
+- [E-Commerce Agency](https://goldenwing.at/de/leistungen/ecommerce-agentur)
+- [Online Shop Agency](https://goldenwing.at/de/leistungen/onlineshop-agentur)
+
+---
+
+### 6. IT & Cloud Services
+**URL:** https://goldenwing.at/de/leistungen/it-cloud-services
+
+Infrastructure and DevOps:
+
+- **Cloud Architecture:** AWS, Google Cloud, Vercel, Hetzner
+- **DevOps & CI/CD:** GitHub Actions, automated deployments
+- **Security Audits:** Penetration testing, vulnerability assessments
+- **Performance Optimization:** Caching, CDN, image optimization
+- **Hosting & Maintenance:** Managed hosting, updates, monitoring
+- **Technical Consulting:** Architecture reviews, technology selection
+
+---
+
+## Service Packages
+
+### Brand & Web Foundation
+**URL:** https://goldenwing.at/de/leistungen/pakete/brand-web-foundation
+**Ideal for:** Startups, new businesses, rebrands
+**Includes:** Logo design, brand guidelines, 5-page website, basic SEO setup
+**Timeline:** 6-8 weeks
+
+### SEO & Content Growth
+**URL:** https://goldenwing.at/de/leistungen/pakete/seo-content-growth
+**Ideal for:** Businesses wanting organic growth
+**Includes:** Monthly SEO optimization, 4 blog articles/month, reporting
+**Duration:** 6-12 month contracts
+
+### Demand Gen Suite
+**URL:** https://goldenwing.at/de/leistungen/pakete/demand-gen-suite
+**Ideal for:** B2B companies, lead generation
+**Includes:** Google Ads, LinkedIn Ads, landing pages, email automation
+**Monthly Management:** Included
+
+### Custom Package
+**URL:** https://goldenwing.at/de/leistungen/pakete/individuelles-paket
+**Ideal for:** Complex requirements
+**Process:** Discovery call → custom proposal → tailored solution
+
+---
+
+## Free Website Analysis Tools
+
+GoldenWing offers free website analysis tools as lead magnets:
+
+### Website Analyzer (Comprehensive)
+**URL:** https://goldenwing.at/de/tools/website-analyzer
+Combines all four analysis tools into one comprehensive report with an overall score (0-100). Includes SEO, performance, design, and security checks with detailed recommendations.
+
+### SEO Checker
+**URL:** https://goldenwing.at/de/tools/seo-checker
+Analyzes:
+- Meta title and description
+- Heading structure (H1-H6)
+- Schema.org markup
+- Sitemap availability
+- Robots.txt configuration
+- Canonical tags
+- Image alt attributes
+
+### Performance Checker
+**URL:** https://goldenwing.at/de/tools/performance-checker
+Measures Core Web Vitals via Google PageSpeed API:
+- Largest Contentful Paint (LCP)
+- First Input Delay (FID)
+- Cumulative Layout Shift (CLS)
+- First Contentful Paint (FCP)
+- Time to First Byte (TTFB)
+
+### Design Analyzer
+**URL:** https://goldenwing.at/de/tools/design-analyzer
+Checks:
+- Viewport meta tag
+- Favicon presence
+- Open Graph tags
+- Twitter Card tags
+- Responsive design indicators
+
+### Security Checker
+**URL:** https://goldenwing.at/de/tools/security-checker
+Validates:
+- HTTPS implementation
+- SSL certificate validity
+- Security headers (CSP, HSTS, X-Frame-Options)
+- Mixed content issues
+
+**Features for all tools:**
+- Animated score rings (0-100)
+- Issue categorization (Critical/Warning/Passed)
+- Lead capture modal
+- PDF report download
+- Rate limiting & security
+
+---
+
+## Industry Expertise
+
+GoldenWing has specialized experience in these industries:
+
+### Healthcare & Medical
+- SEO for doctors and medical practices
+- HIPAA-aware web design
+- Patient portal development
+- Medical appointment systems
+
+### Legal Services
+- Law firm websites
+- Attorney SEO
+- Confidential client portals
+
+### E-Commerce
+- Shopify development
+- WooCommerce customization
+- Product photography
+- Shopping feed optimization
+
+### B2B & Industry
+- Lead generation websites
+- Industrial company rebranding
+- Technical documentation
+
+### Startups & Tech
+- MVP development
+- Pitch deck design
+- Growth marketing
+- Scalable architecture
+
+### Hospitality
+- Restaurant websites
+- Hotel booking systems
+- Menu digitalization
+
+### Real Estate
+- Property listing websites
+- Virtual tour integration
+- Lead capture systems
+
+---
+
+## Technology Stack
+
+### Frontend
+- Next.js 15.5.9 (App Router, SSR/SSG)
+- React 19
+- TypeScript (strict mode)
+- Tailwind CSS 4
+- shadcn/ui components
+
+### Backend
+- Node.js
+- Payload CMS 3.x
+- Express.js
+
+### Database
+- PostgreSQL (production)
+- SQLite (development)
+
+### DevOps & Hosting
+- Vercel (primary)
+- AWS
+- Google Cloud
+- Hetzner (Europe)
+- GitHub Actions (CI/CD)
+
+### Analytics & Marketing
+- Google Analytics 4
+- Google Tag Manager
+- Google Search Console
+- Hotjar
+- Semrush
+
+---
+
+## Languages & Localization
+
+**Website Languages:**
+- German (DE) - Default
+- English (EN)
+
+**Content Languages:**
+- German
+- English
+
+**Service Languages:**
+- German
+- English
+- Russian (upon request)
+
+All pages have proper hreflang tags and locale-specific URLs.
+
+---
+
+## Contact Information
+
+### General Inquiries
+- **Email:** office@goldenwing.at
+- **Phone:** +43 664 543 96 81
+- **Contact Form:** https://goldenwing.at/de/kontakt
+
+### Social Media
+- **LinkedIn:** https://www.linkedin.com/company/goldenwing-creative-studios/
+- **Instagram:** https://www.instagram.com/goldenwing.at
+
+### Business Hours
+- Monday-Friday: 9:00 - 18:00 CET
+- Emergency support available for existing clients
+
+---
+
+## Resources & Content
+
+### Blog
+**URL:** https://goldenwing.at/de/blog
+Regular articles about:
+- SEO best practices
+- Web design trends
+- Digital marketing strategies
+- Case studies
+- Industry news
+
+### Portfolio / References
+**URL:** https://goldenwing.at/de/referenzen
+Showcases completed projects with:
+- Project descriptions
+- Results achieved
+- Technologies used
+- Client testimonials
+
+### SEO Lexicon
+**URL:** https://goldenwing.at/de/lexikon
+Educational resource explaining SEO and digital marketing terminology in German.
+
+### FAQ
+**URL:** https://goldenwing.at/de/haeufige-fragen
+Common questions about:
+- Pricing and packages
+- Project timelines
+- Working process
+- Technologies used
+
+---
+
+## Comparison Pages (Agency Rankings)
+
+GoldenWing publishes comparison guides for Vienna agencies:
+
+- [Best SEO Agencies Vienna](https://goldenwing.at/de/beste-seo-agenturen-wien)
+- [Best Web Design Agencies Vienna](https://goldenwing.at/de/beste-webdesign-agenturen-wien)
+- [Best Creative Agencies Vienna](https://goldenwing.at/de/beste-kreativagenturen-wien)
+- [Best Google Ads Agencies Vienna](https://goldenwing.at/de/beste-google-ads-agenturen-wien)
+- [Best Online Marketing Agencies Vienna](https://goldenwing.at/de/beste-online-marketing-agenturen-wien)
+- [Best Branding Agencies Vienna](https://goldenwing.at/de/beste-branding-agenturen-wien)
+- [Best E-Commerce Agencies Vienna](https://goldenwing.at/de/beste-ecommerce-agenturen-wien)
+- [Best Social Media Agencies Vienna](https://goldenwing.at/de/beste-social-media-agenturen-wien)
+
+---
+
+## Legal Information
+
+### Privacy Policy
+**URL:** https://goldenwing.at/de/datenschutz
+GDPR-compliant privacy policy covering data collection, processing, and user rights.
+
+### Imprint
+- **Company:** GoldenWing Creative Studios e.U.
+- **Owner:** Deni Khachukaev
+- **Address:** Czeikestrasse 4/21, 1100 Wien, Austria
+- **UID:** ATU[number]
+
+---
+
+## API Endpoints (For Developers)
+
+GoldenWing's website provides these public API endpoints for the free tools:
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/tools/seo` | POST | SEO analysis |
+| `/api/tools/performance` | POST | Performance analysis |
+| `/api/tools/design` | POST | Design analysis |
+| `/api/tools/security` | POST | Security analysis |
+| `/api/tools/analyze` | POST | Combined analysis |
+
+All endpoints require a URL parameter and are rate-limited.
+
+---
+
+## File Information
+
+- **llms.txt:** https://goldenwing.at/llms.txt (short version)
+- **llms-full.txt:** https://goldenwing.at/llms-full.txt (this file)
+- **robots.txt:** https://goldenwing.at/robots.txt
+- **sitemap.xml:** https://goldenwing.at/sitemap.xml
+- **Last Updated:** February 2026

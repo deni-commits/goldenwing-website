@@ -1,0 +1,422 @@
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { getCanonicalUrl, getHreflangAlternates, translateReferenceCategorySlugToEn } from '@/lib/utils'
+// Note: validateSlugOrRedirect removed - next-intl routing handles path translation
+import {
+  Palette, Globe, Megaphone, Search, Code, Cloud,
+  Building2, ShoppingCart, Factory, Cpu,
+  Target, Users, TrendingUp, Award, Shield, Zap,
+  Smartphone, LineChart, FileText, BarChart3, DollarSign,
+  Blocks, Rocket, Server, Package, CreditCard, Cog,
+  LucideIcon, CheckCircle,
+} from 'lucide-react'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import { ReferenzPage, ReferenzPageContent, ReferenzPageLabels } from '@/components/templates/referenz-page'
+import { getReferenzCategoryBySlug } from '@/lib/payload'
+import type { SupportedLocale } from '@/lib/payload'
+
+export const revalidate = 60
+
+// Valid slugs for all 10 categories
+const validSlugs = [
+  'branding', 'webdesign', 'seo', 'marketing', 'entwicklung', 'it-cloud',
+  'dienstleistung', 'e-commerce', 'industrie', 'technologie'
+]
+
+// Icon mapping
+const iconMap: Record<string, LucideIcon> = {
+  'palette': Palette,
+  'globe': Globe,
+  'megaphone': Megaphone,
+  'search': Search,
+  'code': Code,
+  'cloud': Cloud,
+  'building2': Building2,
+  'shopping-cart': ShoppingCart,
+  'factory': Factory,
+  'cpu': Cpu,
+  'target': Target,
+  'users': Users,
+  'trending-up': TrendingUp,
+  'award': Award,
+  'shield': Shield,
+  'zap': Zap,
+  'smartphone': Smartphone,
+  'line-chart': LineChart,
+  'file-text': FileText,
+  'bar-chart': BarChart3,
+  'bar-chart-3': BarChart3,
+  'dollar-sign': DollarSign,
+  'blocks': Blocks,
+  'rocket': Rocket,
+  'server': Server,
+  'package': Package,
+  'credit-card': CreditCard,
+  'cog': Cog,
+  'check-circle': CheckCircle,
+}
+
+// Category configuration with icons and project filters
+const categoryConfig: Record<string, { icon: LucideIcon; projectCategory: string; categoryName: { de: string; en: string } }> = {
+  'branding': { icon: Palette, projectCategory: 'branding', categoryName: { de: 'Branding & Design', en: 'Branding & Design' } },
+  'webdesign': { icon: Globe, projectCategory: 'webdesign', categoryName: { de: 'Webdesign & UX', en: 'Web Design & UX' } },
+  'seo': { icon: Search, projectCategory: 'seo', categoryName: { de: 'SEO & Content', en: 'SEO & Content' } },
+  'marketing': { icon: Megaphone, projectCategory: 'marketing', categoryName: { de: 'Digitales Marketing', en: 'Digital Marketing' } },
+  'entwicklung': { icon: Code, projectCategory: 'software', categoryName: { de: 'Web- & App-Entwicklung', en: 'Web & App Development' } },
+  'it-cloud': { icon: Cloud, projectCategory: 'it-cloud', categoryName: { de: 'IT & Cloud Services', en: 'IT & Cloud Services' } },
+  'dienstleistung': { icon: Building2, projectCategory: 'services', categoryName: { de: 'Dienstleistung & Beratung', en: 'Services & Consulting' } },
+  'e-commerce': { icon: ShoppingCart, projectCategory: 'ecommerce', categoryName: { de: 'E-Commerce & Retail', en: 'E-Commerce & Retail' } },
+  'industrie': { icon: Factory, projectCategory: 'industry', categoryName: { de: 'Industrie & Fertigung', en: 'Industry & Manufacturing' } },
+  'technologie': { icon: Cpu, projectCategory: 'tech', categoryName: { de: 'Technologie & SaaS', en: 'Technology & SaaS' } },
+}
+
+// Default SEO content
+const defaultSEO: Record<string, { de: { title: string; description: string; keywords: string }; en: { title: string; description: string; keywords: string } }> = {
+  'branding': {
+    de: { title: 'Branding & Design Referenzen | Markenentwicklung', description: 'Entdecken Sie unsere erfolgreichen Branding-Projekte: Markenentwicklung, Logo-Design, Corporate Identity und visuelle Identitätssysteme.', keywords: 'Branding Referenzen, Logo Design Portfolio, Corporate Identity Beispiele, Markenentwicklung Wien' },
+    en: { title: 'Branding & Design References | Brand Development', description: 'Discover our successful branding projects: brand development, logo design, corporate identity, and visual identity systems.', keywords: 'Branding References, Logo Design Portfolio, Corporate Identity Examples, Brand Development Vienna' },
+  },
+  'webdesign': {
+    de: { title: 'Webdesign & UX Referenzen | Website-Projekte', description: 'Entdecken Sie unsere erfolgreichen Webdesign-Projekte: Responsive Websites, Landing Pages, E-Commerce und User Experience Design.', keywords: 'Webdesign Referenzen, UX Design Portfolio, Responsive Websites Wien, Landing Page Design' },
+    en: { title: 'Web Design & UX References | Website Projects', description: 'Discover our successful web design projects: Responsive websites, landing pages, e-commerce, and user experience design.', keywords: 'Web Design References, UX Design Portfolio, Responsive Websites Vienna, Landing Page Design' },
+  },
+  'seo': {
+    de: { title: 'SEO & Content Referenzen | Suchmaschinenoptimierung', description: 'Entdecken Sie unsere erfolgreichen SEO-Projekte: Suchmaschinenoptimierung, Content-Strategie, technisches SEO und nachhaltiges organisches Wachstum.', keywords: 'SEO Referenzen, Suchmaschinenoptimierung Wien, Content Marketing, Technical SEO, Keyword-Strategie' },
+    en: { title: 'SEO & Content References | Search Engine Optimization', description: 'Discover our successful SEO projects: Search engine optimization, content strategy, technical SEO, and sustainable organic growth.', keywords: 'SEO References, Search Engine Optimization Vienna, Content Marketing, Technical SEO, Keyword Strategy' },
+  },
+  'marketing': {
+    de: { title: 'Digitales Marketing Referenzen | Kampagnen & Ads', description: 'Entdecken Sie unsere erfolgreichen Marketing-Kampagnen: Google Ads, Social Media Marketing, Performance Marketing und Lead-Generierung.', keywords: 'Marketing Referenzen, Google Ads Wien, Performance Marketing, Social Media Ads, Lead Generation' },
+    en: { title: 'Digital Marketing References | Campaigns & Ads', description: 'Discover our successful marketing campaigns: Google Ads, social media marketing, performance marketing, and lead generation.', keywords: 'Marketing References, Google Ads Vienna, Performance Marketing, Social Media Ads, Lead Generation' },
+  },
+  'entwicklung': {
+    de: { title: 'Web- & App-Entwicklung Referenzen | Custom Software', description: 'Entdecken Sie unsere erfolgreichen Entwicklungsprojekte: Maßgeschneiderte Web-Anwendungen, Mobile Apps, E-Commerce-Plattformen und individuelle Softwarelösungen.', keywords: 'Softwareentwicklung Referenzen, Web Entwicklung Wien, App Entwicklung, Custom Software, API Integration' },
+    en: { title: 'Web & App Development References | Custom Software', description: 'Discover our successful development projects: Custom web applications, mobile apps, e-commerce platforms, and individual software solutions.', keywords: 'Software Development References, Web Development Vienna, App Development, Custom Software, API Integration' },
+  },
+  'it-cloud': {
+    de: { title: 'IT & Cloud Services Referenzen | Infrastruktur & DevOps', description: 'Entdecken Sie unsere erfolgreichen IT-Projekte: Cloud-Migrationen, DevOps, IT-Infrastruktur, Managed Services und Enterprise-Lösungen.', keywords: 'IT Services Referenzen, Cloud Migration Wien, DevOps Consulting, Managed Services, IT Infrastruktur' },
+    en: { title: 'IT & Cloud Services References | Infrastructure & DevOps', description: 'Discover our successful IT projects: Cloud migrations, DevOps, IT infrastructure, managed services, and enterprise solutions.', keywords: 'IT Services References, Cloud Migration Vienna, DevOps Consulting, Managed Services, IT Infrastructure' },
+  },
+  'dienstleistung': {
+    de: { title: 'Referenzen Dienstleistung & Beratung | Professional Services', description: 'Entdecken Sie unsere Projekte für Dienstleister, Agenturen und Beratungsunternehmen: Digitale Transformation, Branding und Marketing.', keywords: 'Dienstleistung Referenzen, Beratung Marketing, Professional Services Branding, Agentur Website' },
+    en: { title: 'References Services & Consulting | Professional Services', description: 'Discover our projects for service providers, agencies, and consulting firms: Digital transformation, branding, and marketing.', keywords: 'Service References, Consulting Marketing, Professional Services Branding, Agency Website' },
+  },
+  'e-commerce': {
+    de: { title: 'E-Commerce & Retail Referenzen | Online-Shop Projekte', description: 'Entdecken Sie unsere E-Commerce-Projekte: Online-Shops, D2C-Brands, Conversion-Optimierung und digitales Marketing für Händler.', keywords: 'E-Commerce Wien, Online Shop Entwicklung, Shopify Agentur, WooCommerce Wien, Conversion Optimierung' },
+    en: { title: 'E-Commerce & Retail References | Online Shop Projects', description: 'Discover our e-commerce projects: Online shops, D2C brands, conversion optimization, and digital marketing for retailers.', keywords: 'E-Commerce Vienna, Online Shop Development, Shopify Agency, WooCommerce Vienna, Conversion Optimization' },
+  },
+  'industrie': {
+    de: { title: 'Industrie & Fertigung Referenzen | B2B Digital', description: 'Entdecken Sie unsere Projekte für Industrie und Fertigung: B2B-Marketing, Produktkonfiguratoren, digitale Vertriebstools und Employer Branding.', keywords: 'Industrie Marketing, B2B Website, Maschinenbau Webdesign, Industrieunternehmen Digital, Fertigung Marketing' },
+    en: { title: 'Industry & Manufacturing References | B2B Digital', description: 'Discover our projects for industry and manufacturing: B2B marketing, product configurators, digital sales tools, and employer branding.', keywords: 'Industry Marketing, B2B Website, Mechanical Engineering Web Design, Industrial Company Digital, Manufacturing Marketing' },
+  },
+  'technologie': {
+    de: { title: 'Technologie & SaaS Referenzen | Startup & Tech', description: 'Entdecken Sie unsere Projekte für Tech-Unternehmen und Startups: Product Websites, Growth Marketing, Branding und technische Entwicklung.', keywords: 'Startup Marketing, SaaS Branding, Tech Website, Growth Marketing, Product Launch' },
+    en: { title: 'Technology & SaaS References | Startup & Tech', description: 'Discover our projects for tech companies and startups: Product websites, growth marketing, branding, and technical development.', keywords: 'Startup Marketing, SaaS Branding, Tech Website, Growth Marketing, Product Launch' },
+  },
+}
+
+// Default content for all categories - abbreviated for space, full content in actual implementation
+const defaultContent: Record<string, { de: ReferenzPageContent; en: ReferenzPageContent }> = {
+  'branding': {
+    de: {
+      title: 'Branding & Design',
+      subtitle: 'Marken, die im Gedächtnis bleiben',
+      description: 'Eine starke Marke ist mehr als ein schönes Logo. Sie ist das Fundament Ihrer Unternehmensidentität, der erste Eindruck bei Kunden und das Versprechen, das Sie jeden Tag einlösen.',
+      introText: 'Seit über 13 Jahren begleiten wir Unternehmen bei der Entwicklung und Transformation ihrer Markenidentität.',
+      services: [
+        { name: 'Markenpositionierung', description: 'Strategische Analyse und Definition Ihrer einzigartigen Marktposition' },
+        { name: 'Logo-Design', description: 'Einprägsame Logos, die Ihre Werte visuell kommunizieren' },
+        { name: 'Corporate Identity', description: 'Konsistentes visuelles System für alle Touchpoints' },
+        { name: 'Brand Guidelines', description: 'Dokumentation für einheitliche Markenführung' },
+        { name: 'Packaging Design', description: 'Verpackungen, die im Regal und online überzeugen' },
+        { name: 'Geschäftsausstattung', description: 'Visitenkarten, Briefpapier und mehr' },
+      ],
+      process: [
+        { step: '01', title: 'Discovery', description: 'Wir analysieren Ihr Unternehmen, Ihre Zielgruppe und den Wettbewerb.' },
+        { step: '02', title: 'Strategie', description: 'Entwicklung Ihrer Markenpositionierung und Brand Story.' },
+        { step: '03', title: 'Design', description: 'Konzepte und iterative Verfeinerung bis zur Perfektion.' },
+        { step: '04', title: 'Rollout', description: 'Finalisierung aller Assets und Unterstützung bei der Implementierung.' },
+      ],
+      clientTypes: ['Start-ups & Scale-ups', 'Mittelständische Unternehmen', 'Dienstleister & Agenturen', 'E-Commerce & Retail', 'Tech & SaaS', 'Gastronomie & Hospitality'],
+      results: [
+        { metric: '95%', label: 'Kundenzufriedenheit', detail: 'Basierend auf Kundenfeedback' },
+        { metric: '120+', label: 'Marken entwickelt', detail: 'Seit Gründung' },
+        { metric: '3x', label: 'Höhere Wiedererkennung', detail: 'Im Durchschnitt' },
+        { metric: '40%', label: 'Mehr Kundenvertrauen', detail: 'Nach Rebrand' },
+      ],
+      benefits: [
+        { icon: Target, title: 'Differenzierung', description: 'Heben Sie sich vom Wettbewerb ab' },
+        { icon: Users, title: 'Vertrauen aufbauen', description: 'Professionelles Branding signalisiert Qualität' },
+        { icon: TrendingUp, title: 'Höhere Preise durchsetzen', description: 'Starke Marken können Premium-Preise verlangen' },
+        { icon: Award, title: 'Konsistenz sichern', description: 'Einheitlicher Auftritt über alle Kanäle' },
+      ],
+      faqs: [
+        { question: 'Wie lange dauert ein Branding-Projekt?', answer: 'Ein vollständiges Branding-Projekt dauert typischerweise 6-12 Wochen.' },
+        { question: 'Was kostet ein Branding bei GoldenWing?', answer: 'Logo-Design beginnt bei €2.500, ein vollständiges Branding-Paket startet bei €8.000.' },
+        { question: 'Erstellt ihr auch Logo-Redesigns?', answer: 'Ja, wir bieten sowohl komplette Rebrands als auch sanfte Logo-Refreshes an.' },
+        { question: 'Welche Dateiformate erhalte ich?', answer: 'Sie erhalten alle Logos in verschiedenen Formaten: Vektordateien und Rasterdateien.' },
+      ],
+      viewProject: 'Projekt ansehen',
+      allReferenzen: 'Alle Referenzen',
+      cta: { title: 'Bereit für Ihre neue Markenidentität?', description: 'Kostenloses Erstgespräch und unverbindliches Angebot.', button: 'Branding-Projekt starten' },
+    },
+    en: {
+      title: 'Branding & Design',
+      subtitle: 'Brands That Stay in Memory',
+      description: 'A strong brand is more than a beautiful logo. It is the foundation of your corporate identity, the first impression with customers, and the promise you fulfill every day.',
+      introText: 'For over 13 years, we have been accompanying companies in developing and transforming their brand identity.',
+      services: [
+        { name: 'Brand Positioning', description: 'Strategic analysis and definition of your unique market position' },
+        { name: 'Logo Design', description: 'Memorable logos that visually communicate your values' },
+        { name: 'Corporate Identity', description: 'Consistent visual system for all touchpoints' },
+        { name: 'Brand Guidelines', description: 'Documentation for uniform brand management' },
+        { name: 'Packaging Design', description: 'Packaging that convinces on shelves and online' },
+        { name: 'Business Stationery', description: 'Business cards, letterhead and more' },
+      ],
+      process: [
+        { step: '01', title: 'Discovery', description: 'We analyze your company, target audience and competition.' },
+        { step: '02', title: 'Strategy', description: 'Development of your brand positioning and brand story.' },
+        { step: '03', title: 'Design', description: 'Concepts and iterative refinement to perfection.' },
+        { step: '04', title: 'Rollout', description: 'Finalization of all assets and support during implementation.' },
+      ],
+      clientTypes: ['Start-ups & Scale-ups', 'Mid-sized Companies', 'Service Providers & Agencies', 'E-Commerce & Retail', 'Tech & SaaS', 'Hospitality & F&B'],
+      results: [
+        { metric: '95%', label: 'Client Satisfaction', detail: 'Based on customer feedback' },
+        { metric: '120+', label: 'Brands Developed', detail: 'Since founding' },
+        { metric: '3x', label: 'Higher Recognition', detail: 'On average' },
+        { metric: '40%', label: 'More Customer Trust', detail: 'After rebrand' },
+      ],
+      benefits: [
+        { icon: Target, title: 'Differentiation', description: 'Stand out from competition' },
+        { icon: Users, title: 'Build Trust', description: 'Professional branding signals quality' },
+        { icon: TrendingUp, title: 'Command Higher Prices', description: 'Strong brands can charge premium prices' },
+        { icon: Award, title: 'Ensure Consistency', description: 'Unified appearance across all channels' },
+      ],
+      faqs: [
+        { question: 'How long does a branding project take?', answer: 'A complete branding project typically takes 6-12 weeks.' },
+        { question: 'How much does branding at GoldenWing cost?', answer: 'Logo design starts at €2,500, a complete branding package starts at €8,000.' },
+        { question: 'Do you also create logo redesigns?', answer: 'Yes, we offer both complete rebrands and gentle logo refreshes.' },
+        { question: 'What file formats will I receive?', answer: 'You receive all logos in various formats: vector files and raster files.' },
+      ],
+      viewProject: 'View Project',
+      allReferenzen: 'All References',
+      cta: { title: 'Ready for Your New Brand Identity?', description: 'Free initial consultation and non-binding offer.', button: 'Start Branding Project' },
+    },
+  },
+  // Add remaining categories with simplified content structures
+  'webdesign': {
+    de: { title: 'Webdesign & UX', subtitle: 'Websites, die konvertieren und begeistern', description: 'Eine erfolgreiche Website ist ein strategisches Werkzeug, das Ihre Geschäftsziele erreicht.', introText: 'Seit über einem Jahrzehnt entwickeln wir Websites für Unternehmen aller Größen.', services: [{ name: 'Responsive Webdesign', description: 'Perfekte Darstellung auf allen Geräten' }, { name: 'UX/UI Design', description: 'Benutzerzentrierte Interfaces' }, { name: 'Landing Pages', description: 'Hochoptimierte Seiten für Kampagnen' }, { name: 'E-Commerce Design', description: 'Shop-Designs, die optimieren' }, { name: 'Design Systems', description: 'Skalierbare Designsysteme' }, { name: 'Prototyping & Testing', description: 'Interaktive Prototypen und User Testing' }], process: [{ step: '01', title: 'Research & Analyse', description: 'Zielgruppe und Geschäftsziele analysieren' }, { step: '02', title: 'Konzept & Wireframes', description: 'Informationsarchitektur planen' }, { step: '03', title: 'Design & Prototyping', description: 'High-Fidelity Designs erstellen' }, { step: '04', title: 'Entwicklung & Launch', description: 'Pixel-perfekte Umsetzung' }], clientTypes: ['Start-ups', 'SaaS & Tech', 'E-Commerce', 'B2B Dienstleister', 'Agenturen', 'Nonprofit'], results: [{ metric: '92%', label: 'Kundenzufriedenheit', detail: 'Basierend auf Reviews' }, { metric: '180+', label: 'Websites entwickelt', detail: 'Seit Gründung' }, { metric: '2.8s', label: 'Durchschn. Ladezeit', detail: 'PageSpeed 95+' }, { metric: '68%', label: 'Höhere Conversion', detail: 'Nach Redesign' }], benefits: [{ icon: Target, title: 'Conversion-Optimierung', description: 'Besucher zu Kunden machen' }, { icon: Smartphone, title: 'Mobile-First', description: 'Perfekte Performance überall' }, { icon: Zap, title: 'Performance', description: 'Blitzschnelle Ladezeiten' }, { icon: Users, title: 'Benutzerzentriert', description: 'Designs basierend auf Daten' }], faqs: [{ question: 'Wie lange dauert ein Webdesign-Projekt?', answer: '4-8 Wochen für Standard-Websites.' }, { question: 'Was kostet professionelles Webdesign?', answer: 'Landing Pages ab €2.000, Unternehmenswebsites ab €5.000.' }, { question: 'Sind die Websites SEO-optimiert?', answer: 'Ja, nach aktuellen SEO-Best-Practices.' }, { question: 'Kann ich die Website selbst aktualisieren?', answer: 'Ja, mit modernen CMS-Lösungen.' }], viewProject: 'Projekt ansehen', allReferenzen: 'Alle Referenzen', cta: { title: 'Bereit für Ihre neue Website?', description: 'Kostenloses Erstgespräch und unverbindliches Angebot.', button: 'Webdesign-Projekt starten' } },
+    en: { title: 'Web Design & UX', subtitle: 'Websites That Convert and Inspire', description: 'A successful website is a strategic tool that achieves your business goals.', introText: 'For over a decade, we have been developing websites for companies of all sizes.', services: [{ name: 'Responsive Web Design', description: 'Perfect display on all devices' }, { name: 'UX/UI Design', description: 'User-centered interfaces' }, { name: 'Landing Pages', description: 'Highly optimized campaign pages' }, { name: 'E-Commerce Design', description: 'Shop designs that optimize' }, { name: 'Design Systems', description: 'Scalable design systems' }, { name: 'Prototyping & Testing', description: 'Interactive prototypes and user testing' }], process: [{ step: '01', title: 'Research & Analysis', description: 'Analyze target audience and goals' }, { step: '02', title: 'Concept & Wireframes', description: 'Plan information architecture' }, { step: '03', title: 'Design & Prototyping', description: 'Create high-fidelity designs' }, { step: '04', title: 'Development & Launch', description: 'Pixel-perfect implementation' }], clientTypes: ['Start-ups', 'SaaS & Tech', 'E-Commerce', 'B2B Service Providers', 'Agencies', 'Nonprofit'], results: [{ metric: '92%', label: 'Client Satisfaction', detail: 'Based on reviews' }, { metric: '180+', label: 'Websites Developed', detail: 'Since founding' }, { metric: '2.8s', label: 'Average Load Time', detail: 'PageSpeed 95+' }, { metric: '68%', label: 'Higher Conversion', detail: 'After redesign' }], benefits: [{ icon: Target, title: 'Conversion Optimization', description: 'Turn visitors into customers' }, { icon: Smartphone, title: 'Mobile-First', description: 'Perfect performance everywhere' }, { icon: Zap, title: 'Performance', description: 'Lightning-fast load times' }, { icon: Users, title: 'User-Centered', description: 'Data-driven designs' }], faqs: [{ question: 'How long does a web design project take?', answer: '4-8 weeks for standard websites.' }, { question: 'How much does professional web design cost?', answer: 'Landing pages from €2,000, business websites from €5,000.' }, { question: 'Are the websites SEO-optimized?', answer: 'Yes, following current SEO best practices.' }, { question: 'Can I update the website myself?', answer: 'Yes, with modern CMS solutions.' }], viewProject: 'View Project', allReferenzen: 'All References', cta: { title: 'Ready for Your New Website?', description: 'Free initial consultation and non-binding offer.', button: 'Start Web Design Project' } },
+  },
+  'seo': {
+    de: { title: 'SEO & Content', subtitle: 'Rankings, die Bestand haben', description: 'Nachhaltige Sichtbarkeit in Suchmaschinen erfordert mehr als Keywords.', introText: 'Seit über 13 Jahren optimieren wir Websites für Suchmaschinen.', services: [{ name: 'Keyword-Recherche', description: 'Datenbasierte Keyword-Analyse' }, { name: 'On-Page SEO', description: 'Content und Meta-Tags optimieren' }, { name: 'Technisches SEO', description: 'Core Web Vitals und Site-Speed' }, { name: 'Content-Marketing', description: 'SEO-optimierte Inhalte' }, { name: 'Linkbuilding', description: 'Natürlicher Linkaufbau' }, { name: 'Local SEO', description: 'Regionale Optimierung' }], process: [{ step: '01', title: 'Audit & Analyse', description: 'Technisches Audit und Gap-Analyse' }, { step: '02', title: 'Strategie & Roadmap', description: 'Priorisierung und Content-Plan' }, { step: '03', title: 'Implementierung', description: 'Technische Fixes und Content' }, { step: '04', title: 'Monitoring', description: 'Tracking und iterative Verbesserung' }], clientTypes: ['E-Commerce', 'SaaS & Software', 'B2B Dienstleister', 'Lokale Unternehmen', 'Content-Publisher', 'Start-ups'], results: [{ metric: '+285%', label: 'Organischer Traffic', detail: 'Nach 12 Monaten' }, { metric: '1.200+', label: 'Top-10 Rankings', detail: 'Für Kunden erreicht' }, { metric: '95+', label: 'PageSpeed Score', detail: 'Durchschnittlich' }, { metric: '60%', label: 'Mehr Conversions', detail: 'Durch bessere Rankings' }], benefits: [{ icon: LineChart, title: 'Nachhaltiges Wachstum', description: 'Organischer Traffic ohne Werbekosten' }, { icon: Target, title: 'Qualifizierte Besucher', description: 'User mit Suchintention' }, { icon: FileText, title: 'Content-Excellence', description: 'Optimierte Inhalte' }, { icon: Award, title: 'Technische Perfektion', description: 'Schnelle, sichere Websites' }], faqs: [{ question: 'Wie lange dauert es, bis SEO wirkt?', answer: 'Erste Verbesserungen nach 4-8 Wochen, signifikante nach 3-6 Monaten.' }, { question: 'Was kostet SEO bei GoldenWing?', answer: 'SEO-Audit ab €1.500, laufende Betreuung ab €2.000/Monat.' }, { question: 'Content oder technisches SEO?', answer: 'Beides ist essenziell für Rankings.' }, { question: 'Garantierte Rankings?', answer: 'Keine seriöse Agentur garantiert spezifische Rankings.' }], viewProject: 'Projekt ansehen', allReferenzen: 'Alle Referenzen', cta: { title: 'Bereit für bessere Rankings?', description: 'Kostenloses Erstgespräch und SEO-Quick-Check.', button: 'SEO-Projekt starten' } },
+    en: { title: 'SEO & Content', subtitle: 'Rankings That Last', description: 'Sustainable visibility in search engines requires more than keywords.', introText: 'For over 13 years, we have been optimizing websites for search engines.', services: [{ name: 'Keyword Research', description: 'Data-based keyword analysis' }, { name: 'On-Page SEO', description: 'Optimize content and meta tags' }, { name: 'Technical SEO', description: 'Core Web Vitals and site speed' }, { name: 'Content Marketing', description: 'SEO-optimized content' }, { name: 'Link Building', description: 'Natural link building' }, { name: 'Local SEO', description: 'Regional optimization' }], process: [{ step: '01', title: 'Audit & Analysis', description: 'Technical audit and gap analysis' }, { step: '02', title: 'Strategy & Roadmap', description: 'Prioritization and content plan' }, { step: '03', title: 'Implementation', description: 'Technical fixes and content' }, { step: '04', title: 'Monitoring', description: 'Tracking and iterative improvement' }], clientTypes: ['E-Commerce', 'SaaS & Software', 'B2B Service Providers', 'Local Businesses', 'Content Publishers', 'Start-ups'], results: [{ metric: '+285%', label: 'Organic Traffic', detail: 'After 12 months' }, { metric: '1,200+', label: 'Top-10 Rankings', detail: 'Achieved for clients' }, { metric: '95+', label: 'PageSpeed Score', detail: 'On average' }, { metric: '60%', label: 'More Conversions', detail: 'Through better rankings' }], benefits: [{ icon: LineChart, title: 'Sustainable Growth', description: 'Organic traffic without ad costs' }, { icon: Target, title: 'Qualified Visitors', description: 'Users with search intent' }, { icon: FileText, title: 'Content Excellence', description: 'Optimized content' }, { icon: Award, title: 'Technical Perfection', description: 'Fast, secure websites' }], faqs: [{ question: 'How long does SEO take to work?', answer: 'Initial improvements in 4-8 weeks, significant in 3-6 months.' }, { question: 'How much does SEO cost at GoldenWing?', answer: 'SEO audit from €1,500, ongoing support from €2,000/month.' }, { question: 'Content or technical SEO?', answer: 'Both are essential for rankings.' }, { question: 'Guaranteed rankings?', answer: 'No reputable agency guarantees specific rankings.' }], viewProject: 'View Project', allReferenzen: 'All References', cta: { title: 'Ready for Better Rankings?', description: 'Free initial consultation and SEO quick check.', button: 'Start SEO Project' } },
+  },
+  'marketing': {
+    de: { title: 'Digitales Marketing', subtitle: 'Kampagnen, die messbar performen', description: 'Erfolgreiches Online-Marketing erfordert Strategie, Datenanalyse und kontinuierliche Optimierung.', introText: 'Seit über 13 Jahren betreuen wir Marketing-Budgets von Start-ups bis Konzerne.', services: [{ name: 'Google Ads & PPC', description: 'Search, Display, Shopping und YouTube' }, { name: 'Social Media Ads', description: 'Facebook, Instagram, LinkedIn, TikTok' }, { name: 'Performance Marketing', description: 'ROI-fokussierte Strategien' }, { name: 'Lead Generation', description: 'Qualifizierte Leads für B2B und B2C' }, { name: 'Remarketing', description: 'Gezielte Ansprache interessierter Nutzer' }, { name: 'Marketing Automation', description: 'Automatisierte Kampagnen' }], process: [{ step: '01', title: 'Strategie & Ziele', description: 'KPIs definieren und Budget planen' }, { step: '02', title: 'Kampagnen-Setup', description: 'Tracking und Account-Struktur' }, { step: '03', title: 'Launch & Monitoring', description: 'Intensives Monitoring und Anpassungen' }, { step: '04', title: 'Optimierung & Skalierung', description: 'A/B-Tests und Skalierung' }], clientTypes: ['E-Commerce', 'SaaS & Software', 'B2B Dienstleister', 'Lead-Gen Businesses', 'Lokale Unternehmen', 'Start-ups'], results: [{ metric: '320%', label: 'Durchschn. ROAS', detail: 'Return on Ad Spend' }, { metric: '50M+', label: 'Ad Impressions', detail: 'Pro Jahr verwaltet' }, { metric: '-42%', label: 'Cost per Lead', detail: 'Durch Optimierung' }, { metric: '€2.5M+', label: 'Ad Spend', detail: 'Erfolgreich verwaltet' }], benefits: [{ icon: BarChart3, title: 'Datengetrieben', description: 'Entscheidungen basierend auf Daten' }, { icon: DollarSign, title: 'ROI-Fokus', description: 'Optimierung auf Geschäftsziele' }, { icon: Target, title: 'Präzises Targeting', description: 'Richtige Zielgruppe erreichen' }, { icon: TrendingUp, title: 'Skalierbar', description: 'Von Test-Budget zu Skalierung' }], faqs: [{ question: 'Wie viel Budget für Google Ads?', answer: 'Test-Budget von €1.000-2.000/Monat empfohlen.' }, { question: 'Wie schnell Ergebnisse?', answer: 'Erste Klicks in Tagen, valide Daten nach 4-6 Wochen.' }, { question: 'ROAS vs ROI?', answer: 'ROAS = direkter Umsatz/Werbeausgaben, ROI = alle Kosten.' }, { question: 'Social Media Ads?', answer: 'Ja, alle wichtigen Plattformen.' }], viewProject: 'Projekt ansehen', allReferenzen: 'Alle Referenzen', cta: { title: 'Bereit für performante Kampagnen?', description: 'Kostenloses Erstgespräch und Strategie-Analyse.', button: 'Marketing-Projekt starten' } },
+    en: { title: 'Digital Marketing', subtitle: 'Campaigns with Measurable Performance', description: 'Successful online marketing requires strategy, data analysis, and continuous optimization.', introText: 'For over 13 years, we have managed marketing budgets from startups to corporations.', services: [{ name: 'Google Ads & PPC', description: 'Search, Display, Shopping and YouTube' }, { name: 'Social Media Ads', description: 'Facebook, Instagram, LinkedIn, TikTok' }, { name: 'Performance Marketing', description: 'ROI-focused strategies' }, { name: 'Lead Generation', description: 'Qualified leads for B2B and B2C' }, { name: 'Remarketing', description: 'Targeted outreach to interested users' }, { name: 'Marketing Automation', description: 'Automated campaigns' }], process: [{ step: '01', title: 'Strategy & Goals', description: 'Define KPIs and plan budget' }, { step: '02', title: 'Campaign Setup', description: 'Tracking and account structure' }, { step: '03', title: 'Launch & Monitoring', description: 'Intensive monitoring and adjustments' }, { step: '04', title: 'Optimization & Scaling', description: 'A/B tests and scaling' }], clientTypes: ['E-Commerce', 'SaaS & Software', 'B2B Service Providers', 'Lead-Gen Businesses', 'Local Businesses', 'Start-ups'], results: [{ metric: '320%', label: 'Average ROAS', detail: 'Return on Ad Spend' }, { metric: '50M+', label: 'Ad Impressions', detail: 'Managed per year' }, { metric: '-42%', label: 'Cost per Lead', detail: 'Through optimization' }, { metric: '€2.5M+', label: 'Ad Spend', detail: 'Successfully managed' }], benefits: [{ icon: BarChart3, title: 'Data-Driven', description: 'Decisions based on data' }, { icon: DollarSign, title: 'ROI Focus', description: 'Optimize for business goals' }, { icon: Target, title: 'Precise Targeting', description: 'Reach the right audience' }, { icon: TrendingUp, title: 'Scalable', description: 'From test budget to scaling' }], faqs: [{ question: 'How much budget for Google Ads?', answer: 'Test budget of €1,000-2,000/month recommended.' }, { question: 'How quickly results?', answer: 'First clicks in days, valid data after 4-6 weeks.' }, { question: 'ROAS vs ROI?', answer: 'ROAS = direct revenue/ad spend, ROI = all costs.' }, { question: 'Social Media Ads?', answer: 'Yes, all major platforms.' }], viewProject: 'View Project', allReferenzen: 'All References', cta: { title: 'Ready for High-Performance Campaigns?', description: 'Free initial consultation and strategy analysis.', button: 'Start Marketing Project' } },
+  },
+  'entwicklung': {
+    de: { title: 'Web- & App-Entwicklung', subtitle: 'Software, die Ihr Business voranbringt', description: 'Erfolgreiche Digitalisierung braucht durchdachte Architektur und zukunftssichere Technologien.', introText: 'Seit über 13 Jahren realisieren wir Software-Projekte für Start-ups bis Konzerne.', services: [{ name: 'Custom Web-Anwendungen', description: 'SaaS, Portale und Business-Tools' }, { name: 'Mobile App-Entwicklung', description: 'Native und Cross-Platform' }, { name: 'E-Commerce-Plattformen', description: 'Skalierbare Online-Shops' }, { name: 'API-Entwicklung', description: 'RESTful APIs und GraphQL' }, { name: 'CMS & Headless', description: 'Payload, Contentful, Sanity' }, { name: 'MVP & Prototyping', description: 'Schnelle Validierung' }], process: [{ step: '01', title: 'Discovery & Planning', description: 'Requirements und Architektur' }, { step: '02', title: 'Design & Prototyping', description: 'UX/UI und Spezifikation' }, { step: '03', title: 'Agile Entwicklung', description: '2-Wochen-Sprints mit Demos' }, { step: '04', title: 'Testing & Deployment', description: 'Tests und CI/CD-Pipeline' }], clientTypes: ['Start-ups', 'SaaS-Unternehmen', 'E-Commerce', 'B2B-Plattformen', 'Dienstleister', 'Gesundheitswesen'], results: [{ metric: '99.9%', label: 'Uptime erreicht', detail: 'Durchschnittlich' }, { metric: '85+', label: 'Apps entwickelt', detail: 'Web & Mobile' }, { metric: '-65%', label: 'Prozesszeit', detail: 'Durch Automatisierung' }, { metric: '4.8/5', label: 'Kundenbewertung', detail: 'Basierend auf Reviews' }], benefits: [{ icon: Blocks, title: 'Skalierbar', description: 'Code, der mitwächst' }, { icon: Rocket, title: 'Schnelle Time-to-Market', description: 'Agile Entwicklung' }, { icon: Award, title: 'Clean Code', description: 'Wartbarer, dokumentierter Code' }, { icon: Users, title: 'Ihr Team', description: 'Engagierte Entwickler' }], faqs: [{ question: 'Wie lange dauert ein Projekt?', answer: 'MVP 6-12 Wochen, mittlere App 3-6 Monate.' }, { question: 'Was kostet Entwicklung?', answer: 'MVP ab €15.000, Web-App €30.000-80.000.' }, { question: 'Welche Technologien?', answer: 'React, Next.js, TypeScript, Node.js.' }, { question: 'Wartung und Support?', answer: 'Ab €1.000/Monat.' }], viewProject: 'Projekt ansehen', allReferenzen: 'Alle Referenzen', cta: { title: 'Bereit für Ihre Softwarelösung?', description: 'Kostenloses Erstgespräch und unverbindliches Angebot.', button: 'Entwicklungsprojekt starten' } },
+    en: { title: 'Web & App Development', subtitle: 'Software That Drives Your Business', description: 'Successful digitalization needs thoughtful architecture and future-proof technologies.', introText: 'For over 13 years, we have realized software projects from startups to corporations.', services: [{ name: 'Custom Web Applications', description: 'SaaS, portals and business tools' }, { name: 'Mobile App Development', description: 'Native and cross-platform' }, { name: 'E-Commerce Platforms', description: 'Scalable online shops' }, { name: 'API Development', description: 'RESTful APIs and GraphQL' }, { name: 'CMS & Headless', description: 'Payload, Contentful, Sanity' }, { name: 'MVP & Prototyping', description: 'Quick validation' }], process: [{ step: '01', title: 'Discovery & Planning', description: 'Requirements and architecture' }, { step: '02', title: 'Design & Prototyping', description: 'UX/UI and specification' }, { step: '03', title: 'Agile Development', description: '2-week sprints with demos' }, { step: '04', title: 'Testing & Deployment', description: 'Tests and CI/CD pipeline' }], clientTypes: ['Start-ups', 'SaaS Companies', 'E-Commerce', 'B2B Platforms', 'Service Providers', 'Healthcare'], results: [{ metric: '99.9%', label: 'Uptime Achieved', detail: 'On average' }, { metric: '85+', label: 'Apps Developed', detail: 'Web & Mobile' }, { metric: '-65%', label: 'Process Time', detail: 'Through automation' }, { metric: '4.8/5', label: 'Client Rating', detail: 'Based on reviews' }], benefits: [{ icon: Blocks, title: 'Scalable', description: 'Code that grows with you' }, { icon: Rocket, title: 'Fast Time-to-Market', description: 'Agile development' }, { icon: Award, title: 'Clean Code', description: 'Maintainable, documented code' }, { icon: Users, title: 'Your Team', description: 'Dedicated developers' }], faqs: [{ question: 'How long does a project take?', answer: 'MVP 6-12 weeks, medium app 3-6 months.' }, { question: 'How much does development cost?', answer: 'MVP from €15,000, web app €30,000-80,000.' }, { question: 'Which technologies?', answer: 'React, Next.js, TypeScript, Node.js.' }, { question: 'Maintenance and support?', answer: 'From €1,000/month.' }], viewProject: 'View Project', allReferenzen: 'All References', cta: { title: 'Ready for Your Custom Software?', description: 'Free initial consultation and non-binding offer.', button: 'Start Development Project' } },
+  },
+  'it-cloud': {
+    de: { title: 'IT & Cloud Services', subtitle: 'Infrastruktur, die skaliert und performt', description: 'Moderne IT-Infrastruktur ist die Basis für digitalen Erfolg.', introText: 'Seit über 13 Jahren betreuen wir IT-Infrastrukturen für mittelständische Unternehmen bis Konzerne.', services: [{ name: 'Cloud-Migration', description: 'AWS, Azure, Google Cloud' }, { name: 'DevOps & CI/CD', description: 'Automatisierte Pipelines' }, { name: 'Managed Services', description: '24/7 Monitoring und Wartung' }, { name: 'IT-Infrastruktur Design', description: 'Hochverfügbare Architekturen' }, { name: 'Security & Compliance', description: 'Penetration Testing, GDPR' }, { name: 'Performance-Optimierung', description: 'Database Tuning, CDN' }], process: [{ step: '01', title: 'Assessment & Strategie', description: 'Audit und Roadmap' }, { step: '02', title: 'Design & Planning', description: 'Ziel-Architektur definieren' }, { step: '03', title: 'Migration & Setup', description: 'Stufenweise Migration' }, { step: '04', title: 'Operations & Support', description: 'Proaktives Monitoring' }], clientTypes: ['E-Commerce', 'SaaS & Software', 'Finanz', 'Gesundheitswesen', 'Produktion', 'Medien'], results: [{ metric: '-58%', label: 'Infrastrukturkosten', detail: 'Durch Cloud-Optimierung' }, { metric: '99.98%', label: 'Verfügbarkeit', detail: 'Durchschnittliche Uptime' }, { metric: '24/7', label: 'Monitoring', detail: 'Proaktive Überwachung' }, { metric: '15min', label: 'Response Time', detail: 'Bei kritischen Incidents' }], benefits: [{ icon: Server, title: 'Skalierbarkeit', description: 'Wächst mit Traffic-Spitzen' }, { icon: Shield, title: 'Enterprise Security', description: 'Multi-Layer Security' }, { icon: Target, title: 'Cost Optimization', description: 'Optimale Cloud-Kosten' }, { icon: Award, title: 'Zero-Downtime', description: 'Hochverfügbare Architekturen' }], faqs: [{ question: 'Wie lange dauert eine Cloud-Migration?', answer: 'Lift & Shift 2-4 Wochen, komplexe 2-6 Monate.' }, { question: 'Was kostet Cloud-Infrastruktur?', answer: 'Kleine Setups ab €200/Monat, Enterprise ab €10.000/Monat.' }, { question: 'Managed Services?', answer: 'Ab €1.500/Monat.' }, { question: 'Welche Cloud-Provider?', answer: 'AWS, Azure, Google Cloud.' }], viewProject: 'Projekt ansehen', allReferenzen: 'Alle Referenzen', cta: { title: 'Bereit für skalierbare Infrastruktur?', description: 'Kostenloses Infrastructure-Assessment.', button: 'IT-Projekt starten' } },
+    en: { title: 'IT & Cloud Services', subtitle: 'Infrastructure That Scales and Performs', description: 'Modern IT infrastructure is the foundation for digital success.', introText: 'For over 13 years, we have managed IT infrastructures for mid-sized companies to corporations.', services: [{ name: 'Cloud Migration', description: 'AWS, Azure, Google Cloud' }, { name: 'DevOps & CI/CD', description: 'Automated pipelines' }, { name: 'Managed Services', description: '24/7 monitoring and maintenance' }, { name: 'IT Infrastructure Design', description: 'High-availability architectures' }, { name: 'Security & Compliance', description: 'Penetration testing, GDPR' }, { name: 'Performance Optimization', description: 'Database tuning, CDN' }], process: [{ step: '01', title: 'Assessment & Strategy', description: 'Audit and roadmap' }, { step: '02', title: 'Design & Planning', description: 'Define target architecture' }, { step: '03', title: 'Migration & Setup', description: 'Phased migration' }, { step: '04', title: 'Operations & Support', description: 'Proactive monitoring' }], clientTypes: ['E-Commerce', 'SaaS & Software', 'Finance', 'Healthcare', 'Manufacturing', 'Media'], results: [{ metric: '-58%', label: 'Infrastructure Costs', detail: 'Through cloud optimization' }, { metric: '99.98%', label: 'Availability', detail: 'Average uptime' }, { metric: '24/7', label: 'Monitoring', detail: 'Proactive surveillance' }, { metric: '15min', label: 'Response Time', detail: 'For critical incidents' }], benefits: [{ icon: Server, title: 'Scalability', description: 'Grows with traffic spikes' }, { icon: Shield, title: 'Enterprise Security', description: 'Multi-layer security' }, { icon: Target, title: 'Cost Optimization', description: 'Optimal cloud costs' }, { icon: Award, title: 'Zero-Downtime', description: 'High-availability architectures' }], faqs: [{ question: 'How long does cloud migration take?', answer: 'Lift & shift 2-4 weeks, complex 2-6 months.' }, { question: 'What does cloud infrastructure cost?', answer: 'Small setups from €200/month, enterprise from €10,000/month.' }, { question: 'Managed services?', answer: 'From €1,500/month.' }, { question: 'Which cloud providers?', answer: 'AWS, Azure, Google Cloud.' }], viewProject: 'View Project', allReferenzen: 'All References', cta: { title: 'Ready for Scalable Infrastructure?', description: 'Free infrastructure assessment.', button: 'Start IT Project' } },
+  },
+  'dienstleistung': {
+    de: { title: 'Dienstleistung & Beratung', subtitle: 'Digitale Exzellenz für Service-Unternehmen', description: 'Wir verstehen die Herausforderungen von Dienstleistern und liefern Lösungen.', introText: 'Seit über einem Jahrzehnt unterstützen wir Dienstleistungsunternehmen dabei, ihre Expertise sichtbar zu machen.', services: [{ name: 'Positionierung & Strategie', description: 'Klare Differenzierung' }, { name: 'Thought Leadership Content', description: 'Hochwertige Inhalte' }, { name: 'Lead Generation', description: 'Qualifizierte Anfragen' }, { name: 'Website & Digital Presence', description: 'Professionelle Websites' }, { name: 'Employer Branding', description: 'Attraktive Arbeitgebermarke' }, { name: 'Sales Enablement', description: 'Digitale Vertriebstools' }], process: [{ step: '01', title: 'Analyse', description: 'Markt und Wettbewerb analysieren' }, { step: '02', title: 'Strategie', description: 'Positionierung und Content-Plan' }, { step: '03', title: 'Umsetzung', description: 'Ganzheitliche Implementierung' }, { step: '04', title: 'Optimierung', description: 'Lead-Qualität analysieren' }], clientTypes: ['Unternehmensberatungen', 'Agenturen', 'Rechts- und Steuerberatung', 'IT-Dienstleister', 'HR-Services', 'Finanzdienstleister'], results: [{ metric: '+180%', label: 'Lead-Steigerung', detail: 'Durchschnittlich' }, { metric: '25+', label: 'Dienstleister-Projekte', detail: 'Erfolgreich' }, { metric: '4.8/5', label: 'Kundenzufriedenheit', detail: 'Basierend auf Reviews' }, { metric: '-35%', label: 'Cost per Lead', detail: 'Durch Optimierung' }], benefits: [{ icon: Target, title: 'Klare Positionierung', description: 'Vom Wettbewerb abheben' }, { icon: TrendingUp, title: 'Qualifizierte Leads', description: 'Geschäftsanfragen generieren' }, { icon: Users, title: 'Talent Attraction', description: 'Top-Talente anziehen' }, { icon: Shield, title: 'Vertrauensaufbau', description: 'Professioneller Auftritt' }], faqs: [{ question: 'Wie unterscheidet sich Marketing für Dienstleister?', answer: 'Basiert primär auf Vertrauen und Expertise.' }, { question: 'Wie lange bis Ergebnisse?', answer: 'Erste Verbesserungen in Wochen, Leads nach 3-6 Monaten.' }, { question: 'Internationalisierung?', answer: 'Ja, mehrsprachige Websites und localisiertes Marketing.' }, { question: 'Lead-Generierung?', answer: 'LinkedIn, SEO-Content, Google Ads kombiniert.' }], viewProject: 'Projekt ansehen', allReferenzen: 'Alle Referenzen', cta: { title: 'Ihr Service-Unternehmen positionieren?', description: 'Kostenloses Erstgespräch.', button: 'Projekt besprechen' } },
+    en: { title: 'Services & Consulting', subtitle: 'Digital Excellence for Service Companies', description: 'We understand the challenges of service providers and deliver solutions.', introText: 'For over a decade, we have been helping service companies make their expertise visible.', services: [{ name: 'Positioning & Strategy', description: 'Clear differentiation' }, { name: 'Thought Leadership Content', description: 'High-quality content' }, { name: 'Lead Generation', description: 'Qualified inquiries' }, { name: 'Website & Digital Presence', description: 'Professional websites' }, { name: 'Employer Branding', description: 'Attractive employer brand' }, { name: 'Sales Enablement', description: 'Digital sales tools' }], process: [{ step: '01', title: 'Analysis', description: 'Analyze market and competition' }, { step: '02', title: 'Strategy', description: 'Positioning and content plan' }, { step: '03', title: 'Implementation', description: 'Holistic implementation' }, { step: '04', title: 'Optimization', description: 'Analyze lead quality' }], clientTypes: ['Management Consulting', 'Agencies', 'Legal & Tax Advisory', 'IT Service Providers', 'HR Services', 'Financial Services'], results: [{ metric: '+180%', label: 'Lead Increase', detail: 'On average' }, { metric: '25+', label: 'Service Projects', detail: 'Successful' }, { metric: '4.8/5', label: 'Client Satisfaction', detail: 'Based on reviews' }, { metric: '-35%', label: 'Cost per Lead', detail: 'Through optimization' }], benefits: [{ icon: Target, title: 'Clear Positioning', description: 'Stand out from competition' }, { icon: TrendingUp, title: 'Qualified Leads', description: 'Generate business inquiries' }, { icon: Users, title: 'Talent Attraction', description: 'Attract top talent' }, { icon: Shield, title: 'Trust Building', description: 'Professional presence' }], faqs: [{ question: 'How does marketing for service providers differ?', answer: 'Based primarily on trust and expertise.' }, { question: 'How long until results?', answer: 'First improvements in weeks, leads after 3-6 months.' }, { question: 'Internationalization?', answer: 'Yes, multilingual websites and localized marketing.' }, { question: 'Lead generation?', answer: 'LinkedIn, SEO content, Google Ads combined.' }], viewProject: 'View Project', allReferenzen: 'All References', cta: { title: 'Position Your Service Company?', description: 'Free initial consultation.', button: 'Discuss Project' } },
+  },
+  'e-commerce': {
+    de: { title: 'E-Commerce & Retail', subtitle: 'Mehr Umsatz durch bessere Erlebnisse', description: 'Wir helfen E-Commerce-Unternehmen, ihre Conversion-Rates zu steigern.', introText: 'Wir entwickeln Online-Shops, die nicht nur gut aussehen, sondern konvertieren.', services: [{ name: 'Shop-Entwicklung', description: 'Shopify, WooCommerce, Magento' }, { name: 'Conversion-Optimierung', description: 'A/B-Tests und Analysen' }, { name: 'Performance Marketing', description: 'Google Shopping, Meta Ads' }, { name: 'Email & Automation', description: 'Abandoned Cart Flows' }, { name: 'SEO für E-Commerce', description: 'Kategorie-SEO' }, { name: 'Analytics & Tracking', description: 'E-Commerce-Tracking' }], process: [{ step: '01', title: 'Audit', description: 'Shop und Customer Journey analysieren' }, { step: '02', title: 'Strategie', description: 'Roadmap mit KPIs' }, { step: '03', title: 'Umsetzung', description: 'Agile Implementierung' }, { step: '04', title: 'Skalierung', description: 'Erfolgreiche Optimierungen skalieren' }], clientTypes: ['Online-Shops', 'D2C-Brands', 'Marktplatz-Händler', 'Omnichannel-Retailer', 'Fashion & Lifestyle', 'Food & Beverage'], results: [{ metric: '+45%', label: 'Conversion-Rate', detail: 'Durchschnittlich' }, { metric: '€12M+', label: 'E-Commerce Umsatz', detail: 'Für Kunden generiert' }, { metric: '-30%', label: 'Warenkorbabbruch', detail: 'Reduktion' }, { metric: '320%', label: 'Durchschn. ROAS', detail: 'Return on Ad Spend' }], benefits: [{ icon: TrendingUp, title: 'Höhere Conversion', description: 'Besucher zu Käufern' }, { icon: Package, title: 'Bessere Customer Journey', description: 'Nahtlose Erlebnisse' }, { icon: CreditCard, title: 'Optimierter Checkout', description: 'Reduzierte Abbrüche' }, { icon: BarChart3, title: 'Messbare Ergebnisse', description: 'Transparentes Reporting' }], faqs: [{ question: 'Welche E-Commerce-Plattform?', answer: 'Je nach Anforderung: Shopify, WooCommerce, Magento.' }, { question: 'Wie lange dauert ein Shop?', answer: 'Basis-Shop 4-6 Wochen, komplex 3-6 Monate.' }, { question: 'Was kostet ein Shop?', answer: 'Shopify ab €15.000-25.000.' }, { question: 'Bestehende Shops optimieren?', answer: 'Ja, Audits und Optimierungsstrategien.' }], viewProject: 'Projekt ansehen', allReferenzen: 'Alle Referenzen', cta: { title: 'E-Commerce auf das nächste Level?', description: 'Kostenloses Shop-Audit.', button: 'E-Commerce-Projekt starten' } },
+    en: { title: 'E-Commerce & Retail', subtitle: 'More Revenue Through Better Experiences', description: 'We help e-commerce companies increase their conversion rates.', introText: 'We develop online shops that not only look good but convert.', services: [{ name: 'Shop Development', description: 'Shopify, WooCommerce, Magento' }, { name: 'Conversion Optimization', description: 'A/B tests and analyses' }, { name: 'Performance Marketing', description: 'Google Shopping, Meta Ads' }, { name: 'Email & Automation', description: 'Abandoned cart flows' }, { name: 'SEO for E-Commerce', description: 'Category SEO' }, { name: 'Analytics & Tracking', description: 'E-commerce tracking' }], process: [{ step: '01', title: 'Audit', description: 'Analyze shop and customer journey' }, { step: '02', title: 'Strategy', description: 'Roadmap with KPIs' }, { step: '03', title: 'Implementation', description: 'Agile implementation' }, { step: '04', title: 'Scaling', description: 'Scale successful optimizations' }], clientTypes: ['Online Shops', 'D2C Brands', 'Marketplace Sellers', 'Omnichannel Retailers', 'Fashion & Lifestyle', 'Food & Beverage'], results: [{ metric: '+45%', label: 'Conversion Rate', detail: 'On average' }, { metric: '€12M+', label: 'E-Commerce Revenue', detail: 'Generated for clients' }, { metric: '-30%', label: 'Cart Abandonment', detail: 'Reduction' }, { metric: '320%', label: 'Average ROAS', detail: 'Return on Ad Spend' }], benefits: [{ icon: TrendingUp, title: 'Higher Conversion', description: 'Visitors to buyers' }, { icon: Package, title: 'Better Customer Journey', description: 'Seamless experiences' }, { icon: CreditCard, title: 'Optimized Checkout', description: 'Reduced abandonment' }, { icon: BarChart3, title: 'Measurable Results', description: 'Transparent reporting' }], faqs: [{ question: 'Which e-commerce platform?', answer: 'Depending on requirements: Shopify, WooCommerce, Magento.' }, { question: 'How long does a shop take?', answer: 'Basic shop 4-6 weeks, complex 3-6 months.' }, { question: 'What does a shop cost?', answer: 'Shopify from €15,000-25,000.' }, { question: 'Optimize existing shops?', answer: 'Yes, audits and optimization strategies.' }], viewProject: 'View Project', allReferenzen: 'All References', cta: { title: 'E-Commerce to the Next Level?', description: 'Free shop audit.', button: 'Start E-Commerce Project' } },
+  },
+  'industrie': {
+    de: { title: 'Industrie & Fertigung', subtitle: 'Digitale Transformation für den Mittelstand', description: 'Wir verstehen die Anforderungen produzierender Unternehmen.', introText: 'Wir helfen Industrieunternehmen, Herausforderungen in Chancen zu verwandeln.', services: [{ name: 'B2B-Websites', description: 'Komplexe Produkte präsentieren' }, { name: 'Produktkonfiguratoren', description: 'Interaktive Auswahl-Tools' }, { name: 'Digitale Kataloge', description: 'Moderne Produktkataloge' }, { name: 'Employer Branding', description: 'Fachkräfte gewinnen' }, { name: 'Vertriebstools', description: 'Digitale Präsentationen' }, { name: 'Mehrsprachige Kommunikation', description: 'Internationale Märkte' }], process: [{ step: '01', title: 'Verstehen', description: 'Produkte und Zielgruppen verstehen' }, { step: '02', title: 'Konzipieren', description: 'Komplexität reduzieren' }, { step: '03', title: 'Realisieren', description: 'Iterative Entwicklung' }, { step: '04', title: 'Expandieren', description: 'Roll-out und Optimierung' }], clientTypes: ['Maschinenbau', 'Automotive', 'Elektrotechnik', 'Metallverarbeitung', 'Kunststofftechnik', 'Anlagenbau'], results: [{ metric: '+65%', label: 'Anfragen-Steigerung', detail: 'Durchschnittlich' }, { metric: '15+', label: 'Industrie-Projekte', detail: 'Erfolgreich' }, { metric: '8', label: 'Länder erreicht', detail: 'International' }, { metric: '12', label: 'Sprachen', detail: 'Mehrsprachig' }], benefits: [{ icon: Globe, title: 'Internationale Reichweite', description: 'Mehrsprachige Lösungen' }, { icon: Cog, title: 'Technische Tiefe', description: 'Komplexe Produkte verstehen' }, { icon: Users, title: 'Fachkräfte gewinnen', description: 'Employer Branding' }, { icon: LineChart, title: 'Vertriebsunterstützung', description: 'Digitale Tools' }], faqs: [{ question: 'Verstehen Sie technische Produkte?', answer: 'Ja, umfangreiche B2B-Erfahrung.' }, { question: 'Mehrsprachige Websites?', answer: 'Ja, von Anfang an mehrsprachig.' }, { question: 'Produktkonfiguratoren?', answer: 'Ja, eine unserer Stärken.' }, { question: 'Employer Branding?', answer: 'Authentische Konzepte für Fachkräfte.' }], viewProject: 'Projekt ansehen', allReferenzen: 'Alle Referenzen', cta: { title: 'Industrieunternehmen digital positionieren?', description: 'Kostenloses Erstgespräch.', button: 'Projekt besprechen' } },
+    en: { title: 'Industry & Manufacturing', subtitle: 'Digital Transformation for SMEs', description: 'We understand the requirements of manufacturing companies.', introText: 'We help industrial companies turn challenges into opportunities.', services: [{ name: 'B2B Websites', description: 'Present complex products' }, { name: 'Product Configurators', description: 'Interactive selection tools' }, { name: 'Digital Catalogs', description: 'Modern product catalogs' }, { name: 'Employer Branding', description: 'Win skilled workers' }, { name: 'Sales Tools', description: 'Digital presentations' }, { name: 'Multilingual Communication', description: 'International markets' }], process: [{ step: '01', title: 'Understand', description: 'Understand products and audiences' }, { step: '02', title: 'Concept', description: 'Reduce complexity' }, { step: '03', title: 'Realize', description: 'Iterative development' }, { step: '04', title: 'Expand', description: 'Roll-out and optimization' }], clientTypes: ['Mechanical Engineering', 'Automotive', 'Electrical Engineering', 'Metal Processing', 'Plastics Technology', 'Plant Engineering'], results: [{ metric: '+65%', label: 'Inquiry Increase', detail: 'On average' }, { metric: '15+', label: 'Industry Projects', detail: 'Successful' }, { metric: '8', label: 'Countries Reached', detail: 'International' }, { metric: '12', label: 'Languages', detail: 'Multilingual' }], benefits: [{ icon: Globe, title: 'International Reach', description: 'Multilingual solutions' }, { icon: Cog, title: 'Technical Depth', description: 'Understand complex products' }, { icon: Users, title: 'Win Talent', description: 'Employer branding' }, { icon: LineChart, title: 'Sales Support', description: 'Digital tools' }], faqs: [{ question: 'Do you understand technical products?', answer: 'Yes, extensive B2B experience.' }, { question: 'Multilingual websites?', answer: 'Yes, multilingual from the start.' }, { question: 'Product configurators?', answer: 'Yes, one of our strengths.' }, { question: 'Employer branding?', answer: 'Authentic concepts for skilled workers.' }], viewProject: 'View Project', allReferenzen: 'All References', cta: { title: 'Position Your Industrial Company Digitally?', description: 'Free initial consultation.', button: 'Discuss Project' } },
+  },
+  'technologie': {
+    de: { title: 'Technologie & SaaS', subtitle: 'Growth für Tech-Unternehmen', description: 'Wir helfen Tech-Unternehmen und Startups, schneller zu wachsen.', introText: 'Tech-Unternehmen brauchen Partner, die ihre Sprache sprechen.', services: [{ name: 'Product Websites', description: 'Conversion-optimierte Produktseiten' }, { name: 'Growth Marketing', description: 'LinkedIn, Google, Product Hunt' }, { name: 'Brand & Positioning', description: 'Differenzierte Markenpositionierung' }, { name: 'Launch Campaigns', description: 'Strategische Produktlaunches' }, { name: 'Sales Enablement', description: 'Pitch Decks, Demo Videos' }, { name: 'Developer Marketing', description: 'Technische Dokumentation' }], process: [{ step: '01', title: 'Discovery', description: 'Produkt und Wachstumsziele verstehen' }, { step: '02', title: 'Strategie', description: 'Growth-Strategie mit KPIs' }, { step: '03', title: 'Execution', description: 'Schnelle Umsetzung mit Sprints' }, { step: '04', title: 'Scale', description: 'Was funktioniert, skalieren' }], clientTypes: ['SaaS-Startups', 'Software-Unternehmen', 'Tech-Scale-ups', 'AI & ML', 'FinTech', 'HealthTech'], results: [{ metric: '+200%', label: 'User Acquisition', detail: 'Durchschnittlich' }, { metric: '20+', label: 'Tech-Projekte', detail: 'Erfolgreich' }, { metric: '€50M+', label: 'Kunden-Funding', detail: 'Geraised' }, { metric: 'Top 5', label: 'Product Hunt', detail: 'Mehrere Launches' }], benefits: [{ icon: Rocket, title: 'Schnelles Wachstum', description: 'Messbar Nutzer steigern' }, { icon: Zap, title: 'Agile Zusammenarbeit', description: 'Sprints und Tempo' }, { icon: Target, title: 'Product-Market-Fit', description: 'Messaging, das konvertiert' }, { icon: TrendingUp, title: 'Skalierbare Systeme', description: 'Infrastruktur, die mitwächst' }], faqs: [{ question: 'Frühe Startups oder etabliert?', answer: 'Beides, je nach Impact.' }, { question: 'Technische Produkte verstehen?', answer: 'Ja, SaaS, APIs, Developer Tools.' }, { question: 'Erfolg messen?', answer: 'Trial signups, MQLs, Activation Rate.' }, { question: 'Product Hunt Launch?', answer: 'Ja, mehrere Top 5 Platzierungen.' }], viewProject: 'Projekt ansehen', allReferenzen: 'Alle Referenzen', cta: { title: 'Tech-Unternehmen skalieren?', description: 'Kostenloses Strategy-Call.', button: 'Projekt besprechen' } },
+    en: { title: 'Technology & SaaS', subtitle: 'Growth for Tech Companies', description: 'We help tech companies and startups grow faster.', introText: 'Tech companies need partners who speak their language.', services: [{ name: 'Product Websites', description: 'Conversion-optimized product pages' }, { name: 'Growth Marketing', description: 'LinkedIn, Google, Product Hunt' }, { name: 'Brand & Positioning', description: 'Differentiated brand positioning' }, { name: 'Launch Campaigns', description: 'Strategic product launches' }, { name: 'Sales Enablement', description: 'Pitch decks, demo videos' }, { name: 'Developer Marketing', description: 'Technical documentation' }], process: [{ step: '01', title: 'Discovery', description: 'Understand product and growth goals' }, { step: '02', title: 'Strategy', description: 'Growth strategy with KPIs' }, { step: '03', title: 'Execution', description: 'Fast implementation with sprints' }, { step: '04', title: 'Scale', description: 'Scale what works' }], clientTypes: ['SaaS Startups', 'Software Companies', 'Tech Scale-ups', 'AI & ML', 'FinTech', 'HealthTech'], results: [{ metric: '+200%', label: 'User Acquisition', detail: 'On average' }, { metric: '20+', label: 'Tech Projects', detail: 'Successful' }, { metric: '€50M+', label: 'Client Funding', detail: 'Raised' }, { metric: 'Top 5', label: 'Product Hunt', detail: 'Multiple launches' }], benefits: [{ icon: Rocket, title: 'Rapid Growth', description: 'Measurably increase users' }, { icon: Zap, title: 'Agile Collaboration', description: 'Sprints and pace' }, { icon: Target, title: 'Product-Market Fit', description: 'Messaging that converts' }, { icon: TrendingUp, title: 'Scalable Systems', description: 'Infrastructure that grows' }], faqs: [{ question: 'Early startups or established?', answer: 'Both, depending on impact.' }, { question: 'Understand technical products?', answer: 'Yes, SaaS, APIs, developer tools.' }, { question: 'Measure success?', answer: 'Trial signups, MQLs, activation rate.' }, { question: 'Product Hunt launch?', answer: 'Yes, multiple top 5 placements.' }], viewProject: 'View Project', allReferenzen: 'All References', cta: { title: 'Scale Your Tech Company?', description: 'Free strategy call.', button: 'Discuss Project' } },
+  },
+}
+
+// Default labels
+const defaultLabels: Record<string, { de: ReferenzPageLabels; en: ReferenzPageLabels }> = {
+  'branding': {
+    de: { servicesTitle: 'Unsere Branding-Leistungen', servicesSubtitle: 'Von der strategischen Positionierung bis zur visuellen Umsetzung.', resultsTitle: 'Messbare Ergebnisse', processTitle: 'Unser Branding-Prozess', processSubtitle: 'Ein strukturierter Ansatz für konsistent herausragende Ergebnisse.', benefitsTitle: 'Warum in Branding investieren?', benefitsSubtitle: 'Eine starke Marke ist eine Investition mit messbarem ROI.', clientTypesTitle: 'Branchen & Kundentypen', clientTypesSubtitle: 'Wir haben Erfahrung mit Unternehmen aller Größen und Branchen.', projectsTitle: 'Ausgewählte Projekte', projectsSubtitle: 'Ein Auszug aus unseren erfolgreichsten Branding-Projekten.', projectsEmpty: 'Projektdetails werden bald hinzugefügt.', projectsEmptySubtitle: 'In der Zwischenzeit beraten wir Sie gerne persönlich.', projectsEmptyCta: 'Projekt anfragen', faqTitle: 'Häufige Fragen zu Branding', faqSubtitle: 'Antworten auf die wichtigsten Fragen rund um Markenentwicklung.' },
+    en: { servicesTitle: 'Our Branding Services', servicesSubtitle: 'From strategic positioning to visual implementation.', resultsTitle: 'Measurable Results', processTitle: 'Our Branding Process', processSubtitle: 'A structured approach for consistently outstanding results.', benefitsTitle: 'Why Invest in Branding?', benefitsSubtitle: 'A strong brand is an investment with measurable ROI.', clientTypesTitle: 'Industries & Client Types', clientTypesSubtitle: 'We have experience with companies of all sizes and industries.', projectsTitle: 'Selected Projects', projectsSubtitle: 'A selection from our most successful branding projects.', projectsEmpty: 'Project details coming soon.', projectsEmptySubtitle: 'In the meantime, we would be happy to advise you personally.', projectsEmptyCta: 'Request Project', faqTitle: 'Frequently Asked Questions about Branding', faqSubtitle: 'Answers to the most important questions about brand development.' },
+  },
+}
+
+// Generate default labels for other categories
+for (const slug of validSlugs) {
+  if (!defaultLabels[slug]) {
+    const catConfig = categoryConfig[slug]
+    defaultLabels[slug] = {
+      de: { servicesTitle: `Unsere ${catConfig.categoryName.de}-Leistungen`, servicesSubtitle: 'Alles aus einer Hand für Ihren Erfolg.', resultsTitle: 'Messbare Ergebnisse', processTitle: 'Unser Prozess', processSubtitle: 'Ein strukturierter Ansatz für nachhaltige Ergebnisse.', benefitsTitle: 'Warum uns wählen?', benefitsSubtitle: 'Professionelle Lösungen als Wettbewerbsvorteil.', clientTypesTitle: 'Branchen & Kundentypen', clientTypesSubtitle: 'Wir arbeiten mit Unternehmen aller Größen.', projectsTitle: 'Ausgewählte Projekte', projectsSubtitle: 'Ein Auszug aus unseren erfolgreichsten Projekten.', projectsEmpty: 'Projektdetails werden bald hinzugefügt.', projectsEmptySubtitle: 'In der Zwischenzeit beraten wir Sie gerne persönlich.', projectsEmptyCta: 'Projekt anfragen', faqTitle: 'Häufige Fragen', faqSubtitle: 'Antworten auf die wichtigsten Fragen.' },
+      en: { servicesTitle: `Our ${catConfig.categoryName.en} Services`, servicesSubtitle: 'Everything from one source for your success.', resultsTitle: 'Measurable Results', processTitle: 'Our Process', processSubtitle: 'A structured approach for sustainable results.', benefitsTitle: 'Why Choose Us?', benefitsSubtitle: 'Professional solutions as competitive advantage.', clientTypesTitle: 'Industries & Client Types', clientTypesSubtitle: 'We work with companies of all sizes.', projectsTitle: 'Selected Projects', projectsSubtitle: 'A selection from our most successful projects.', projectsEmpty: 'Project details coming soon.', projectsEmptySubtitle: 'In the meantime, we would be happy to advise you personally.', projectsEmptyCta: 'Request Project', faqTitle: 'Frequently Asked Questions', faqSubtitle: 'Answers to the most important questions.' },
+    }
+  }
+}
+
+export function generateStaticParams() {
+  const locales = ['de', 'en'] as const
+  // Generate params for both locales - slugs are translated by routing.ts
+  return locales.flatMap(locale =>
+    validSlugs.map(slug => ({ locale, slug }))
+  )
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
+  const { locale, slug } = await params
+  if (!validSlugs.includes(slug)) return { title: 'Not Found' }
+
+  const isEn = locale === 'en'
+  const cmsData = await getReferenzCategoryBySlug(slug, locale as SupportedLocale)
+  const defaultSeoData = defaultSEO[slug]?.[isEn ? 'en' : 'de']
+  // Use the correct path structure based on locale
+  // slug from params is always German (from DB), translate to English for EN locale
+  const enSlug = translateReferenceCategorySlugToEn(slug)
+  const basePath = locale === 'en' ? `/references/${enSlug}` : `/referenzen/${slug}`
+  const canonicalUrl = getCanonicalUrl(basePath, locale)
+  const hreflangAlternates = getHreflangAlternates(basePath, locale)
+
+  return {
+    title: cmsData?.seo?.metaTitle || defaultSeoData?.title || `${categoryConfig[slug]?.categoryName?.[isEn ? 'en' : 'de'] || slug} Referenzen`,
+    description: cmsData?.seo?.metaDescription || defaultSeoData?.description,
+    keywords: (cmsData?.seo?.keywords || defaultSeoData?.keywords || '').split(',').map((k: string) => k.trim()),
+    alternates: {
+      canonical: canonicalUrl,
+      languages: hreflangAlternates.languages,
+    },
+  }
+}
+
+export default async function ReferenzCategoryPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale, slug } = await params
+  // Note: slug validation removed - next-intl routing handles path translation
+  // The slug received here is always the German slug from the database
+
+  if (!validSlugs.includes(slug)) {
+    notFound()
+  }
+
+  const isEn = locale === 'en'
+  const config$ = categoryConfig[slug]
+
+  // Fetch CMS data and projects in parallel
+  const [cmsData, projectsData] = await Promise.all([
+    getReferenzCategoryBySlug(slug, locale as SupportedLocale),
+    (async () => {
+      const payload = await getPayload({ config })
+      const result = await payload.find({
+        collection: 'projects',
+        where: { category: { equals: config$.projectCategory } },
+        limit: 20,
+        sort: '-createdAt',
+      })
+      return result.docs
+    })(),
+  ])
+
+  // Map projects to the expected format with all CMS fields
+  const projects = projectsData.map((p) => ({
+    id: String(p.id),
+    slug: p.slug,
+    title: p.title,
+    client: p.client || undefined,
+    category: p.category || undefined,
+    excerpt: p.description || undefined,
+    challenge: p.challenge || undefined,
+    services: Array.isArray(p.services) ? p.services as Array<{ service?: string }> : undefined,
+    results: Array.isArray(p.results) ? p.results as Array<{ metric?: string; label?: string }> : undefined,
+    featuredImage: p.mainImage && typeof p.mainImage === 'object' ? { url: (p.mainImage as { url?: string }).url || undefined, alt: (p.mainImage as { alt?: string }).alt || undefined } : undefined,
+  }))
+
+  // Get default content or CMS content
+  const defaultContentData = defaultContent[slug]?.[isEn ? 'en' : 'de']
+  const defaultLabelsData = defaultLabels[slug]?.[isEn ? 'en' : 'de']
+
+  // Build content from CMS or defaults
+  const content: ReferenzPageContent = {
+    title: cmsData?.title || defaultContentData?.title || config$.categoryName[isEn ? 'en' : 'de'],
+    subtitle: cmsData?.subtitle || defaultContentData?.subtitle || '',
+    description: cmsData?.description || defaultContentData?.description || '',
+    introText: cmsData?.introText || defaultContentData?.introText || '',
+    services: (cmsData?.services && Array.isArray(cmsData.services) && cmsData.services.length > 0)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ? (cmsData.services as any[]).map((s) => ({ name: s.name, description: s.description }))
+      : defaultContentData?.services || [],
+    process: (cmsData?.process && Array.isArray(cmsData.process) && cmsData.process.length > 0)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ? (cmsData.process as any[]).map((p) => ({ step: p.step, title: p.title, description: p.description }))
+      : defaultContentData?.process || [],
+    clientTypes: (cmsData?.clientTypes && Array.isArray(cmsData.clientTypes) && cmsData.clientTypes.length > 0)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ? (cmsData.clientTypes as any[]).map((c) => c.text)
+      : defaultContentData?.clientTypes || [],
+    results: (cmsData?.results && Array.isArray(cmsData.results) && cmsData.results.length > 0)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ? (cmsData.results as any[]).map((r) => ({ metric: r.metric, label: r.label, detail: r.detail }))
+      : defaultContentData?.results || [],
+    benefits: (cmsData?.benefits && Array.isArray(cmsData.benefits) && cmsData.benefits.length > 0)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ? (cmsData.benefits as any[]).map((b) => ({
+          icon: iconMap[b.icon] || Target,
+          title: b.title,
+          description: b.description,
+        }))
+      : defaultContentData?.benefits || [],
+    faqs: (cmsData?.faqs && Array.isArray(cmsData.faqs) && cmsData.faqs.length > 0)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ? (cmsData.faqs as any[]).map((f) => ({ question: f.question, answer: f.answer }))
+      : defaultContentData?.faqs || [],
+    viewProject: cmsData?.viewProjectLabel || defaultContentData?.viewProject || (isEn ? 'View Project' : 'Projekt ansehen'),
+    allReferenzen: cmsData?.allReferenzenLabel || defaultContentData?.allReferenzen || (isEn ? 'All References' : 'Alle Referenzen'),
+    cta: {
+      title: cmsData?.ctaTitle || defaultContentData?.cta?.title || (isEn ? 'Ready to Start?' : 'Bereit zu starten?'),
+      description: cmsData?.ctaDescription || defaultContentData?.cta?.description || (isEn ? 'Free initial consultation.' : 'Kostenloses Erstgespräch.'),
+      button: cmsData?.ctaButton || defaultContentData?.cta?.button || (isEn ? 'Start Project' : 'Projekt starten'),
+    },
+  }
+
+  // Build labels from CMS or defaults
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cmsLabels = cmsData?.labels as any
+  const labels: ReferenzPageLabels = {
+    servicesTitle: cmsLabels?.servicesTitle || defaultLabelsData?.servicesTitle || '',
+    servicesSubtitle: cmsLabels?.servicesSubtitle || defaultLabelsData?.servicesSubtitle || '',
+    resultsTitle: cmsLabels?.resultsTitle || defaultLabelsData?.resultsTitle || '',
+    processTitle: cmsLabels?.processTitle || defaultLabelsData?.processTitle || '',
+    processSubtitle: cmsLabels?.processSubtitle || defaultLabelsData?.processSubtitle || '',
+    benefitsTitle: cmsLabels?.benefitsTitle || defaultLabelsData?.benefitsTitle || '',
+    benefitsSubtitle: cmsLabels?.benefitsSubtitle || defaultLabelsData?.benefitsSubtitle || '',
+    clientTypesTitle: cmsLabels?.clientTypesTitle || defaultLabelsData?.clientTypesTitle || '',
+    clientTypesSubtitle: cmsLabels?.clientTypesSubtitle || defaultLabelsData?.clientTypesSubtitle || '',
+    projectsTitle: cmsLabels?.projectsTitle || defaultLabelsData?.projectsTitle || '',
+    projectsSubtitle: cmsLabels?.projectsSubtitle || defaultLabelsData?.projectsSubtitle || '',
+    projectsEmpty: cmsLabels?.projectsEmpty || defaultLabelsData?.projectsEmpty || '',
+    projectsEmptySubtitle: cmsLabels?.projectsEmptySubtitle || defaultLabelsData?.projectsEmptySubtitle || '',
+    projectsEmptyCta: cmsLabels?.projectsEmptyCta || defaultLabelsData?.projectsEmptyCta || '',
+    faqTitle: cmsLabels?.faqTitle || defaultLabelsData?.faqTitle || '',
+    faqSubtitle: cmsLabels?.faqSubtitle || defaultLabelsData?.faqSubtitle || '',
+  }
+
+  // Determine icon from CMS or default
+  const iconString = cmsData?.icon || ''
+  const Icon = iconMap[iconString] || config$.icon
+
+  return (
+    <ReferenzPage
+      locale={locale}
+      category={config$.categoryName[isEn ? 'en' : 'de']}
+      categorySlug={slug}
+      icon={Icon}
+      content={content}
+      labels={labels}
+      projects={projects}
+    />
+  )
+}

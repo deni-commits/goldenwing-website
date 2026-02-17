@@ -1,0 +1,80 @@
+# GoldenWing Creative Studios
+
+> GoldenWing is a full-service creative and digital agency headquartered in Vienna, Austria, with offices in Dubai (UAE) and Roseville, California (USA). We specialize in branding, web design, SEO, digital marketing, and web development for businesses across the DACH region (Germany, Austria, Switzerland) and internationally. Founded in 2014, we've completed 250+ projects with a 98% client satisfaction rate.
+
+## Key Facts
+
+- **Founded:** 2014 in Vienna, Austria
+- **Team:** 10+ specialists (designers, developers, marketing experts)
+- **Headquarters:** Czeikestrasse 4/21, 1100 Vienna, Austria
+- **Languages:** German (primary), English
+- **Industries:** Healthcare, Legal, E-Commerce, B2B, Startups, Hospitality, Real Estate
+- **Tech Stack:** Next.js, React, TypeScript, Payload CMS, Tailwind CSS
+
+## Services
+
+- [Web Design](https://goldenwing.at/de/leistungen/webdesign): Custom responsive websites, UI/UX design, landing pages, e-commerce design, and design systems
+- [SEO & Content](https://goldenwing.at/de/leistungen/seo-content): Technical SEO audits, on-page optimization, content strategy, local SEO (Vienna, DACH), and link building
+- [Digital Marketing](https://goldenwing.at/de/leistungen/digital-marketing): Google Ads, Meta Ads, social media marketing, email marketing, and conversion optimization
+- [Branding](https://goldenwing.at/de/leistungen/branding): Brand strategy, logo design, visual identity, corporate identity systems, and brand guidelines
+- [Web & App Development](https://goldenwing.at/de/leistungen/web-app-entwicklung): Custom web applications, e-commerce (Shopify, WooCommerce), CMS implementation, and API development
+- [IT & Cloud Services](https://goldenwing.at/de/leistungen/it-cloud-services): Cloud architecture (AWS, Google Cloud), DevOps, security audits, and hosting
+
+## Service Packages
+
+- [Brand & Web Foundation](https://goldenwing.at/de/leistungen/pakete/brand-web-foundation): Complete branding + website package for startups and new businesses
+- [SEO & Content Growth](https://goldenwing.at/de/leistungen/pakete/seo-content-growth): Monthly SEO optimization and content creation package
+- [Demand Gen Suite](https://goldenwing.at/de/leistungen/pakete/demand-gen-suite): Full digital marketing package including ads, content, and analytics
+- [Custom Package](https://goldenwing.at/de/leistungen/pakete/individuelles-paket): Tailored solution based on your specific needs
+
+## Free Website Tools
+
+- [Website Analyzer](https://goldenwing.at/de/tools/website-analyzer): Comprehensive website audit combining SEO, performance, design, and security checks with overall score
+- [SEO Checker](https://goldenwing.at/de/tools/seo-checker): Analyze meta tags, headings, schema markup, and sitemap for SEO issues
+- [Performance Checker](https://goldenwing.at/de/tools/performance-checker): Core Web Vitals analysis via Google PageSpeed API
+- [Design Analyzer](https://goldenwing.at/de/tools/design-analyzer): Check responsive design, favicons, and Open Graph tags
+- [Security Checker](https://goldenwing.at/de/tools/security-checker): HTTPS, SSL certificate, and security headers validation
+
+## Locations
+
+- [Vienna (Headquarters)](https://goldenwing.at/de/standorte/wien): Czeikestrasse 4/21, 1100 Wien, Austria
+- [Dubai](https://goldenwing.at/de/standorte/dubai): DAMAC Executive Bay Tower B, Office 1406, Business Bay
+- [Roseville, CA](https://goldenwing.at/de/standorte/roseville): 2700 N Hayden Pkwy, Roseville, CA 95747, USA
+- [Graz](https://goldenwing.at/de/standorte/graz): Service area in Austria
+- [Linz](https://goldenwing.at/de/standorte/linz): Service area in Austria
+- [Salzburg](https://goldenwing.at/de/standorte/salzburg): Service area in Austria
+
+## About
+
+- [About Us](https://goldenwing.at/de/ueber-uns): Company overview and mission
+- [Team](https://goldenwing.at/de/ueber-uns/team): Meet our specialists
+- [Values](https://goldenwing.at/de/ueber-uns/werte): Our core values and approach
+- [Facts & Figures](https://goldenwing.at/de/ueber-uns/facts-figures): Key statistics and achievements
+- [Partners](https://goldenwing.at/de/ueber-uns/partner): Technology and business partners
+
+## Resources
+
+- [Blog](https://goldenwing.at/de/blog): Digital marketing insights, SEO tips, and industry news
+- [Portfolio](https://goldenwing.at/de/referenzen): Case studies and project showcases
+- [SEO Lexicon](https://goldenwing.at/de/lexikon): SEO and digital marketing terminology explained
+- [FAQ](https://goldenwing.at/de/haeufige-fragen): Frequently asked questions about our services
+
+## Contact
+
+- [Contact Page](https://goldenwing.at/de/kontakt): Get in touch for a free consultation
+- **Email:** office@goldenwing.at
+- **Phone:** +43 664 543 96 81
+- **LinkedIn:** [GoldenWing Creative Studios](https://www.linkedin.com/company/goldenwing-creative-studios/)
+- **Instagram:** [@goldenwing.at](https://www.instagram.com/goldenwing.at)
+
+## Optional
+
+- [SEO Agency Vienna](https://goldenwing.at/de/seo-agentur-wien): Local SEO services for Vienna businesses
+- [Web Design Vienna](https://goldenwing.at/de/standorte/wien/webdesign): Web design services for Vienna region
+- [Branding Agency Vienna](https://goldenwing.at/de/branding-agentur-wien): Brand design and identity services in Vienna
+- [SEO Agency Dubai](https://goldenwing.at/de/seo-agentur-dubai): SEO services for the MENA region
+- [Web Design Dubai](https://goldenwing.at/de/webdesign-dubai): Web design for Dubai and UAE businesses
+- [Creative Agency Dubai](https://goldenwing.at/de/kreativagentur-dubai): Full creative services in Dubai
+- [Best SEO Agencies Vienna](https://goldenwing.at/de/beste-seo-agenturen-wien): Comparison of top Vienna SEO agencies
+- [Best Web Design Agencies Vienna](https://goldenwing.at/de/beste-webdesign-agenturen-wien): Comparison of top Vienna web design agencies
+- [Privacy Policy](https://goldenwing.at/de/datenschutz): Data protection and privacy information

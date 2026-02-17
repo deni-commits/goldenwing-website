@@ -1,0 +1,586 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-gold: var(--gold);
+  --color-neon: var(--neon);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  /* Hex fallbacks for older Safari (< 15.4) */
+  --background: #ffffff;
+  --foreground: #171717;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #2d2d2d;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #262626;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --accent: #2d2d2d;
+  --accent-foreground: #ffffff;
+  --gold: #f2fb31;
+  --neon: #f2fb31;
+  --destructive: #dc2626;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #a3a3a3;
+  /* Modern browsers: oklch for better color gamut */
+  @supports (color: oklch(1 0 0)) {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+  }
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #2d2d2d;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  /* Hex fallbacks for older Safari (< 15.4) */
+  --background: #171717;
+  --foreground: #fafafa;
+  --card: #262626;
+  --card-foreground: #fafafa;
+  --popover: #262626;
+  --popover-foreground: #fafafa;
+  --primary: #f2fb31;
+  --primary-foreground: #000000;
+  --secondary: #404040;
+  --secondary-foreground: #fafafa;
+  --muted: #404040;
+  --muted-foreground: #a3a3a3;
+  --accent: #f2fb31;
+  --accent-foreground: #000000;
+  --gold: #f2fb31;
+  --neon: #f2fb31;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #737373;
+  /* Modern browsers: oklch for better color gamut */
+  @supports (color: oklch(1 0 0)) {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+  }
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: #f2fb31;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* CLS prevention: optimize font rendering to minimize reflow */
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* CLS prevention: ensure consistent line heights across font swap */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+  }
+  p, span, li, a {
+    line-height: 1.6;
+  }
+}
+
+/* Container */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+/* GPU-accelerated testimonials scroll animation */
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-scroll-up {
+  animation: scroll-up linear infinite;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Pause animation on hover for better UX */
+.animate-scroll-up:hover {
+  animation-play-state: paused;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-up {
+    animation: none;
+  }
+}
+
+/* ===========================================
+   HTML Block Styles - Professional Blog Tables
+   =========================================== */
+
+.html-block {
+  /* Reset and base styles for HTML block content */
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Table Styles */
+.html-block table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9375rem;
+  background: var(--card);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.html-block thead {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.html-block th {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border-bottom: 2px solid var(--border);
+}
+
+.html-block td {
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+/* Zebra striping */
+.html-block tbody tr:nth-child(even) {
+  background: var(--muted);
+}
+
+/* Hover effect */
+.html-block tbody tr:hover {
+  background: oklch(0.95 0 0);
+}
+
+.dark .html-block tbody tr:hover {
+  background: oklch(0.25 0 0);
+}
+
+/* Last row without border */
+.html-block tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive table wrapper */
+.html-block .table-wrapper,
+.html-block > div:has(table) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .html-block table {
+    font-size: 0.875rem;
+  }
+
+  .html-block th,
+  .html-block td {
+    padding: 0.75rem 0.875rem;
+  }
+
+  .html-block th {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Additional content elements in HTML blocks */
+.html-block p {
+  margin-bottom: 1rem;
+}
+
+.html-block ul,
+.html-block ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.html-block li {
+  margin-bottom: 0.5rem;
+}
+
+.html-block h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+}
+
+.html-block h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.html-block strong {
+  font-weight: 600;
+}
+
+.html-block code {
+  background: var(--muted);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: var(--font-mono);
+}
+
+/* Comparison table specific styles */
+.html-block table.comparison td:first-child {
+  font-weight: 600;
+  background: var(--muted);
+}
+
+/* First column header should keep yellow background but have readable text */
+.html-block table.comparison th:first-child {
+  font-weight: 600;
+}
+
+/* Highlight cells */
+.html-block .highlight,
+.html-block .success {
+  color: oklch(0.5 0.15 145);
+  font-weight: 500;
+}
+
+.html-block .warning {
+  color: oklch(0.65 0.18 60);
+  font-weight: 500;
+}
+
+.html-block .error {
+  color: oklch(0.55 0.2 25);
+  font-weight: 500;
+}
+
+/* ===========================================
+   Hero LCP Optimization - CSS-only animations
+   =========================================== */
+
+/* Hero animations that don't block LCP - content is visible immediately */
+@keyframes hero-slide-up {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-fade-in-delayed {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* LCP element - FULLY VISIBLE from start, only subtle position animation */
+.hero-headline {
+  opacity: 1 !important; /* Ensure always visible for LCP */
+  animation: hero-slide-up 0.4s ease-out forwards;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Secondary hero elements - can have delayed animations */
+.hero-subheadline {
+  opacity: 0;
+  animation: hero-fade-in-delayed 0.5s ease-out 0.1s forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.hero-cta {
+  opacity: 0;
+  animation: hero-fade-in-delayed 0.5s ease-out 0.15s forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.hero-locations {
+  opacity: 0;
+  animation: hero-fade-in-delayed 0.35s ease-out forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Remove will-change after animation completes to free GPU memory */
+.hero-headline,
+.hero-subheadline,
+.hero-cta,
+.hero-locations {
+  animation-fill-mode: forwards;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hero-headline,
+  .hero-subheadline,
+  .hero-cta,
+  .hero-locations {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}
+
+/* ===========================================
+   GPU-Optimized Background Animations
+   =========================================== */
+
+/* Slow pulse animation for background orbs - GPU accelerated */
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Slow spin animation for center glow - GPU accelerated */
+@keyframes spin-slow {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 60s linear infinite;
+  backface-visibility: hidden;
+  transform-origin: center center;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-slow,
+  .animate-spin-slow {
+    animation: none;
+  }
+}
+
+/* ===========================================
+   Stripe-Style Mesh Gradient Animation
+   =========================================== */
+
+/* WebGL Canvas Styles */
+#gradient-canvas {
+  width: 100%;
+  height: 100%;
+  --gradient-color-1: #0a0a0a;
+  --gradient-color-2: #1a1a1a;
+  --gradient-color-3: #2d2d2d;
+  --gradient-color-4: #f2fb31;
+}
+
+/* CSS Fallback Animation for browsers without WebGL */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 15s ease infinite;
+  backface-visibility: hidden;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-gradient-shift {
+    animation: none;
+  }
+}
+
+/* ===========================================
+   Cookie Banner Animation - GPU Composited
+   =========================================== */
+
+@keyframes cookie-slide-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.cookie-banner-slide-in {
+  animation: cookie-slide-in 0.4s ease-out forwards;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-banner-slide-in {
+    animation: none;
+    transform: translateY(0);
+  }
+}
