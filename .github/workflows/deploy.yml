@@ -1,39 +1,58 @@
-name: Deploy
+name: Deploy GoldenWing Website
 
 on:
-  workflow_dispatch:
-    inputs:
-      skip_build:
-        description: 'Skip build (use existing .next)'
-        required: false
-        default: 'true'
+  push:
+    branches: [master]
+  workflow_dispatch: # Manual trigger
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H srv1168642.hstgr.cloud >> ~/.ssh/known_hosts
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
 
-      - name: Sync to server
-        run: |
-          rsync -avz --delete \
-            --exclude='.git' \
-            --exclude='node_modules' \
-            --exclude='.env*' \
-            -e "ssh -i ~/.ssh/id_ed25519" \
-            ./ root@srv1168642.hstgr.cloud:/var/www/goldenwing-website/
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Install & Restart
-        run: |
-          ssh -i ~/.ssh/id_ed25519 root@srv1168642.hstgr.cloud << 'EOF'
+      - name: Build
+        run: npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+          NEXT_PUBLIC_SITE_URL: https://goldenwing.at
+          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+
+      - name: Deploy via SSH
+        uses: easingthemes/ssh-deploy@v5
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          REMOTE_HOST: 72.62.52.70
+          REMOTE_USER: root
+          SOURCE: .next/
+          TARGET: /var/www/goldenwing-website/.next/
+          EXCLUDE: cache/
+
+      - name: Restart PM2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: 72.62.52.70
+          username: root
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
             cd /var/www/goldenwing-website
-            npm ci --omit=dev
-            pm2 restart goldenwing
-          EOF
+            pm2 restart goldenwing --update-env
+            sleep 3
+            curl -sf http://localhost:3002/admin > /dev/null && echo ✅ Deploy successful || echo ❌ Health check failed
+
+      - name: Purge Cloudflare Cache
+        if: success()
+        run: |
+          curl -s -X POST https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache             -H X-Auth-Email: ${{ secrets.CF_EMAIL }}             -H X-Auth-Key: ${{ secrets.CF_API_KEY }}             -H Content-Type: application/json             --data '"{purge_everything:true}"'

@@ -12,6 +12,7 @@
 import createMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 import { routing } from './i18n/routing'
+// isBot available from './middleware/utils' if needed for future bot-specific logic
 import { checkAndRedirect } from './middleware/redirects'
 
 // ============================================================
@@ -29,48 +30,17 @@ const intlMiddleware = createMiddleware({
 })
 
 /**
- * SEO FIX: For the default locale (de), prevent redirects from unprefixed
- * URLs to /de/ prefixed URLs. Instead, convert these to rewrites.
- * 
- * With localePrefix: 'as-needed', next-intl should NOT redirect the default
- * locale to /de/, but due to a possible bug it does. This wrapper fixes it.
+ * Wrapper to convert 307 redirects to 308 (permanent) for SEO
+ * next-intl uses 307 by default, but for locale prefix removal
+ * we want permanent redirects to consolidate link equity
  */
-function fixDefaultLocaleRedirect(request: NextRequest, response: NextResponse): NextResponse {
-  const pathname = request.nextUrl.pathname
-  
-  // Only fix redirects (307/308) that add /de/ prefix to the default locale
-  if (response.status === 307 || response.status === 308) {
+function withPermanentRedirect(response: NextResponse): NextResponse {
+  if (response.status === 307) {
     const location = response.headers.get('location')
     if (location) {
-      // Parse the redirect target
-      let targetPath: string
-      try {
-        const url = new URL(location, request.url)
-        targetPath = url.pathname
-      } catch {
-        targetPath = location
-      }
-      
-      // If redirecting from /path → /de/path, convert to rewrite instead
-      if (
-        !pathname.startsWith('/de/') && 
-        !pathname.startsWith('/en/') && 
-        !pathname.startsWith('/ru/') &&
-        targetPath.startsWith('/de/')
-      ) {
-        // Rewrite to /de/ version internally (no visible redirect)
-        const rewriteUrl = new URL(targetPath, request.url)
-        rewriteUrl.search = request.nextUrl.search
-        return NextResponse.rewrite(rewriteUrl)
-      }
-      
-      // For other locale redirects (e.g., /path → /en/path), keep as 308
-      if (response.status === 307) {
-        return NextResponse.redirect(location, 308)
-      }
+      return NextResponse.redirect(location, 308)
     }
   }
-  
   return response
 }
 
@@ -91,16 +61,21 @@ export default function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // Skip Payload CMS admin routes — let Payload handle them directly
+  if (pathname.startsWith("/admin")) {
+    return NextResponse.next()
+  }
+
   // Check for SEO-critical slug corrections (applies to all requests)
   const redirect = checkAndRedirect(request)
   if (redirect) return redirect
 
+  // Note: All requests go through intlMiddleware for proper locale routing
+  // Previously bots were handled differently, but they need intlMiddleware too
+
   // Apply i18n middleware for locale negotiation and URL rewriting
-  const response = intlMiddleware(request)
-  
-  // Fix: convert /de/ redirects to rewrites for SEO (no redirect chains)
-  // and convert remaining 307 → 308 for other locale redirects
-  return fixDefaultLocaleRedirect(request, response)
+  // Wrap with permanent redirect converter for SEO (307 → 308)
+  return withPermanentRedirect(intlMiddleware(request))
 }
 
 // ============================================================
@@ -110,6 +85,6 @@ export default function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     // Match all paths except static files
-    '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|llms.txt|llms-full.txt|media/|api/).*)',
+    '/((?!_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|llms.txt|llms-full.txt|media/|api/|admin).*)',
   ],
 }
