@@ -9,6 +9,7 @@ import { analyzeSeo } from '@/lib/tools/analyzers/seo'
 import { analyzePerformance } from '@/lib/tools/analyzers/performance'
 import { analyzeDesign } from '@/lib/tools/analyzers/design'
 import { analyzeSecurity } from '@/lib/tools/analyzers/security'
+import { trackToolUsage } from '@/lib/tools/track-usage'
 
 const analyzeSchema = z.object({
   url: z.string().url().max(500),
@@ -143,6 +144,20 @@ export async function POST(request: Request) {
     const criticalIssues = allIssues.filter(i => i.severity === 'critical').length
     const warningIssues = allIssues.filter(i => i.severity === 'warning').length
     const passedChecks = allIssues.filter(i => i.severity === 'passed' || i.severity === 'info').length
+
+    // Track usage in GoldenWing Cockpit (non-blocking)
+    trackToolUsage({
+      url: url,
+      toolType: 'combined',
+      scores: { overall: overallScore, seo: seo?.score, performance: performance?.score, design: design?.score, security: security?.score },
+      criticalIssues,
+      warningIssues,
+      passedChecks,
+      clientIP,
+      userAgent: request.headers.get('user-agent') || undefined,
+      referrer: request.headers.get('referer') || undefined,
+      payloadId: undefined,
+    }).catch(() => {}) // fire and forget
 
     return NextResponse.json({
       success: true,

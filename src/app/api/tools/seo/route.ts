@@ -9,6 +9,7 @@ import { analyzeSeo, type SeoAnalysisResult } from '@/lib/tools/analyzers/seo'
 import { getCachedAnalysis, setCachedAnalysis, getCacheAge } from '@/lib/tools/cache'
 import { getPayload } from 'payload'
 import config from '../../../../../payload.config'
+import { trackToolUsage } from '@/lib/tools/track-usage'
 
 const analyzeSchema = z.object({
   url: z.string().url().max(500),
@@ -155,6 +156,20 @@ export async function POST(request: Request) {
       // Database save failed (possibly missing table) - continue without saving
       logger.warn('Could not save SEO analysis to database:', dbError)
     }
+
+    // Track usage in GoldenWing Cockpit (non-blocking)
+    trackToolUsage({
+      url: normalizedUrl,
+      toolType: 'seo',
+      scores: { overall: result.score, seo: result.score },
+      criticalIssues: result.issues.filter((i) => i.severity === 'critical').length,
+      warningIssues: result.issues.filter((i) => i.severity === 'warning').length,
+      passedChecks: result.issues.filter((i) => i.severity === 'passed' || i.severity === 'info').length,
+      clientIP,
+      userAgent: request.headers.get('user-agent') || undefined,
+      referrer: request.headers.get('referer') || undefined,
+      payloadId: analysisId || undefined,
+    }).catch(() => {}) // fire and forget
 
     return NextResponse.json({
       success: true,

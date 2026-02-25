@@ -7,6 +7,7 @@ import { logRateLimitExceeded, logXSSAttempt } from '@/lib/security/logging'
 import { validateOrigin } from '@/lib/security/csrf'
 import { analyzeDesign, type DesignAnalysisResult } from '@/lib/tools/analyzers/design'
 import { getCachedAnalysis, setCachedAnalysis, getCacheAge } from '@/lib/tools/cache'
+import { trackToolUsage } from '@/lib/tools/track-usage'
 
 const analyzeSchema = z.object({
   url: z.string().url().max(500),
@@ -69,7 +70,7 @@ export async function POST(request: Request) {
     const cachedResult = getCachedAnalysis<DesignAnalysisResult>('design', normalizedUrl)
     if (cachedResult) {
       const cacheAge = getCacheAge('design', normalizedUrl)
-      return NextResponse.json({
+    return NextResponse.json({
         success: true,
         cached: true,
         cacheAge: cacheAge,
@@ -102,7 +103,20 @@ export async function POST(request: Request) {
     // Cache the result (1 hour TTL)
     setCachedAnalysis('design', normalizedUrl, result)
 
-    return NextResponse.json({
+        // Track usage in GoldenWing Cockpit (non-blocking)
+    trackToolUsage({
+      url: normalizedUrl,
+      toolType: 'design',
+      scores: { overall: result.score, design: result.score },
+      criticalIssues: result.issues.filter((i) => i.severity === 'critical').length,
+      warningIssues: result.issues.filter((i) => i.severity === 'warning').length,
+      passedChecks: result.issues.filter((i) => i.severity === 'passed' || i.severity === 'info').length,
+      clientIP,
+      userAgent: request.headers.get('user-agent') || undefined,
+      referrer: request.headers.get('referer') || undefined,
+    }).catch(() => {}) // fire and forget
+
+return NextResponse.json({
       success: true,
       result: {
         url: normalizedUrl,
