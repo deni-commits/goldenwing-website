@@ -711,7 +711,7 @@ export default async function BrandingAbuDhabiPage({
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
-            {data.services.map((service, index) => {
+            {data?.services?.map((service, index) => {
               const Icon = iconMap[service.icon as keyof typeof iconMap] || Palette
               return (
                 <Card key={index} className="hover:shadow-lg transition-shadow">

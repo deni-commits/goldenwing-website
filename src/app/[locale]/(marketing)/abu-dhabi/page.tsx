@@ -939,7 +939,7 @@ export default async function AbuDhabiPage({ params }: Props) {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {data.services.map((service, index) => {
+              {data?.services?.map((service, index) => {
                 const Icon = IconMap[service.icon] || Globe
                 return (
                   <div key={index} className="group bg-background border rounded-xl p-6 hover:border-primary/50 hover:shadow-lg transition-all">

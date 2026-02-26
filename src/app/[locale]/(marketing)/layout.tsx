@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Bricolage_Grotesque, Space_Mono } from "next/font/google"
 import dynamic from 'next/dynamic'
 import { Toaster } from "@/components/ui/sonner"
 import { Header } from '@/components/layout/header'
@@ -33,6 +33,21 @@ const inter = Inter({
   display: "swap",
   preload: true,
   adjustFontFallback: true,
+})
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+  preload: true,
+  weight: ["400", "500", "600", "700", "800"],
+})
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  display: "swap",
+  weight: ["400", "700"],
 })
 
 export async function generateMetadata({
@@ -140,7 +155,7 @@ export default async function MarketingLayout({
         {/* Preload logo for faster header rendering */}
         <link rel="preload" href="/logo-light.svg" as="image" type="image/svg+xml" />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${bricolage.variable} ${spaceMono.variable} font-sans antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

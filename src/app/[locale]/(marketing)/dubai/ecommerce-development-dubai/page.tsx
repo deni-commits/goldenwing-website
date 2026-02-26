@@ -433,9 +433,9 @@ export default async function EcommerceDevelopmentDubaiPage({ params }: { params
       {/* Services */}
       <section className="py-20 bg-muted/30">
         <Container variant="block">
-          <h2 className="text-3xl font-bold mb-12 text-center">{data.services.title}</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">{data?.services?.title}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {data.services.items.map((service) => (
+            {data?.services?.items.map((service) => (
               <Card key={service.title} className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
                   <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-4">

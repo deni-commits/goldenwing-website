@@ -393,6 +393,10 @@ export const BLOG_POST_SLUGS = {
     'backlinks-aufbauen-guide': 'build-backlinks-guide',
     'seo-kosten-guide': 'seo-costs-guide',
     'wix-alternative-professionelles-webdesign': 'wix-alternative-professional-web-design',
+    // 2026 posts
+    'geo-2026-seo-reicht-nicht-mehr': 'geo-2026-seo-is-not-enough',
+    'local-seo-guide': 'local-seo-guide',
+    'wordpress-seo-guide': 'wordpress-seo-guide',
   },
   en: {
     'professional-website-cost-2025': 'was-kostet-eine-professionelle-website',
@@ -416,6 +420,10 @@ export const BLOG_POST_SLUGS = {
     'build-backlinks-guide': 'backlinks-aufbauen-guide',
     'seo-costs-guide': 'seo-kosten-guide',
     'wix-alternative-professional-web-design': 'wix-alternative-professionelles-webdesign',
+    // 2026 posts
+    'geo-2026-seo-is-not-enough': 'geo-2026-seo-reicht-nicht-mehr',
+    'local-seo-guide': 'local-seo-guide',
+    'wordpress-seo-guide': 'wordpress-seo-guide',
   }
 } as const
 

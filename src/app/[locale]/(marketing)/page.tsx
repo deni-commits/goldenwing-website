@@ -8,13 +8,14 @@ import { AnimatedStats, CMSStat } from '@/components/sections/animated-stats'
 import { AnimatedSection } from '@/components/ui/animated-section'
 import { FeaturedProjects } from '@/components/sections/featured-projects'
 import { ApproachSection } from '@/components/sections/approach-section'
+import { FeaturedTeam } from '@/components/sections/featured-team'
 import { HeroSection } from '@/components/sections/hero-section'
-import { WhyCard, ServiceCard, QualityItem, BlogCard, CTASection } from '@/components/ui/animated-card'
+import { ServiceCard, BlogCard, CTASection } from '@/components/ui/animated-card'
 import { getFeaturedProjects, getHomePage, type SupportedLocale } from '@/lib/payload'
 import { getTranslations } from 'next-intl/server'
 import { TestimonialsColumns } from '@/components/ui/testimonials-columns'
 import { ReviewSchema, CredentialsSchema } from '@/components/seo/schemas'
-import { getHreflangAlternates, getServicesUrl, getReferencesUrl, getAboutUrl } from '@/lib/utils'
+import { getHreflangAlternates, getServicesUrl, getReferencesUrl } from '@/lib/utils'
 import NextLink from 'next/link'
 import { Container } from '@/components/ui/container'
 
@@ -96,6 +97,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         description: seo?.ogDescription || 'Design, marketing & technology from one source. Offices in Vienna, Dubai, and California.',
         url: 'https://goldenwing.at/en',
         type: 'website',
+        locale: 'en_US',
         siteName: 'GoldenWing Creative Studios',
         images: [
           {
@@ -129,6 +131,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         description: seo?.ogDescription || 'Дизайн, маркетинг и технологии из одних рук. Офисы в Вене, Дубае и Калифорнии.',
         url: 'https://goldenwing.at/ru',
         type: 'website',
+        locale: 'ru_RU',
         siteName: 'GoldenWing Creative Studios',
         images: [
           {
@@ -159,8 +162,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       title: seo?.ogTitle || 'GoldenWing Creative Studios | Wien · Dubai · California',
       description: seo?.ogDescription || 'Design, Marketing & Technologie aus einer Hand. Standorte in Wien, Dubai und California.',
-      url: 'https://goldenwing.at',
+      url: 'https://goldenwing.at/de',
       type: 'website',
+      locale: 'de_AT',
       siteName: 'GoldenWing Creative Studios',
       images: [
         {
@@ -178,7 +182,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       images: ['https://goldenwing.at/og-image.jpg'],
     },
     alternates: {
-      canonical: '/',
+      canonical: '/de',
       languages: hreflangAlternates.languages,
     },
   }
@@ -752,14 +756,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     items: defaults.testimonials.items,
   }
 
-  const quality = {
-    title: defaults.quality.title,
-    subtitle: defaults.quality.subtitle,
-    description: defaults.quality.description,
-    items: defaults.quality.items,
-    cta: defaults.quality.cta,
-  }
-
   const blogSection = {
     title: defaults.blog.title,
     subtitle: defaults.blog.subtitle,
@@ -858,32 +854,24 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         secondaryCta={hero.secondaryCta}
       />
 
-      {/* Stats Section - Using CMS data if available, otherwise translations */}
+      {/* 1. SOCIAL PROOF — Client Logos directly after Hero */}
+      <PartnersCarousel
+        title={logoCarouselData?.title || tPartners('title')}
+        subtitle={logoCarouselData?.subtitle || tPartners('subtitle')}
+      />
+
+      {/* 2. FEATURED PROJECTS — Show best work early */}
+      <FeaturedProjects
+        projects={projects}
+        title={projectsSection.title}
+        subtitle={projectsSection.subtitle}
+      />
+
+      {/* 3. STATS — Key numbers */}
       <AnimatedStats className="border-y bg-muted/30" cmsStats={cmsStats} />
 
-      {/* Why GoldenWing Section - Enhanced with icon animations - CLS prevention */}
-      <section className="py-20 md:min-h-[600px]" style={{ contain: 'layout' }}>
-        <Container variant="block">
-          <AnimatedSection className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{whyGoldenwing.title}</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">{whyGoldenwing.subtitle}</p>
-          </AnimatedSection>
-          <div className="grid md:grid-cols-2 gap-6">
-            {whyGoldenwing.items.map((item, i) => (
-              <WhyCard
-                key={i}
-                iconName={item.iconName}
-                title={item.title}
-                description={item.description}
-                delay={i * 0.1}
-              />
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Services Section - Enhanced with arrow animations - CLS prevention */}
-      <section className="py-20 bg-muted/30 md:min-h-[700px]" style={{ contain: 'layout' }}>
+      {/* 4. SERVICES — What we do */}
+      <section className="py-20 md:min-h-[700px]" style={{ contain: 'layout' }}>
         <Container variant="block">
           <AnimatedSection className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">{services.title}</h2>
@@ -909,21 +897,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </Container>
       </section>
 
-      {/* Process Section - Animated Approach */}
-      <ApproachSection
-        title={process.title}
-        subtitle={process.subtitle}
-        steps={process.steps}
+      {/* 5. TEAM — People behind GoldenWing */}
+      <FeaturedTeam
+        title={whyGoldenwing.title}
+        subtitle={whyGoldenwing.subtitle}
+        showCTA={true}
+        limit={4}
       />
 
-      {/* Featured Projects */}
-      <FeaturedProjects
-        projects={projects}
-        title={projectsSection.title}
-        subtitle={projectsSection.subtitle}
-      />
-
-      {/* Testimonials Section */}
+      {/* 6. TESTIMONIALS */}
       <section className="py-20 bg-muted/30 md:min-h-[900px]" style={{ contain: 'layout' }}>
         <Container variant="block">
           <AnimatedSection>
@@ -948,41 +930,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </AnimatedSection>
       </section>
 
-      {/* Quality Section - Enhanced with staggered checkmarks - CLS prevention */}
-      <section className="py-20 md:min-h-[500px]" style={{ contain: 'layout' }}>
-        <Container variant="block">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <AnimatedSection>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">{quality.title}</h2>
-              <p className="text-xl text-muted-foreground mb-6">{quality.subtitle}</p>
-              <p className="text-muted-foreground leading-relaxed mb-8">{quality.description}</p>
-              <NextLink href={getAboutUrl(locale)}>
-                <Button variant="outline" size="lg" className="group">
-                  {quality.cta}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </NextLink>
-            </AnimatedSection>
-            <AnimatedSection delay={0.2}>
-              <div className="bg-card border rounded-2xl p-8">
-                <ul className="space-y-4">
-                  {quality.items.map((item, i) => (
-                    <QualityItem key={i} text={item} delay={i * 0.1} />
-                  ))}
-                </ul>
-              </div>
-            </AnimatedSection>
-          </div>
-        </Container>
-      </section>
-
-      {/* Partners Carousel */}
-      <PartnersCarousel
-        title={logoCarouselData?.title || tPartners('title')}
-        subtitle={logoCarouselData?.subtitle || tPartners('subtitle')}
+      {/* 7. PROCESS — How we work */}
+      <ApproachSection
+        title={process.title}
+        subtitle={process.subtitle}
+        steps={process.steps}
       />
 
-      {/* Blog Section - Enhanced with category badge animation - CLS prevention */}
+      {/* 8. BLOG */}
       <section className="py-20 bg-muted/30 md:min-h-[500px]" style={{ contain: 'layout' }}>
         <Container variant="block">
           <AnimatedSection className="text-center mb-12">
@@ -1012,7 +967,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </Container>
       </section>
 
-      {/* CTA Section - Enhanced with animated background */}
+      {/* 9. CTA */}
       <CTASection
         title={ctaSection.title}
         subtitle={ctaSection.subtitle}

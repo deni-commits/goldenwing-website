@@ -68,14 +68,12 @@ Wir verstehen diese Balance: Websites, die Kultur und Qualität ausstrahlen, abe
 
     // UNIQUE: ITG Salzburg Förderung (50%!)
     fundingTitle: 'Förderung in Salzburg',
-    fundingDescription: `**ITG Salzburg** (Innovation & Technologie Salzburg) fördert Digitalisierungsprojekte mit bis zu **50%** (max. €10.000).
+    fundingDescription: `Das **Land Salzburg** und die **WKO Salzburg** fördern Digitalisierungsprojekte für KMUs.
 
-Das ist die höchste Förderquote in Österreich!
-
-Bei einem Website-Projekt von €8.000 zahlen Sie effektiv nur €4.000.
+Förderhöhen variieren je nach Programm – oft bis zu 30-50% der Projektkosten.
 
 Wir helfen beim Antrag – kostenlos und unverbindlich.`,
-    fundingLink: 'https://www.itg-salzburg.at/foerderungen',
+    fundingLink: 'https://www.wko.at/sbg',
 
     servicesTitle: 'Unsere Leistungen für Salzburg',
     services: [
@@ -148,12 +146,12 @@ Wir helfen beim Antrag – kostenlos und unverbindlich.`,
     ],
 
     fundingTitle: 'Funding in Salzburg',
-    fundingDescription: `**ITG Salzburg** funds digitalization projects up to **50%** (max €10,000).
+    fundingDescription: `**Salzburg regional government** and **WKO Salzburg** fund digitalization projects for SMEs.
 
-This is the highest funding rate in Austria!
+Funding rates vary by program – often 30-50% of project costs.
 
 We help with the application – free and non-binding.`,
-    fundingLink: 'https://www.itg-salzburg.at/foerderungen',
+    fundingLink: 'https://www.wko.at/sbg',
 
     servicesTitle: 'Our Services for Salzburg',
     services: [

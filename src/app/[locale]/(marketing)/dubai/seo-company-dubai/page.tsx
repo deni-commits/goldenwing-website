@@ -533,9 +533,9 @@ export default async function SEOCompanyDubaiPage({ params }: { params: Promise<
       {/* Services */}
       <section className="py-20 bg-muted/30">
         <Container variant="block">
-          <h2 className="text-3xl font-bold mb-12 text-center">{data.services.title}</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">{data?.services?.title}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {data.services.categories.map((category) => (
+            {data?.services?.categories.map((category) => (
               <Card key={category.title}>
                 <CardHeader>
                   <div className="flex items-center gap-3">

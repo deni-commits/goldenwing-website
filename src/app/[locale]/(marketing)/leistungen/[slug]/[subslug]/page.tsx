@@ -2,9 +2,8 @@ import type { ComponentType } from 'react'
 import { Metadata } from 'next'
 import { Link } from '@/lib/i18n-navigation'
 
-// Force fully static pages at build time
-export const dynamic = 'force-static'
-export const dynamicParams = false
+// Dynamic generation for sub-service pages (generateStaticParams is empty)
+export const dynamic = 'force-dynamic'
 export const revalidate = 60
 import Image from 'next/image'
 import { notFound } from 'next/navigation'

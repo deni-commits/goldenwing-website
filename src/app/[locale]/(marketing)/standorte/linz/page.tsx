@@ -73,7 +73,7 @@ Wir verstehen beide Welten: B2B-Industrie mit komplexen Produkten UND agile Tech
 Bei einem Website-Projekt von €10.000 zahlen Sie effektiv nur ~€7.000.
 
 Wir helfen beim Antrag – kostenlos und unverbindlich.`,
-    fundingLink: 'https://www.biz-up.at/foerderungen',
+    fundingLink: 'https://www.biz-up.at',
 
     servicesTitle: 'Unsere Leistungen für Linz',
     services: [
@@ -157,7 +157,7 @@ We understand both worlds: B2B industry with complex products AND agile tech com
     fundingDescription: `**Business Upper Austria** funds digitalization projects up to 30% (max €15,000).
 
 We help with the application – free and non-binding.`,
-    fundingLink: 'https://www.biz-up.at/foerderungen',
+    fundingLink: 'https://www.biz-up.at',
 
     servicesTitle: 'Our Services for Linz',
     services: [

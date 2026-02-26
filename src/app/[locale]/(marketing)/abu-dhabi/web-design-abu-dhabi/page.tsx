@@ -367,7 +367,7 @@ export default async function WebDesignAbuDhabiPage({ params }: Props) {
             {{ de: 'Unsere Webdesign Services', en: 'Our Web Design Services', ru: 'Наши услуги веб-дизайна' }[locale]}
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {data.services.map((service, index) => {
+            {data?.services?.map((service, index) => {
               const Icon = IconMap[service.icon] || Globe
               return (
                 <Card key={index} className="border-2 hover:border-primary/50 transition-colors">

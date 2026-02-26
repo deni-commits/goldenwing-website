@@ -255,7 +255,8 @@ export function HreflangTags() {
   }
 
   // Generate full URLs
-  const deUrl = `${BASE_URL}${dePath === '/' ? '' : dePath}`
+  // Note: localePrefix is 'always', so DE URLs also need /de/ prefix
+  const deUrl = `${BASE_URL}/de${dePath === '/' ? '' : dePath}`
   const enUrl = `${BASE_URL}/en${enPath === '/' ? '' : enPath}`
 
   // Generate RU URL from routing pathnames

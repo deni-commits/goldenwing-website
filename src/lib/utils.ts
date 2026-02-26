@@ -332,17 +332,13 @@ export function getCanonicalUrl(pathKey: string, locale: string): string {
 
       if (typeof mapping === 'string') {
         // Simple string mapping (same for both locales)
-        // localePrefix: 'as-needed' — DE (default) gets no prefix, others do
-        if (locale === 'de') return `${baseUrl}${mapping}`
-        if (locale === 'en') return `${baseUrl}/en${mapping}`
-        return `${baseUrl}/${locale}${mapping}`
-      } else if (typeof mapping === 'object') {
+        // Note: localePrefix is 'always', so DE URLs also need /de/ prefix
+        return locale === 'en' ? `${baseUrl}/en${mapping}` : `${baseUrl}/de${mapping}`
+      } else if (typeof mapping === 'object' && mapping.de && mapping.en) {
         // Locale-specific mapping
-        const localePath = (mapping as Record<string, string>)[locale] || (mapping as Record<string, string>).de
-        // localePrefix: 'as-needed' — DE (default) gets no prefix, others do
-        if (locale === 'de') return `${baseUrl}${localePath}`
-        if (locale === 'en') return `${baseUrl}/en${localePath}`
-        return `${baseUrl}/${locale}${localePath}`
+        const localePath = locale === 'en' ? mapping.en : mapping.de
+        // Note: localePrefix is 'always', so DE URLs also need /de/ prefix
+        return locale === 'en' ? `${baseUrl}/en${localePath}` : `${baseUrl}/de${localePath}`
       }
     }
   } catch {
@@ -357,8 +353,8 @@ export function getCanonicalUrl(pathKey: string, locale: string): string {
     const translatedPath = translatePath(cleanPathKey)
     return `${baseUrl}/en${translatedPath === '/' ? '' : translatedPath}`
   }
-  // localePrefix: 'as-needed' — DE (default) gets no prefix
-  return `${baseUrl}${cleanPathKey}`
+  // Note: localePrefix is 'always', so DE URLs also need /de/ prefix
+  return `${baseUrl}/de${cleanPathKey}`
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
@@ -398,8 +394,8 @@ export function getHreflangAlternates(path: string, currentLocale?: string): {
   }
 
   // Use absolute URLs to prevent Next.js from adding trailing slashes
-  // localePrefix: 'as-needed' — DE (default) gets no prefix
-  const deUrl = `${BASE_URL}${dePath === '/' ? '' : dePath}`
+  // Note: localePrefix is 'always', so DE URLs also need /de/ prefix
+  const deUrl = `${BASE_URL}/de${dePath === '/' ? '' : dePath}`
   const enUrl = `${BASE_URL}/en${enPath === '/' ? '' : enPath}`
 
   // Generate RU URL from routing.ts pathnames
@@ -589,7 +585,7 @@ export function getSchemaUrl(dePath: string, locale: string): string {
     const translatedPath = translatePath(cleanPath)
     return `${BASE_URL}/en${translatedPath === '/' ? '' : translatedPath}`
   }
-  // localePrefix: 'as-needed' — DE (default) gets no prefix
+  // Note: localePrefix is 'always', so DE URLs also need /de/ prefix
   return `${BASE_URL}/de${cleanPath === '/' ? '' : cleanPath}`
 }
 

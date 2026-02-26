@@ -19,7 +19,7 @@ import { locales, defaultLocale } from './config'
 export const routing = defineRouting({
   locales,
   defaultLocale,
-  localePrefix: 'as-needed',
+  localePrefix: 'always', // SEO-optimiert: Alle URLs haben explizites /de/ oder /en/ Prefix
 
   // Locale-specific pathnames for SEO
   pathnames: {

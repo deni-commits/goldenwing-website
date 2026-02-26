@@ -514,11 +514,11 @@ export default async function DubaiHubPage({ params }: { params: Promise<{ local
       <section className="py-20">
         <Container variant="block">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{data.services.title}</h2>
-            <p className="text-muted-foreground">{data.services.description}</p>
+            <h2 className="text-3xl font-bold mb-4">{data?.services?.title}</h2>
+            <p className="text-muted-foreground">{data?.services?.description}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {data.services.items.map((service) => (
+            {data?.services?.items.map((service) => (
               <Card key={service.title} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-center gap-3">

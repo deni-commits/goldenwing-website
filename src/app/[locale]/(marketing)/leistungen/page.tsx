@@ -1,235 +1,546 @@
-import type { ComponentType } from 'react'
-import { Metadata } from 'next'
-import { Link } from '@/lib/i18n-navigation'
-import { ArrowRight, Palette, Globe, Search, LineChart, Camera, Code, CheckCircle2, Users, Target, Zap, Shield } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { getServices, getServicesOverviewPage, type SupportedLocale } from '@/lib/payload'
-import { getServiceTranslationRu } from '@/lib/translations/services-ru'
-import { BreadcrumbSchema, ServiceListSchema } from '@/components/seo/schemas'
-import { AggregateRatingSchema, HowToSchema } from '@/components/seo/json-ld'
-import NextLink from 'next/link'
-import { getServiceUrl } from '@/lib/utils'
-import { FAQSection } from '@/components/sections/faq-section'
-import { ProcessExpandingRows } from '@/components/process-sections/ProcessExpandingRows'
-import { getTranslations } from 'next-intl/server'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+import { ServicesGrid } from './services-grid'
+import { HeroStats } from './hero-stats'
+import { ServicesMarquee } from './services-marquee'
+import { ProcessSection } from './process-section'
+import { ValuesSection } from './values-section'
+import { PaketeCTA } from './pakete-cta'
+import { FinalCTA } from './final-cta'
+import { LeistungenFAQ, type LeistungenFAQItem } from './leistungen-faq'
 import { getCanonicalUrl, getHreflangAlternates, getOpenGraphConfig, getContactUrl } from '@/lib/utils'
-import { Container } from '@/components/ui/container'
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TYPES
+// ─────────────────────────────────────────────────────────────────────────────
+
+type SupportedLocale = 'de' | 'en' | 'ru'
+
+interface ServiceData {
+  num: string
+  label: string
+  icon: string
+  title: string
+  description: string
+  tags: string[]
+  href: string
+  ariaLabel: string
+}
+
+interface HeroStat {
+  value: string
+  label: string
+  animated?: boolean
+}
+
+interface ProcessStep {
+  num: string
+  title: string
+  description: string
+}
+
+interface ValueProp {
+  num: string
+  title: string
+  description: string
+}
+
+interface PageContent {
+  breadcrumbHome: string
+  breadcrumbCurrent: string
+  eyebrow: string
+  headline: string
+  headlineHighlight: string
+  headlineLight: string
+  introText: string
+  badge: string
+  ctaButton: string
+  heroStats: HeroStat[]
+  marqueeTitle: string
+  marqueeServices: string[]
+  processEyebrow: string
+  processTitle: string
+  processTitleHighlight: string
+  processDescription: string
+  processSteps: ProcessStep[]
+  valuesEyebrow: string
+  valuesTitle: string
+  valuesTitleHighlight: string
+  values: ValueProp[]
+  paketeTitle: string
+  paketeTitleHighlight: string
+  paketeDescription: string
+  paketeButton: string
+  finalCtaTitle: string
+  finalCtaTitleHighlight: string
+  finalCtaDescription: string
+  finalCtaButton: string
+  faqEyebrow: string
+  faqTitle: string
+  faqTitleHighlight: string
+  faqDescription: string
+  services: ServiceData[]
+  faqs: LeistungenFAQItem[]
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// I18N CONTENT
+// ─────────────────────────────────────────────────────────────────────────────
+
+const content: Record<SupportedLocale, PageContent> = {
+  de: {
+    breadcrumbHome: 'Home',
+    breadcrumbCurrent: 'Leistungen',
+    eyebrow: 'Was wir machen',
+    headline: 'Unsere',
+    headlineHighlight: 'Kompetenzfelder',
+    headlineLight: 'im Überblick',
+    introText: 'GoldenWing Creative Studios verbindet Markenstrategie, Design, digitale Kommunikation und technologische Umsetzung. Von Wien aus betreuen wir Kunden in ganz Europa — mit sechs Kernbereichen für nachhaltiges digitales Wachstum.',
+    badge: '06 Kernbereiche · 30+ Services',
+    ctaButton: 'Projekt starten',
+    heroStats: [
+      { value: '100+', label: 'Erfolgreiche Projekte', animated: true },
+      { value: '13+', label: 'Jahre Erfahrung', animated: true },
+      { value: '3', label: 'Standorte weltweit' },
+      { value: '95%', label: 'Kundenzufriedenheit' },
+    ],
+    marqueeTitle: 'Spezialisierte Services für spezifische Anforderungen',
+    marqueeServices: ['Grafikdesign', 'SEO Texter', 'SEO Berater', 'SEO Betreuung', 'SEA Agentur', 'Google Ads Agentur', 'E-Commerce Agentur', 'Onlineshop Agentur', 'WordPress Agentur', 'Social Media Agentur', 'GEO Optimierung', 'Content Creation', 'Reels & Video', 'Business-Fotografie'],
+    processEyebrow: 'Prozess',
+    processTitle: 'Unser Arbeits',
+    processTitleHighlight: 'prozess',
+    processDescription: 'Strukturiert, transparent und ergebnisorientiert. Fünf Phasen, die jedes Projekt zum Erfolg führen.',
+    processSteps: [
+      { num: '01', title: 'Discovery', description: 'Wir analysieren Ihre Ziele, Zielgruppen und Wettbewerber. In einem Workshop erarbeiten wir gemeinsam die strategische Grundlage für Ihr Projekt.' },
+      { num: '02', title: 'Strategie', description: 'Basierend auf den Erkenntnissen entwickeln wir eine maßgeschneiderte Strategie mit klaren Meilensteinen, KPIs und einem realistischen Zeitplan.' },
+      { num: '03', title: 'Kreation', description: 'Unser Kreativteam setzt die Strategie in hochwertige Designs und Inhalte um. Regelmäßige Abstimmungen stellen sicher, dass wir Ihre Vision treffen.' },
+      { num: '04', title: 'Umsetzung', description: 'Entwickler und Spezialisten bringen die Konzepte in die Realität. Qualitätssicherung und Testing garantieren einwandfreie Ergebnisse.' },
+      { num: '05', title: 'Launch & Optimierung', description: 'Nach dem erfolgreichen Launch analysieren wir kontinuierlich die Performance und optimieren für nachhaltigen Erfolg.' },
+    ],
+    valuesEyebrow: 'Versprechen',
+    valuesTitle: 'Was Sie von uns erwarten',
+    valuesTitleHighlight: 'können',
+    values: [
+      { num: '01', title: 'Strategischer Fokus', description: 'Jede Maßnahme dient einem klaren Ziel. Wir investieren Zeit in Strategie, damit die Umsetzung sitzt.' },
+      { num: '02', title: 'Persönliche Betreuung', description: 'Ein fester Ansprechpartner kennt Ihr Projekt in- und auswendig. Keine Warteschleifen, direkte Kommunikation.' },
+      { num: '03', title: 'Schnelle Umsetzung', description: 'Agile Methoden und eingespieltes Team ermöglichen kurze Durchlaufzeiten ohne Qualitätsverlust.' },
+      { num: '04', title: 'Transparente Preise', description: 'Faire Festpreise oder transparente Stundensätze. Keine versteckten Kosten, keine bösen Überraschungen.' },
+    ],
+    paketeTitle: 'Service-',
+    paketeTitleHighlight: 'Pakete',
+    paketeDescription: 'Unsere Pakete bündeln die wichtigsten Services zu attraktiven Konditionen. Ideal für Unternehmen, die einen ganzheitlichen Ansatz suchen.',
+    paketeButton: 'Pakete entdecken',
+    finalCtaTitle: 'Bereit für Ihr nächstes',
+    finalCtaTitleHighlight: 'Projekt?',
+    finalCtaDescription: 'Lassen Sie uns in einem unverbindlichen Gespräch herausfinden, wie wir Ihnen helfen können.',
+    finalCtaButton: 'Kostenloses Erstgespräch buchen',
+    faqEyebrow: 'FAQ',
+    faqTitle: 'Häufige Fragen zu unseren',
+    faqTitleHighlight: 'Leistungen',
+    faqDescription: 'Klicken Sie auf eine Frage, um die Antwort zu sehen.',
+    services: [
+      {
+        num: '01',
+        label: 'Service 01',
+        icon: '◎',
+        title: 'Branding',
+        description: 'Markenstrategie, visuelle Identität und Markenrichtlinien — von der Idee bis zur gelebten Marke, die bei eurer Zielgruppe resoniert.',
+        tags: ['Markenstrategie', 'Corporate Identity', 'Logo-Design', 'Brand Guidelines'],
+        href: '/leistungen/branding',
+        ariaLabel: 'Branding — Markenstrategie, Corporate Identity, Logo-Design und Brand Guidelines. Mehr erfahren.'
+      },
+      {
+        num: '02',
+        label: 'Service 02',
+        icon: '⊕',
+        title: 'Webdesign',
+        description: 'UX/UI-Design und CMS-Entwicklung für performante, moderne Webauftritte die konvertieren.',
+        tags: ['UX/UI-Design', 'WordPress', 'Responsive'],
+        href: '/leistungen/webdesign',
+        ariaLabel: 'Webdesign — UX/UI-Design, CMS-Entwicklung und Responsive Design. Mehr erfahren.'
+      },
+      {
+        num: '03',
+        label: 'Service 03',
+        icon: '⚡',
+        title: 'Digital Marketing',
+        description: 'Kampagnenstrategie, Paid Media und E-Mail-Automatisierung für messbare Ergebnisse und nachhaltiges Wachstum.',
+        tags: ['Kampagnen', 'Paid Media', 'E-Mail-Automation'],
+        href: '/leistungen/digitale-strategie',
+        ariaLabel: 'Digital Marketing — Kampagnenstrategie, Paid Media und Automation. Mehr erfahren.'
+      },
+      {
+        num: '04',
+        label: 'Service 04',
+        icon: '◉',
+        title: 'SEO & Content',
+        description: 'Technical SEO, Local SEO, Keywordstrategie und Content-Produktion für nachhaltige Sichtbarkeit in Wien und ganz Österreich.',
+        tags: ['Technical SEO', 'Local SEO Wien', 'Content-Strategie'],
+        href: '/leistungen/seo-sichtbarkeit',
+        ariaLabel: 'SEO & Content — Technical SEO, Local SEO und Content-Produktion. Mehr erfahren.'
+      },
+      {
+        num: '05',
+        label: 'Service 05',
+        icon: '⟨/⟩',
+        title: 'Web- & App-Entwicklung',
+        description: 'Full-Stack Architektur, API-Integration, Mobile Apps und Automatisierung — maßgeschneidert für eure Anforderungen.',
+        tags: ['Full-Stack', 'API-Integration', 'Mobile Apps', 'Automation'],
+        href: '/leistungen/technische-loesungen',
+        ariaLabel: 'Web- & App-Entwicklung — Full-Stack, APIs und Mobile Apps. Mehr erfahren.'
+      },
+      {
+        num: '06',
+        label: 'Service 06',
+        icon: '☁',
+        title: 'IT & Cloud Services',
+        description: 'Cloud-Architektur, DevOps, Monitoring, Sicherheit und IT-Support für skalierbare Infrastruktur.',
+        tags: ['Cloud-Architektur', 'DevOps', 'Monitoring', 'Security'],
+        href: '/leistungen/software-entwicklung',
+        ariaLabel: 'IT & Cloud Services — Cloud-Architektur, DevOps und Security. Mehr erfahren.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Welche Leistungen bietet GoldenWing an?',
+        answer: 'GoldenWing bietet sechs Kernbereiche: Branding & Markenstrategie, Webdesign & UX/UI, Digital Marketing & Paid Media, SEO & Content-Produktion, Web- & App-Entwicklung sowie IT & Cloud Services. Alle Leistungen sind modular kombinierbar.',
+        links: [
+          { href: '/leistungen/branding', text: 'Branding' },
+          { href: '/leistungen/webdesign', text: 'Webdesign' },
+          { href: '/leistungen/digitale-strategie', text: 'Digital Marketing' },
+          { href: '/leistungen/seo-sichtbarkeit', text: 'SEO & Content' },
+          { href: '/leistungen/technische-loesungen', text: 'Web- & App-Entwicklung' },
+          { href: '/leistungen/software-entwicklung', text: 'IT & Cloud Services' }
+        ]
+      },
+      {
+        question: 'Für wen sind die Services von GoldenWing geeignet?',
+        answer: 'GoldenWing arbeitet mit KMU, Startups, Coaches, Dienstleistern und Agenturen, die ihren digitalen Markenauftritt professionell und zukunftsfähig gestalten möchten — in Wien, Österreich und ganz Europa.'
+      },
+      {
+        question: 'Was kostet eine Zusammenarbeit mit GoldenWing?',
+        answer: 'Die Kosten richten sich nach Projektumfang und gewünschten Leistungen. GoldenWing bietet modulare Pakete und individuelle Angebote. Ein kostenloses Erstgespräch klärt Anforderungen und Budget.',
+        links: [{ href: '/kontakt', text: 'Kostenloses Erstgespräch vereinbaren' }]
+      }
+    ]
+  },
+  en: {
+    breadcrumbHome: 'Home',
+    breadcrumbCurrent: 'Services',
+    eyebrow: 'What we do',
+    headline: 'Our',
+    headlineHighlight: 'Expertise',
+    headlineLight: 'at a glance',
+    introText: 'GoldenWing Creative Studios combines brand strategy, design, digital communication and technological implementation. From Vienna, we serve clients across Europe — with six core areas for sustainable digital growth.',
+    badge: '06 Core Areas · 30+ Services',
+    ctaButton: 'Start Project',
+    heroStats: [
+      { value: '100+', label: 'Successful Projects', animated: true },
+      { value: '13+', label: 'Years Experience', animated: true },
+      { value: '3', label: 'Locations Worldwide' },
+      { value: '95%', label: 'Client Satisfaction' },
+    ],
+    marqueeTitle: 'Specialized services for specific requirements',
+    marqueeServices: ['Graphic Design', 'SEO Copywriting', 'SEO Consulting', 'SEO Management', 'SEA Agency', 'Google Ads Agency', 'E-Commerce Agency', 'Online Shop Agency', 'WordPress Agency', 'Social Media Agency', 'GEO Optimization', 'Content Creation', 'Reels & Video', 'Business Photography'],
+    processEyebrow: 'Process',
+    processTitle: 'Our Work',
+    processTitleHighlight: 'process',
+    processDescription: 'Structured, transparent and results-oriented. Five phases that lead every project to success.',
+    processSteps: [
+      { num: '01', title: 'Discovery', description: 'We analyze your goals, target audiences and competitors. In a workshop we develop the strategic foundation for your project together.' },
+      { num: '02', title: 'Strategy', description: 'Based on the insights, we develop a tailored strategy with clear milestones, KPIs and a realistic timeline.' },
+      { num: '03', title: 'Creation', description: 'Our creative team translates the strategy into high-quality designs and content. Regular check-ins ensure we hit your vision.' },
+      { num: '04', title: 'Implementation', description: 'Developers and specialists bring concepts to reality. Quality assurance and testing guarantee flawless results.' },
+      { num: '05', title: 'Launch & Optimization', description: 'After a successful launch, we continuously analyze performance and optimize for sustainable success.' },
+    ],
+    valuesEyebrow: 'Promise',
+    valuesTitle: 'What you can expect',
+    valuesTitleHighlight: 'from us',
+    values: [
+      { num: '01', title: 'Strategic Focus', description: 'Every measure serves a clear goal. We invest time in strategy so the execution is on point.' },
+      { num: '02', title: 'Personal Support', description: 'A dedicated contact person knows your project inside out. No waiting, direct communication.' },
+      { num: '03', title: 'Fast Delivery', description: 'Agile methods and a seasoned team enable short turnaround times without quality loss.' },
+      { num: '04', title: 'Transparent Pricing', description: 'Fair fixed prices or transparent hourly rates. No hidden costs, no unpleasant surprises.' },
+    ],
+    paketeTitle: 'Service ',
+    paketeTitleHighlight: 'Packages',
+    paketeDescription: 'Our packages bundle the most important services at attractive conditions. Ideal for companies looking for a holistic approach.',
+    paketeButton: 'Discover Packages',
+    finalCtaTitle: 'Ready for your next',
+    finalCtaTitleHighlight: 'Project?',
+    finalCtaDescription: 'Let us find out in a non-binding conversation how we can help you.',
+    finalCtaButton: 'Book a Free Consultation',
+    faqEyebrow: 'FAQ',
+    faqTitle: 'Frequently asked questions about our',
+    faqTitleHighlight: 'Services',
+    faqDescription: 'Click on a question to see the answer.',
+    services: [
+      {
+        num: '01',
+        label: 'Service 01',
+        icon: '◎',
+        title: 'Branding',
+        description: 'Brand strategy, visual identity and brand guidelines — from concept to a living brand that resonates with your target audience.',
+        tags: ['Brand Strategy', 'Corporate Identity', 'Logo Design', 'Brand Guidelines'],
+        href: '/leistungen/branding',
+        ariaLabel: 'Branding — Brand strategy, corporate identity, logo design and brand guidelines. Learn more.'
+      },
+      {
+        num: '02',
+        label: 'Service 02',
+        icon: '⊕',
+        title: 'Web Design',
+        description: 'UX/UI design and CMS development for performant, modern websites that convert.',
+        tags: ['UX/UI Design', 'WordPress', 'Responsive'],
+        href: '/leistungen/webdesign',
+        ariaLabel: 'Web Design — UX/UI design, CMS development and responsive design. Learn more.'
+      },
+      {
+        num: '03',
+        label: 'Service 03',
+        icon: '⚡',
+        title: 'Digital Marketing',
+        description: 'Campaign strategy, paid media and email automation for measurable results and sustainable growth.',
+        tags: ['Campaigns', 'Paid Media', 'Email Automation'],
+        href: '/leistungen/digitale-strategie',
+        ariaLabel: 'Digital Marketing — Campaign strategy, paid media and automation. Learn more.'
+      },
+      {
+        num: '04',
+        label: 'Service 04',
+        icon: '◉',
+        title: 'SEO & Content',
+        description: 'Technical SEO, local SEO, keyword strategy and content production for sustainable visibility.',
+        tags: ['Technical SEO', 'Local SEO', 'Content Strategy'],
+        href: '/leistungen/seo-sichtbarkeit',
+        ariaLabel: 'SEO & Content — Technical SEO, local SEO and content production. Learn more.'
+      },
+      {
+        num: '05',
+        label: 'Service 05',
+        icon: '⟨/⟩',
+        title: 'Web & App Development',
+        description: 'Full-stack architecture, API integration, mobile apps and automation — tailored to your requirements.',
+        tags: ['Full-Stack', 'API Integration', 'Mobile Apps', 'Automation'],
+        href: '/leistungen/technische-loesungen',
+        ariaLabel: 'Web & App Development — Full-stack, APIs and mobile apps. Learn more.'
+      },
+      {
+        num: '06',
+        label: 'Service 06',
+        icon: '☁',
+        title: 'IT & Cloud Services',
+        description: 'Cloud architecture, DevOps, monitoring, security and IT support for scalable infrastructure.',
+        tags: ['Cloud Architecture', 'DevOps', 'Monitoring', 'Security'],
+        href: '/leistungen/software-entwicklung',
+        ariaLabel: 'IT & Cloud Services — Cloud architecture, DevOps and security. Learn more.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'What services does GoldenWing offer?',
+        answer: 'GoldenWing offers six core areas: Branding & brand strategy, web design & UX/UI, digital marketing & paid media, SEO & content production, web & app development, and IT & cloud services. All services can be combined modularly.',
+        links: [
+          { href: '/leistungen/branding', text: 'Branding' },
+          { href: '/leistungen/webdesign', text: 'Web Design' },
+          { href: '/leistungen/digitale-strategie', text: 'Digital Marketing' },
+          { href: '/leistungen/seo-sichtbarkeit', text: 'SEO & Content' },
+          { href: '/leistungen/technische-loesungen', text: 'Web & App Development' },
+          { href: '/leistungen/software-entwicklung', text: 'IT & Cloud Services' }
+        ]
+      },
+      {
+        question: 'Who are GoldenWing\'s services suitable for?',
+        answer: 'GoldenWing works with SMEs, startups, coaches, service providers and agencies who want to professionally design their digital brand presence — in Vienna, Austria and across Europe.'
+      },
+      {
+        question: 'How much does working with GoldenWing cost?',
+        answer: 'Costs depend on project scope and desired services. GoldenWing offers modular packages and individual offers. A free initial consultation clarifies requirements and budget.',
+        links: [{ href: '/kontakt', text: 'Schedule a free consultation' }]
+      }
+    ]
+  },
+  ru: {
+    breadcrumbHome: 'Главная',
+    breadcrumbCurrent: 'Услуги',
+    eyebrow: 'Что мы делаем',
+    headline: 'Наши',
+    headlineHighlight: 'Компетенции',
+    headlineLight: 'обзор',
+    introText: 'GoldenWing Creative Studios объединяет стратегию бренда, дизайн, цифровую коммуникацию и технологическую реализацию. Из Вены мы обслуживаем клиентов по всей Европе — с шестью ключевыми направлениями для устойчивого цифрового роста.',
+    badge: '06 направлений · 30+ услуг',
+    ctaButton: 'Начать проект',
+    heroStats: [
+      { value: '100+', label: 'Успешных проектов', animated: true },
+      { value: '13+', label: 'Лет опыта', animated: true },
+      { value: '3', label: 'Офиса в мире' },
+      { value: '95%', label: 'Удовлетворённость клиентов' },
+    ],
+    marqueeTitle: 'Специализированные услуги для конкретных задач',
+    marqueeServices: ['Графический дизайн', 'SEO-копирайтинг', 'SEO-консалтинг', 'SEO-сопровождение', 'SEA агентство', 'Google Ads агентство', 'E-Commerce агентство', 'Интернет-магазин', 'WordPress агентство', 'SMM агентство', 'GEO оптимизация', 'Контент-маркетинг', 'Reels и видео', 'Бизнес-фотография'],
+    processEyebrow: 'Процесс',
+    processTitle: 'Наш рабочий',
+    processTitleHighlight: 'процесс',
+    processDescription: 'Структурированный, прозрачный и ориентированный на результат. Пять фаз, которые ведут каждый проект к успеху.',
+    processSteps: [
+      { num: '01', title: 'Анализ', description: 'Мы анализируем ваши цели, целевые аудитории и конкурентов. На воркшопе совместно разрабатываем стратегическую основу проекта.' },
+      { num: '02', title: 'Стратегия', description: 'На основе полученных данных разрабатываем индивидуальную стратегию с чёткими этапами, KPI и реалистичным графиком.' },
+      { num: '03', title: 'Креатив', description: 'Наша креативная команда воплощает стратегию в качественный дизайн и контент. Регулярные согласования гарантируют точное попадание.' },
+      { num: '04', title: 'Реализация', description: 'Разработчики и специалисты воплощают концепции в реальность. Контроль качества и тестирование гарантируют безупречный результат.' },
+      { num: '05', title: 'Запуск и оптимизация', description: 'После успешного запуска мы непрерывно анализируем показатели и оптимизируем для устойчивого успеха.' },
+    ],
+    valuesEyebrow: 'Гарантии',
+    valuesTitle: 'Что вы можете ожидать',
+    valuesTitleHighlight: 'от нас',
+    values: [
+      { num: '01', title: 'Стратегический фокус', description: 'Каждое действие служит чёткой цели. Мы инвестируем время в стратегию, чтобы реализация была точной.' },
+      { num: '02', title: 'Персональная поддержка', description: 'Выделенный менеджер знает ваш проект досконально. Без очередей, прямая коммуникация.' },
+      { num: '03', title: 'Быстрая реализация', description: 'Agile-методы и слаженная команда обеспечивают короткие сроки без потери качества.' },
+      { num: '04', title: 'Прозрачные цены', description: 'Честные фиксированные цены или прозрачные часовые ставки. Без скрытых расходов.' },
+    ],
+    paketeTitle: 'Сервисные ',
+    paketeTitleHighlight: 'пакеты',
+    paketeDescription: 'Наши пакеты объединяют ключевые услуги на выгодных условиях. Идеально для компаний, ищущих комплексный подход.',
+    paketeButton: 'Узнать о пакетах',
+    finalCtaTitle: 'Готовы к следующему',
+    finalCtaTitleHighlight: 'проекту?',
+    finalCtaDescription: 'Давайте в необязывающей беседе выясним, как мы можем вам помочь.',
+    finalCtaButton: 'Бесплатная консультация',
+    faqEyebrow: 'FAQ',
+    faqTitle: 'Часто задаваемые вопросы о наших',
+    faqTitleHighlight: 'услугах',
+    faqDescription: 'Нажмите на вопрос, чтобы увидеть ответ.',
+    services: [
+      {
+        num: '01',
+        label: 'Услуга 01',
+        icon: '◎',
+        title: 'Брендинг',
+        description: 'Стратегия бренда, визуальная идентичность и руководства по бренду — от идеи до живого бренда, который резонирует с вашей целевой аудиторией.',
+        tags: ['Стратегия бренда', 'Фирменный стиль', 'Дизайн логотипа', 'Брендбук'],
+        href: '/leistungen/branding',
+        ariaLabel: 'Брендинг — Стратегия бренда, фирменный стиль, дизайн логотипа и брендбук. Узнать больше.'
+      },
+      {
+        num: '02',
+        label: 'Услуга 02',
+        icon: '⊕',
+        title: 'Веб-дизайн',
+        description: 'UX/UI дизайн и разработка CMS для производительных, современных веб-сайтов, которые конвертируют.',
+        tags: ['UX/UI дизайн', 'WordPress', 'Адаптивный'],
+        href: '/leistungen/webdesign',
+        ariaLabel: 'Веб-дизайн — UX/UI дизайн, разработка CMS и адаптивный дизайн. Узнать больше.'
+      },
+      {
+        num: '03',
+        label: 'Услуга 03',
+        icon: '⚡',
+        title: 'Цифровой маркетинг',
+        description: 'Стратегия кампаний, платная реклама и автоматизация email для измеримых результатов и устойчивого роста.',
+        tags: ['Кампании', 'Платная реклама', 'Email-автоматизация'],
+        href: '/leistungen/digitale-strategie',
+        ariaLabel: 'Цифровой маркетинг — Стратегия кампаний, платная реклама и автоматизация. Узнать больше.'
+      },
+      {
+        num: '04',
+        label: 'Услуга 04',
+        icon: '◉',
+        title: 'SEO и контент',
+        description: 'Технический SEO, локальный SEO, стратегия ключевых слов и производство контента для устойчивой видимости.',
+        tags: ['Технический SEO', 'Локальный SEO', 'Контент-стратегия'],
+        href: '/leistungen/seo-sichtbarkeit',
+        ariaLabel: 'SEO и контент — Технический SEO, локальный SEO и производство контента. Узнать больше.'
+      },
+      {
+        num: '05',
+        label: 'Услуга 05',
+        icon: '⟨/⟩',
+        title: 'Веб и мобильная разработка',
+        description: 'Full-stack архитектура, API интеграция, мобильные приложения и автоматизация — под ваши требования.',
+        tags: ['Full-Stack', 'API интеграция', 'Мобильные приложения', 'Автоматизация'],
+        href: '/leistungen/technische-loesungen',
+        ariaLabel: 'Веб и мобильная разработка — Full-stack, API и мобильные приложения. Узнать больше.'
+      },
+      {
+        num: '06',
+        label: 'Услуга 06',
+        icon: '☁',
+        title: 'IT и облачные услуги',
+        description: 'Облачная архитектура, DevOps, мониторинг, безопасность и IT-поддержка для масштабируемой инфраструктуры.',
+        tags: ['Облачная архитектура', 'DevOps', 'Мониторинг', 'Безопасность'],
+        href: '/leistungen/software-entwicklung',
+        ariaLabel: 'IT и облачные услуги — Облачная архитектура, DevOps и безопасность. Узнать больше.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Какие услуги предлагает GoldenWing?',
+        answer: 'GoldenWing предлагает шесть ключевых направлений: Брендинг и стратегия бренда, веб-дизайн и UX/UI, цифровой маркетинг и платная реклама, SEO и производство контента, веб и мобильная разработка, IT и облачные услуги. Все услуги можно комбинировать модульно.',
+        links: [
+          { href: '/leistungen/branding', text: 'Брендинг' },
+          { href: '/leistungen/webdesign', text: 'Веб-дизайн' },
+          { href: '/leistungen/digitale-strategie', text: 'Цифровой маркетинг' },
+          { href: '/leistungen/seo-sichtbarkeit', text: 'SEO и контент' },
+          { href: '/leistungen/technische-loesungen', text: 'Веб и мобильная разработка' },
+          { href: '/leistungen/software-entwicklung', text: 'IT и облачные услуги' }
+        ]
+      },
+      {
+        question: 'Для кого подходят услуги GoldenWing?',
+        answer: 'GoldenWing работает с МСБ, стартапами, коучами, поставщиками услуг и агентствами, которые хотят профессионально оформить свое цифровое присутствие — в Вене, Австрии и по всей Европе.'
+      },
+      {
+        question: 'Сколько стоит сотрудничество с GoldenWing?',
+        answer: 'Стоимость зависит от объема проекта и желаемых услуг. GoldenWing предлагает модульные пакеты и индивидуальные предложения. Бесплатная первичная консультация прояснит требования и бюджет.',
+        links: [{ href: '/kontakt', text: 'Записаться на бесплатную консультацию' }]
+      }
+    ]
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SEO METADATA
+// ─────────────────────────────────────────────────────────────────────────────
+
+const seoData: Record<SupportedLocale, { title: string; description: string; keywords: string[] }> = {
+  de: {
+    title: 'Unsere Leistungen — GoldenWing Creative Studios | Digitalagentur Wien',
+    description: 'GoldenWing bietet 6 Kernbereiche: Branding, Webdesign, Digital Marketing, SEO & Content, Web- & App-Entwicklung, IT & Cloud Services. Alles aus einer Hand — von Wien für ganz Europa.',
+    keywords: ['Branding Agentur Wien', 'Webdesign Wien', 'SEO Agentur', 'Digital Marketing', 'App-Entwicklung', 'Cloud Services']
+  },
+  en: {
+    title: 'Our Services — GoldenWing Creative Studios | Digital Agency Vienna',
+    description: 'GoldenWing offers 6 core areas: Branding, web design, digital marketing, SEO & content, web & app development, IT & cloud services. All from one source — from Vienna for all of Europe.',
+    keywords: ['Branding Agency Vienna', 'Web Design Vienna', 'SEO Agency', 'Digital Marketing', 'App Development', 'Cloud Services']
+  },
+  ru: {
+    title: 'Наши услуги — GoldenWing Creative Studios | Цифровое агентство Вена',
+    description: 'GoldenWing предлагает 6 ключевых направлений: Брендинг, веб-дизайн, цифровой маркетинг, SEO и контент, веб и мобильная разработка, IT и облачные услуги. Всё из одних рук — из Вены для всей Европы.',
+    keywords: ['Брендинг агентство Вена', 'Веб-дизайн Вена', 'SEO агентство', 'Цифровой маркетинг', 'Разработка приложений', 'Облачные услуги']
+  }
+}
 
 export async function generateStaticParams() {
   return [{ locale: 'de' }, { locale: 'en' }, { locale: 'ru' }]
 }
 
-
 export const revalidate = 60
-
-interface Feature {
-  id?: string
-  title: string
-  description?: string
-}
-
-// Default content for fallback
-const defaultContent = {
-  de: {
-    heroTitle: 'Unsere Leistungen',
-    heroSubtitle: 'Ganzheitliche Lösungen für Ihren digitalen Erfolg',
-    heroDescription: 'Von der ersten Markenidee bis zum fertigen Produkt begleiten wir Sie auf Ihrem Weg zum digitalen Erfolg. Unsere Experten in Wien, Dubai und California entwickeln maßgeschneiderte Strategien, die messbare Ergebnisse liefern.',
-    introTitle: 'Warum GoldenWing?',
-    introText: 'Seit 2019 unterstützen wir Unternehmen dabei, ihre digitale Präsenz zu transformieren. Was uns unterscheidet: Wir denken nicht in Einzelleistungen, sondern in Gesamtlösungen. Jedes Projekt beginnt mit einem tiefen Verständnis Ihrer Ziele und endet mit messbaren Ergebnissen. Unser Team vereint strategisches Denken mit handwerklicher Exzellenz – von der Markenpositionierung über das Webdesign bis zur Performance-Optimierung.',
-    stats: [
-      { value: '100+', label: 'Erfolgreiche Projekte' },
-      { value: '13+', label: 'Jahre Erfahrung' },
-      { value: '3', label: 'Standorte weltweit' },
-      { value: '95%', label: 'Kundenzufriedenheit' },
-    ],
-    processTitle: 'Unser Arbeitsprozess',
-    processSubtitle: 'Strukturiert, transparent und ergebnisorientiert',
-    process: [
-      { step: '01', title: 'Discovery', description: 'Wir analysieren Ihre Ziele, Zielgruppen und Wettbewerber. In einem Workshop erarbeiten wir gemeinsam die strategische Grundlage für Ihr Projekt.' },
-      { step: '02', title: 'Strategie', description: 'Basierend auf den Erkenntnissen entwickeln wir eine maßgeschneiderte Strategie mit klaren Meilensteinen, KPIs und einem realistischen Zeitplan.' },
-      { step: '03', title: 'Kreation', description: 'Unser Kreativteam setzt die Strategie in hochwertige Designs und Inhalte um. Regelmäßige Abstimmungen stellen sicher, dass wir Ihre Vision treffen.' },
-      { step: '04', title: 'Umsetzung', description: 'Entwickler und Spezialisten bringen die Konzepte in die Realität. Qualitätssicherung und Testing garantieren einwandfreie Ergebnisse.' },
-      { step: '05', title: 'Launch & Optimierung', description: 'Nach dem erfolgreichen Launch analysieren wir kontinuierlich die Performance und optimieren für nachhaltigen Erfolg.' },
-    ],
-    benefitsTitle: 'Was Sie von uns erwarten können',
-    benefits: [
-      { icon: 'target', title: 'Strategischer Fokus', description: 'Jede Maßnahme dient einem klaren Ziel. Wir investieren Zeit in Strategie, damit die Umsetzung sitzt.' },
-      { icon: 'users', title: 'Persönliche Betreuung', description: 'Ein fester Ansprechpartner kennt Ihr Projekt in- und auswendig. Keine Warteschleifen, direkte Kommunikation.' },
-      { icon: 'zap', title: 'Schnelle Umsetzung', description: 'Agile Methoden und eingespieltes Team ermöglichen kurze Durchlaufzeiten ohne Qualitätsverlust.' },
-      { icon: 'shield', title: 'Transparente Preise', description: 'Faire Festpreise oder transparente Stundensätze. Keine versteckten Kosten, keine bösen Überraschungen.' },
-    ],
-    servicesTitle: 'Unsere Kernleistungen',
-    servicesSubtitle: 'Spezialisiert auf das, was wirklich zählt',
-    packagesTitle: 'Service-Pakete',
-    packagesSubtitle: 'Kombinierte Leistungen für maximale Wirkung',
-    packagesDescription: 'Unsere Pakete bündeln die wichtigsten Services zu attraktiven Konditionen. Ideal für Unternehmen, die einen ganzheitlichen Ansatz suchen.',
-    packagesButton: 'Pakete entdecken',
-    faqTitle: 'Häufige Fragen zu unseren Leistungen',
-    faqs: [
-      { question: 'Wie läuft eine typische Zusammenarbeit ab?', answer: 'Jedes Projekt startet mit einem kostenlosen Erstgespräch, in dem wir Ihre Ziele und Anforderungen verstehen. Danach erstellen wir ein detailliertes Angebot mit Zeitplan. Nach Beauftragung arbeiten wir in definierten Phasen mit regelmäßigen Abstimmungen. Sie haben jederzeit volle Transparenz über den Projektfortschritt.' },
-      { question: 'Was unterscheidet GoldenWing von anderen Agenturen?', answer: 'Drei Dinge: Erstens denken wir ganzheitlich – von der Strategie bis zur Umsetzung aus einer Hand. Zweitens sind wir inhabergeführt, was kurze Entscheidungswege und persönliche Betreuung garantiert. Drittens kombinieren wir internationales Know-how (Wien, Dubai, California) mit lokaler Expertise.' },
-      { question: 'Für welche Unternehmensgrößen arbeiten Sie?', answer: 'Wir arbeiten mit ambitionierten Unternehmen jeder Größe – vom Startup über den Mittelstand bis zum Konzern. Entscheidend ist nicht die Unternehmensgröße, sondern der Anspruch an Qualität und die Bereitschaft zur partnerschaftlichen Zusammenarbeit.' },
-      { question: 'Wie lange dauert ein typisches Projekt?', answer: 'Das hängt stark vom Umfang ab. Ein Branding-Projekt dauert typischerweise 6-8 Wochen, eine Website 8-12 Wochen. Komplexe Projekte mit mehreren Komponenten können 3-6 Monate in Anspruch nehmen. Wir erstellen für jedes Projekt einen realistischen Zeitplan.' },
-      { question: 'Bieten Sie auch laufende Betreuung an?', answer: 'Ja, viele Kunden schätzen unsere Retainer-Modelle für kontinuierliche Betreuung: SEO-Management, Content-Erstellung, Performance-Marketing oder technische Wartung. So bleiben Sie flexibel und haben immer Zugriff auf unser Expertenwissen.' },
-    ],
-    ctaTitle: 'Bereit für Ihr nächstes Projekt?',
-    ctaDescription: 'Lassen Sie uns in einem unverbindlichen Gespräch herausfinden, wie wir Ihnen helfen können. Wir freuen uns darauf, Sie kennenzulernen.',
-    ctaButton: 'Kostenloses Erstgespräch buchen',
-  },
-  en: {
-    heroTitle: 'Our Services',
-    heroSubtitle: 'Holistic solutions for your digital success',
-    heroDescription: 'From the first brand idea to the finished product, we accompany you on your path to digital success. Our experts in Vienna, Dubai, and California develop customized strategies that deliver measurable results.',
-    introTitle: 'Why GoldenWing?',
-    introText: 'Since 2019, we have been helping companies transform their digital presence. What sets us apart: We don\'t think in individual services, but in complete solutions. Every project starts with a deep understanding of your goals and ends with measurable results. Our team combines strategic thinking with craftsmanship excellence – from brand positioning to web design to performance optimization.',
-    stats: [
-      { value: '100+', label: 'Successful Projects' },
-      { value: '13+', label: 'Years Experience' },
-      { value: '3', label: 'Locations Worldwide' },
-      { value: '95%', label: 'Client Satisfaction' },
-    ],
-    processTitle: 'Our Work Process',
-    processSubtitle: 'Structured, transparent and results-oriented',
-    process: [
-      { step: '01', title: 'Discovery', description: 'We analyze your goals, target audiences, and competitors. In a workshop, we jointly develop the strategic foundation for your project.' },
-      { step: '02', title: 'Strategy', description: 'Based on insights, we develop a customized strategy with clear milestones, KPIs, and a realistic timeline.' },
-      { step: '03', title: 'Creation', description: 'Our creative team translates strategy into high-quality designs and content. Regular check-ins ensure we hit your vision.' },
-      { step: '04', title: 'Implementation', description: 'Developers and specialists bring concepts to reality. Quality assurance and testing guarantee flawless results.' },
-      { step: '05', title: 'Launch & Optimization', description: 'After successful launch, we continuously analyze performance and optimize for sustainable success.' },
-    ],
-    benefitsTitle: 'What You Can Expect From Us',
-    benefits: [
-      { icon: 'target', title: 'Strategic Focus', description: 'Every action serves a clear goal. We invest time in strategy so implementation hits the mark.' },
-      { icon: 'users', title: 'Personal Support', description: 'A dedicated contact knows your project inside out. No queues, direct communication.' },
-      { icon: 'zap', title: 'Fast Execution', description: 'Agile methods and experienced team enable short turnaround times without quality loss.' },
-      { icon: 'shield', title: 'Transparent Pricing', description: 'Fair fixed prices or transparent hourly rates. No hidden costs, no nasty surprises.' },
-    ],
-    servicesTitle: 'Our Core Services',
-    servicesSubtitle: 'Specialized in what really matters',
-    packagesTitle: 'Service Packages',
-    packagesSubtitle: 'Combined services for maximum impact',
-    packagesDescription: 'Our packages bundle the most important services at attractive rates. Ideal for companies seeking a holistic approach.',
-    packagesButton: 'Discover Packages',
-    faqTitle: 'Frequently Asked Questions About Our Services',
-    faqs: [
-      { question: 'How does a typical collaboration work?', answer: 'Every project starts with a free initial consultation where we understand your goals and requirements. Then we create a detailed proposal with timeline. After commissioning, we work in defined phases with regular check-ins. You have full transparency on project progress at all times.' },
-      { question: 'What sets GoldenWing apart from other agencies?', answer: 'Three things: First, we think holistically – from strategy to implementation under one roof. Second, we are owner-managed, which guarantees short decision paths and personal support. Third, we combine international know-how (Vienna, Dubai, California) with local expertise.' },
-      { question: 'What company sizes do you work with?', answer: 'We work with ambitious companies of all sizes – from startups to mid-sized companies to corporations. What matters is not company size, but the commitment to quality and willingness for partnership collaboration.' },
-      { question: 'How long does a typical project take?', answer: 'This depends heavily on scope. A branding project typically takes 6-8 weeks, a website 8-12 weeks. Complex projects with multiple components can take 3-6 months. We create a realistic timeline for each project.' },
-      { question: 'Do you also offer ongoing support?', answer: 'Yes, many clients appreciate our retainer models for continuous support: SEO management, content creation, performance marketing, or technical maintenance. This keeps you flexible and always gives you access to our expertise.' },
-    ],
-    ctaTitle: 'Ready for your next project?',
-    ctaDescription: 'Let\'s find out how we can help you in a no-obligation conversation. We look forward to meeting you.',
-    ctaButton: 'Free Initial Consultation',
-  },
-  ru: {
-    heroTitle: 'Наши услуги',
-    heroSubtitle: 'Комплексные решения для вашего цифрового успеха',
-    heroDescription: 'От первой идеи бренда до готового продукта мы сопровождаем вас на пути к цифровому успеху. Наши эксперты в Вене, Дубае и Калифорнии разрабатывают индивидуальные стратегии, которые приносят измеримые результаты.',
-    introTitle: 'Почему GoldenWing?',
-    introText: 'С 2019 года мы помогаем компаниям трансформировать их цифровое присутствие. Что нас отличает: мы мыслим не отдельными услугами, а комплексными решениями. Каждый проект начинается с глубокого понимания ваших целей и заканчивается измеримыми результатами.',
-    stats: [
-      { value: '100+', label: 'Успешных проектов' },
-      { value: '13+', label: 'Лет опыта' },
-      { value: '3', label: 'Локации по всему миру' },
-      { value: '95%', label: 'Удовлетворённость клиентов' },
-    ],
-    processTitle: 'Наш рабочий процесс',
-    processSubtitle: 'Структурированный, прозрачный и ориентированный на результат',
-    process: [
-      { step: '01', title: 'Исследование', description: 'Мы анализируем ваши цели, целевые аудитории и конкурентов.' },
-      { step: '02', title: 'Стратегия', description: 'На основе полученных данных мы разрабатываем индивидуальную стратегию.' },
-      { step: '03', title: 'Создание', description: 'Наша креативная команда воплощает стратегию в качественный дизайн.' },
-      { step: '04', title: 'Реализация', description: 'Разработчики и специалисты воплощают концепции в реальность.' },
-      { step: '05', title: 'Запуск и оптимизация', description: 'После успешного запуска мы постоянно анализируем результаты.' },
-    ],
-    benefitsTitle: 'Что вы можете от нас ожидать',
-    benefits: [
-      { icon: 'target', title: 'Стратегический фокус', description: 'Каждое действие служит чёткой цели.' },
-      { icon: 'users', title: 'Персональная поддержка', description: 'Выделенный контакт знает ваш проект изнутри.' },
-      { icon: 'zap', title: 'Быстрое выполнение', description: 'Agile методы и опытная команда.' },
-      { icon: 'shield', title: 'Прозрачное ценообразование', description: 'Справедливые фиксированные цены.' },
-    ],
-    servicesTitle: 'Наши основные услуги',
-    servicesSubtitle: 'Специализация на том, что действительно важно',
-    packagesTitle: 'Пакеты услуг',
-    packagesSubtitle: 'Комбинированные услуги для максимального эффекта',
-    packagesDescription: 'Наши пакеты объединяют важнейшие услуги по привлекательным ценам.',
-    packagesButton: 'Узнать о пакетах',
-    faqTitle: 'Часто задаваемые вопросы о наших услугах',
-    faqs: [
-      { question: 'Как проходит типичное сотрудничество?', answer: 'Каждый проект начинается с бесплатной первичной консультации.' },
-      { question: 'Что отличает GoldenWing от других агентств?', answer: 'Три вещи: комплексный подход, собственное управление, международный опыт.' },
-      { question: 'С какими компаниями вы работаете?', answer: 'Мы работаем с амбициозными компаниями любого размера.' },
-      { question: 'Сколько времени занимает типичный проект?', answer: 'Это сильно зависит от объёма. Брендинг: 6-8 недель, веб-сайт: 8-12 недель.' },
-      { question: 'Предлагаете ли вы постоянную поддержку?', answer: 'Да, многие клиенты ценят наши модели абонентского обслуживания.' },
-    ],
-    ctaTitle: 'Готовы к вашему следующему проекту?',
-    ctaDescription: 'Давайте в необязательном разговоре выясним, как мы можем вам помочь.',
-    ctaButton: 'Бесплатная первичная консультация',
-  },
-}
-
-const defaultSEO = {
-  de: {
-    title: 'Leistungen | Branding, Webdesign & SEO Services Wien',
-    description: 'Agentur-Leistungen in Wien: Branding, Webdesign, SEO, Digital Marketing & Software-Entwicklung. Über 100 erfolgreiche Projekte seit 2019.',
-    keywords: ['Webdesign Wien', 'Branding Agentur Wien', 'SEO Agentur Österreich', 'Digital Marketing Services', 'Kreativagentur Wien'],
-  },
-  en: {
-    title: 'Services | Branding, Web Design & SEO Services Vienna',
-    description: 'Agency services in Vienna: Branding, web design, SEO, digital marketing & software development. Over 100 successful projects since 2019.',
-    keywords: ['Web Design Vienna', 'Branding Agency Vienna', 'SEO Agency Austria', 'Digital Marketing Services', 'Creative Agency Vienna'],
-  },
-  ru: {
-    title: 'Услуги | Брендинг, Веб-дизайн и SEO Услуги Вена',
-    description: 'Профессиональные агентские услуги в Вене: брендинг, веб-дизайн, SEO, цифровой маркетинг и разработка программного обеспечения. Более 100 успешных проектов с 2019 года.',
-    keywords: ['Веб-дизайн Вена', 'Брендинг агентство Вена', 'SEO агентство Австрия', 'Услуги цифрового маркетинга', 'Креативное агентство Вена'],
-  },
-}
-
-// Icon mapping
-const iconMap: Record<string, ComponentType<{ className?: string }>> = {
-  palette: Palette,
-  globe: Globe,
-  search: Search,
-  'line-chart': LineChart,
-  camera: Camera,
-  code: Code,
-  target: Target,
-  users: Users,
-  zap: Zap,
-  shield: Shield,
-}
-
-function getIcon(iconName: string) {
-  return iconMap[iconName] || Palette
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: localeParam } = await params
   const locale = (localeParam || 'de') as SupportedLocale
-  const page = await getServicesOverviewPage(locale)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sp = page as Record<string, any> | null
-  const defaults = defaultSEO[locale] || defaultSEO.de
+  const seo = seoData[locale] || seoData.de
   const hreflangAlternates = getHreflangAlternates('/leistungen')
 
-  const title = sp?.seo?.metaTitle || defaults.title
-  const description = sp?.seo?.metaDescription || defaults.description
-  const keywords = sp?.seo?.keywords?.split(',').map((k: string) => k.trim()) || defaults.keywords
-
   return {
-    title,
-    description,
-    keywords,
-    robots: {
-      index: true,
-      follow: true,
-    },
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    robots: { index: true, follow: true },
     openGraph: getOpenGraphConfig({
-      title: title.split(' | ')[0] + ' | GoldenWing Creative Studios',
-      description,
+      title: seo.title,
+      description: seo.description,
       url: getCanonicalUrl('/leistungen', locale),
       locale: locale as 'de' | 'en',
     }),
@@ -240,289 +551,282 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 }
 
-export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: localeParam } = await params
-  const locale = (localeParam || 'de') as SupportedLocale
-  const tCommon = await getTranslations({ locale, namespace: 'common' })
-  const servicesRaw = await getServices(locale)
-  const page = await getServicesOverviewPage(locale)
+// ─────────────────────────────────────────────────────────────────────────────
+// SCHEMA.ORG JSON-LD
+// ─────────────────────────────────────────────────────────────────────────────
 
-  // Apply Russian translations to services when locale is 'ru'
-  const services = locale === 'ru' && servicesRaw
-    ? servicesRaw.map(service => {
-        const ruTranslation = getServiceTranslationRu(service.slug)
-        if (ruTranslation) {
-          return {
-            ...service,
-            title: ruTranslation.title || service.title,
-            subtitle: ruTranslation.subtitle || service.subtitle,
-            description: ruTranslation.description || service.description,
-          }
+function ProfessionalServiceSchema({ locale }: { locale: SupportedLocale }) {
+  const c = content[locale]
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'GoldenWing Creative Studios',
+    url: 'https://goldenwing.at',
+    logo: 'https://goldenwing.at/logo.svg',
+    description: locale === 'de' 
+      ? 'Inhabergeführte Kreativ- und Digitalagentur aus Wien. Branding, Webdesign, SEO, Entwicklung und Cloud Services.'
+      : locale === 'en'
+      ? 'Owner-managed creative and digital agency from Vienna. Branding, web design, SEO, development and cloud services.'
+      : 'Креативное и цифровое агентство из Вены под управлением владельца. Брендинг, веб-дизайн, SEO, разработка и облачные услуги.',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Wien',
+      addressCountry: 'AT'
+    },
+    areaServed: ['AT', 'DE', 'CH', 'EU'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: c.breadcrumbCurrent,
+      itemListElement: c.services.map(service => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: service.title,
+          description: service.description,
+          url: `https://goldenwing.at/${locale}${service.href}`,
+          provider: { '@type': 'Organization', name: 'GoldenWing Creative Studios' }
         }
-        return service
-      })
-    : servicesRaw
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const sp = page as Record<string, any> | null
-  const defaults = (defaultContent as Record<string, typeof defaultContent['de']>)[locale] ?? defaultContent['en']
-
-  // Build content from CMS or defaults
-  const content = {
-    heroTitle: sp?.heroTitle || defaults.heroTitle,
-    heroSubtitle: sp?.heroSubtitle || defaults.heroSubtitle,
-    heroDescription: sp?.heroDescription || defaults.heroDescription,
-    introTitle: sp?.introTitle || defaults.introTitle,
-    introText: sp?.introText || defaults.introText,
-    stats: sp?.stats?.length ? sp.stats : defaults.stats,
-    processTitle: sp?.processTitle || defaults.processTitle,
-    processSubtitle: sp?.processSubtitle || defaults.processSubtitle,
-    process: sp?.process?.length ? sp.process : defaults.process,
-    benefitsTitle: sp?.benefitsTitle || defaults.benefitsTitle,
-    benefits: sp?.benefits?.length
-      ? sp.benefits.map((b: { icon: string; title: string; description: string }) => ({
-          icon: iconMap[b.icon] || Target,
-          title: b.title,
-          description: b.description,
-        }))
-      : defaults.benefits.map((b) => ({ icon: iconMap[b.icon] || Target, title: b.title, description: b.description })),
-    servicesTitle: sp?.servicesTitle || defaults.servicesTitle,
-    servicesSubtitle: sp?.servicesSubtitle || defaults.servicesSubtitle,
-    packagesTitle: sp?.packagesTitle || defaults.packagesTitle,
-    packagesSubtitle: sp?.packagesSubtitle || defaults.packagesSubtitle,
-    packagesDescription: sp?.packagesDescription || defaults.packagesDescription,
-    packagesButton: sp?.packagesButton || defaults.packagesButton,
-    faqTitle: sp?.faqTitle || defaults.faqTitle,
-    faqs: sp?.faqs?.length ? sp.faqs : defaults.faqs,
-    ctaTitle: sp?.ctaTitle || defaults.ctaTitle,
-    ctaDescription: sp?.ctaDescription || defaults.ctaDescription,
-    ctaButton: sp?.ctaButton || defaults.ctaButton,
+      }))
+    }
   }
 
-  // Prepare services for schema
-  const servicesForSchema = services.map((service) => ({
-    name: service.title,
-    description: service.description || '',
-    url: `/${locale}/leistungen/${service.slug}`,
-  }))
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+function BreadcrumbSchema({ locale }: { locale: SupportedLocale }) {
+  const c = content[locale]
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: c.breadcrumbHome, item: `https://goldenwing.at/${locale}` },
+      { '@type': 'ListItem', position: 2, name: c.breadcrumbCurrent, item: `https://goldenwing.at/${locale}/leistungen` }
+    ]
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+function FAQPageSchema({ locale }: { locale: SupportedLocale }) {
+  const c = content[locale]
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: c.faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PAGE COMPONENT
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default async function LeistungenPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params
+  const locale = (localeParam || 'de') as SupportedLocale
+  const c = content[locale] || content.de
 
   return (
     <>
-      {/* Schema Markup - FAQ Schema wird automatisch von FAQSection gerendert */}
-      <BreadcrumbSchema
-        items={[
-          { name: 'Home', url: `/${locale}` },
-          { name: content.heroTitle, url: `/${locale}/leistungen` },
-        ]}
-      />
-      <ServiceListSchema services={servicesForSchema} />
-      {/* AggregateRating for Organization - Builds trust in SERP */}
-      <AggregateRatingSchema
-        ratingValue={4.9}
-        ratingCount={47}
-      />
-      {/* HowTo Schema for Process - Rich Results */}
-      <HowToSchema
-        name={({ de: 'Wie wir Projekte umsetzen', en: 'How We Deliver Projects', ru: 'Как мы реализуем проекты' } as Record<'de' | 'en' | 'ru', string>)[locale as 'de' | 'en' | 'ru'] || 'How We Deliver Projects'}
-        description={({ de: 'Unser bewährter 5-Schritte-Prozess für erfolgreiche Projekte.', en: 'Our proven 5-step process for successful projects.', ru: 'Наш проверенный 5-шаговый процесс для успешных проектов.' } as Record<'de' | 'en' | 'ru', string>)[locale as 'de' | 'en' | 'ru'] || 'Our proven 5-step process for successful projects.'}
-        steps={content.process.map((step: { title: string; description: string }) => ({
-          name: step.title,
-          text: step.description,
-        }))}
-      />
+      {/* Schema.org JSON-LD */}
+      <ProfessionalServiceSchema locale={locale} />
+      <BreadcrumbSchema locale={locale} />
+      <FAQPageSchema locale={locale} />
 
-      {/* Hero Section */}
-      <section className="py-20 md:py-28">
-        <Container variant="block">
-          <div className="max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              {content.heroTitle}
+      <section 
+        className="relative py-24 lg:py-32 px-5 sm:px-9 lg:px-16 max-w-[1520px] mx-auto"
+        aria-labelledby="services-heading"
+      >
+        {/* Decorative dot grid - dark mode only */}
+        <div 
+          className="absolute top-[60px] right-[60px] w-[180px] h-[180px] pointer-events-none opacity-50 hidden lg:dark:block"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(242,251,49,0.08) 1px, transparent 1px)',
+            backgroundSize: '16px 16px',
+            maskImage: 'radial-gradient(circle, black 30%, transparent 70%)',
+            WebkitMaskImage: 'radial-gradient(circle, black 30%, transparent 70%)'
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Ambient glow - dark mode only */}
+        <div 
+          className="absolute top-[5%] left-[40%] w-[1000px] h-[700px] pointer-events-none hidden dark:block"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(242,251,49,0.02) 0%, transparent 60%)',
+            filter: 'blur(60px)'
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Breadcrumb */}
+        <nav 
+          className="mb-12 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_0.05s_both]"
+          aria-label="Breadcrumb"
+        >
+          <ol className="flex gap-2 text-[0.7rem] text-neutral-400 dark:text-neutral-500">
+            <li>
+              <Link 
+                href={`/${locale}`} 
+                className="text-neutral-400 dark:text-white/30 no-underline transition-colors duration-300 hover:text-primary dark:hover:text-[#f2fb31]"
+              >
+                {c.breadcrumbHome}
+              </Link>
+            </li>
+            <li className="opacity-30" aria-hidden="true">/</li>
+            <li className="text-neutral-500 dark:text-white/50" aria-current="page">
+              {c.breadcrumbCurrent}
+            </li>
+          </ol>
+        </nav>
+
+        {/* Header */}
+        <header className="flex flex-col lg:flex-row items-start lg:items-end justify-between mb-20 lg:mb-24 gap-7 lg:gap-16 animate-[fadeUp_0.9s_cubic-bezier(0.16,1,0.3,1)_0.1s_both]">
+          <div>
+            {/* Eyebrow */}
+            <div 
+              className="inline-flex items-center gap-2.5 font-mono text-[0.62rem] uppercase tracking-[0.28em] text-primary dark:text-[#f2fb31] font-normal mb-7"
+              aria-hidden="true"
+            >
+              <span 
+                className="w-[7px] h-[7px] bg-primary dark:bg-[#f2fb31] rotate-45 flex-shrink-0 animate-pulse"
+                style={{ animationDuration: '3s' }}
+              />
+              {c.eyebrow}
+            </div>
+            
+            {/* H1 Headline */}
+            <h1 
+              id="services-heading"
+              className="font-[var(--font-bricolage)] text-[clamp(3.2rem,6.5vw,6rem)] font-extrabold leading-[0.9] tracking-[-0.05em] text-neutral-900 dark:text-white"
+            >
+              {c.headline}<br />
+              <span className="relative inline-block text-primary dark:text-[#f2fb31]">
+                {c.headlineHighlight}
+                <span 
+                  className="absolute bottom-[2px] -left-[2px] -right-[2px] h-1.5 bg-primary/10 dark:bg-[#f2fb31]/12 rounded-sm"
+                  aria-hidden="true"
+                />
+              </span>
+              <span className="block font-normal text-neutral-300 dark:text-white/25 text-[0.65em] mt-2 tracking-[-0.02em]">
+                {c.headlineLight}
+              </span>
             </h1>
-            <p className="text-2xl md:text-3xl text-muted-foreground mb-4">
-              {content.heroSubtitle}
+          </div>
+
+          <div className="flex-shrink-0 max-w-[380px] text-left lg:text-right">
+            <p className="text-neutral-500 dark:text-neutral-400 text-[0.88rem] leading-[1.8]">
+              <strong className="text-neutral-700 dark:text-white font-semibold">GoldenWing Creative Studios</strong>{' '}
+              {c.introText.replace('GoldenWing Creative Studios ', '')}
             </p>
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl">
-              {content.heroDescription}
-            </p>
+            <HeroStats stats={c.heroStats} />
           </div>
-        </Container>
+        </header>
+
+        {/* Services Grid */}
+        <ServicesGrid services={c.services} locale={locale} />
+
+        {/* CTA Row */}
+        <div className="flex justify-center items-center gap-7 mt-20 lg:mt-24 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_0.6s_both]">
+          <div 
+            className="w-20 h-px hidden sm:block"
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(242,251,49,0.15))' }}
+            aria-hidden="true"
+          />
+          
+          <Link
+            href={getContactUrl(locale)}
+            className="group relative inline-flex items-center gap-3.5 px-12 py-5 bg-transparent border-[1.5px] border-primary/20 dark:border-[rgba(242,251,49,0.2)] text-primary dark:text-[#f2fb31] font-bold text-[0.88rem] rounded-full overflow-hidden transition-all duration-500 hover:border-primary dark:hover:border-[#f2fb31] hover:shadow-[0_0_60px_rgba(242,251,49,0.1)] focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4"
+            aria-label={`${c.ctaButton} — Kontakt aufnehmen`}
+          >
+            <span 
+              className="absolute inset-0 bg-primary dark:bg-[#f2fb31] rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[0.55s] cubic-bezier(0.16,1,0.3,1) z-0"
+              aria-hidden="true"
+            />
+            <span className="relative z-[1] transition-colors duration-[0.45s] group-hover:text-white dark:group-hover:text-[#0a0a0a]">
+              {c.ctaButton}
+            </span>
+            <ArrowRight className="relative z-[1] w-4 h-4 transition-colors duration-[0.45s] group-hover:text-white dark:group-hover:text-[#0a0a0a]" />
+          </Link>
+          
+          <div 
+            className="w-20 h-px hidden sm:block"
+            style={{ background: 'linear-gradient(90deg, rgba(242,251,49,0.15), transparent)' }}
+            aria-hidden="true"
+          />
+        </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-12 bg-muted/30">
-        <Container variant="block">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {content.stats.map((stat: { value: string; label: string }, index: number) => (
-              <div key={index} className="text-center">
-                <div className="text-5xl md:text-6xl font-bold text-primary mb-2">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
+      {/* Marquee: Additional Services */}
+      <ServicesMarquee title={c.marqueeTitle} services={c.marqueeServices} />
 
-      {/* Introduction / Why GoldenWing */}
-      <section className="py-16 md:py-24">
-        <Container variant="block">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">{content.introTitle}</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {content.introText}
-            </p>
-          </div>
-        </Container>
-      </section>
-
-      {/* Services Grid */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <Container variant="block">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">{content.servicesTitle}</h2>
-            <p className="text-lg text-muted-foreground">{content.servicesSubtitle}</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service) => {
-              const Icon = getIcon(service.icon)
-              return (
-                <div
-                  key={service.id}
-                  className="group bg-background rounded-xl border p-6 hover:shadow-lg hover:border-primary/50 transition-all duration-300"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary mb-4">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                  <p className="text-muted-foreground mb-4">{service.description}</p>
-                  {service.features && service.features.length > 0 && (
-                    <ul className="space-y-2 mb-6">
-                      {service.features.slice(0, 5).map((feature: Feature | string, idx: number) => (
-                        <li key={idx} className="flex items-center gap-2 text-sm">
-                          <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                          {typeof feature === 'string' ? feature : feature.title}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  <NextLink
-                    href={getServiceUrl(service.slug, locale)}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:gap-3 transition-all"
-                  >
-                    {tCommon('learnMore')}
-                    <ArrowRight className="h-4 w-4" />
-                  </NextLink>
-                </div>
-              )
-            })}
-          </div>
-        </Container>
-      </section>
-
-      {/* Additional Services Section */}
-      <section className="py-16 md:py-24">
-        <Container variant="block">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              {locale === 'de' ? 'Weitere Leistungen' : locale === 'ru' ? 'Дополнительные услуги' : 'Additional Services'}
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {locale === 'de'
-                ? 'Spezialisierte Services für spezifische Anforderungen.'
-                : locale === 'ru'
-                ? 'Специализированные услуги для конкретных требований.'
-                : 'Specialized services for specific requirements.'}
-            </p>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {[
-              { href: '/leistungen/grafikdesign', de: 'Grafikdesign', en: 'Graphic Design', ru: 'Графический дизайн' },
-              { href: '/leistungen/seo-texter', de: 'SEO Texter', en: 'SEO Copywriter', ru: 'SEO копирайтер' },
-              { href: '/leistungen/seo-berater', de: 'SEO Berater', en: 'SEO Consultant', ru: 'SEO консультант' },
-              { href: '/leistungen/seo-betreuung', de: 'SEO Betreuung', en: 'SEO Support', ru: 'SEO поддержка' },
-              { href: '/leistungen/sea-agentur', de: 'SEA Agentur', en: 'SEA Agency', ru: 'SEA агентство' },
-              { href: '/leistungen/google-ads-agentur', de: 'Google Ads Agentur', en: 'Google Ads Agency', ru: 'Google Ads агентство' },
-              { href: '/leistungen/ecommerce-agentur', de: 'E-Commerce Agentur', en: 'E-Commerce Agency', ru: 'E-Commerce агентство' },
-              { href: '/leistungen/onlineshop-agentur', de: 'Onlineshop Agentur', en: 'Online Shop Agency', ru: 'Агентство интернет-магазинов' },
-              { href: '/leistungen/wordpress-agentur', de: 'WordPress Agentur', en: 'WordPress Agency', ru: 'WordPress агентство' },
-              { href: '/leistungen/social-media-agentur', de: 'Social Media Agentur', en: 'Social Media Agency', ru: 'SMM агентство' },
-              { href: '/leistungen/geo-optimierung', de: 'GEO Optimierung', en: 'GEO Optimization', ru: 'GEO оптимизация' },
-            ].map((item) => (
-              <Link key={item.href} href={item.href as '/'} className="p-4 rounded-lg border hover:border-primary/50 hover:bg-muted/50 transition-colors text-center">
-                <span className="text-sm font-medium">{locale === 'de' ? item.de : locale === 'ru' ? item.ru : item.en}</span>
-              </Link>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Process Section - ProcessExpandingRows Layout */}
-      <ProcessExpandingRows
-        title={content.processTitle}
-        subtitle={content.processSubtitle}
-        steps={content.process.map((s: { step: string; title: string; description: string }) => ({ num: s.step, title: s.title, description: s.description }))}
+      {/* Process Section */}
+      <ProcessSection
+        eyebrow={c.processEyebrow}
+        title={c.processTitle}
+        titleHighlight={c.processTitleHighlight}
+        description={c.processDescription}
+        steps={c.processSteps}
       />
 
-      {/* Benefits Section */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <Container variant="block">
-          <h2 className="text-2xl md:text-3xl font-bold mb-12 text-center">{content.benefitsTitle}</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            {content.benefits.map((benefit: { icon: ComponentType<{ className?: string }>; title: string; description: string }, index: number) => {
-              const Icon = benefit.icon
-              return (
-                <div key={index} className="text-center">
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">{benefit.title}</h3>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                </div>
-              )
-            })}
-          </div>
-        </Container>
-      </section>
+      {/* Value Props */}
+      <ValuesSection
+        eyebrow={c.valuesEyebrow}
+        title={c.valuesTitle}
+        titleHighlight={c.valuesTitleHighlight}
+        values={c.values}
+      />
 
-      {/* Packages Teaser */}
-      <section className="py-16 md:py-24">
-        <Container variant="block">
-          <div className="bg-muted/50 rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">{content.packagesTitle}</h2>
-            <p className="text-lg text-muted-foreground mb-2">{content.packagesSubtitle}</p>
-            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">{content.packagesDescription}</p>
-            <Button size="lg" asChild>
-              <Link href="/leistungen/pakete">
-                {content.packagesButton}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </Container>
-      </section>
+      {/* Pakete CTA */}
+      <PaketeCTA
+        title={c.paketeTitle}
+        titleHighlight={c.paketeTitleHighlight}
+        description={c.paketeDescription}
+        buttonText={c.paketeButton}
+        locale={locale}
+      />
 
       {/* FAQ Section */}
-      <FAQSection
-        title={content.faqTitle}
-        items={content.faqs}
-        className="bg-muted/30"
+      <LeistungenFAQ 
+        eyebrow={c.faqEyebrow}
+        title={c.faqTitle}
+        titleHighlight={c.faqTitleHighlight}
+        description={c.faqDescription}
+        items={c.faqs} 
+        locale={locale}
       />
 
-      {/* CTA Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <Container variant="block" className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {content.ctaTitle}
-          </h2>
-          <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-            {content.ctaDescription}
-          </p>
-          <Button size="lg" variant="secondary" asChild>
-            <NextLink href={getContactUrl(locale)}>
-              {content.ctaButton}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </NextLink>
-          </Button>
-        </Container>
-      </section>
+      {/* Final CTA */}
+      <FinalCTA
+        title={c.finalCtaTitle}
+        titleHighlight={c.finalCtaTitleHighlight}
+        description={c.finalCtaDescription}
+        buttonText={c.finalCtaButton}
+        href={getContactUrl(locale)}
+      />
     </>
   )
 }
