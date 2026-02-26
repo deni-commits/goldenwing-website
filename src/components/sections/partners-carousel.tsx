@@ -15,19 +15,17 @@ interface PartnersCarouselProps {
 }
 
 export async function PartnersCarousel({
-  title = 'Technologien & Partner',
-  subtitle = 'Wir arbeiten mit führenden Technologien und vertrauenswürdigen Partnern',
+  title = 'Vertrauen von führenden Unternehmen',
+  subtitle = 'Wir arbeiten mit Marken, die höchste Ansprüche stellen',
   className,
   locale = "de"
 }: PartnersCarouselProps) {
   const partners = await getPartners()
 
-  // Filter partners that should be shown in carousel
   const carouselPartners = partners.filter(
     (partner) => partner.showInCarousel !== false
   )
 
-  // If no CMS partners, the LogoCarousel will use its default logos
   if (carouselPartners.length === 0) {
     return (
       <LogoCarousel
@@ -39,7 +37,6 @@ export async function PartnersCarousel({
     )
   }
 
-  // Transform CMS partners to Logo format
   const logos: Logo[] = carouselPartners.map((partner) => {
     const logoData = partner.logo as MediaImage | undefined
 
@@ -48,11 +45,10 @@ export async function PartnersCarousel({
       name: partner.name as string,
       image: logoData?.url || '',
       url: partner.website as string | undefined,
-      row: (partner.row === '3' ? '2' : partner.row as '1' | '2') || '1'
+      row: '1' as const
     }
-  }).filter(logo => logo.image) // Only include partners with logos
+  }).filter(logo => logo.image)
 
-  // If no logos with images, fall back to default
   if (logos.length === 0) {
     return (
       <LogoCarousel
