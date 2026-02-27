@@ -3,56 +3,31 @@ name: Deploy GoldenWing Website
 on:
   push:
     branches: [master]
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
-          NEXT_PUBLIC_SITE_URL: https://goldenwing.at
-          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
-
       - name: Deploy via SSH
-        uses: easingthemes/ssh-deploy@main
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-          REMOTE_HOST: 72.62.52.70
-          REMOTE_USER: root
-          SOURCE: .next/
-          TARGET: /var/www/goldenwing-website/.next/
-          EXCLUDE: cache/
-
-      - name: Restart PM2
         uses: appleboy/ssh-action@v1
         with:
           host: 72.62.52.70
           username: root
           key: ${{ secrets.DEPLOY_SSH_KEY }}
+          command_timeout: 10m
           script: |
             cd /var/www/goldenwing-website
+            git pull origin master
+            npm ci --prefer-offline
+            NODE_OPTIONS='--max-old-space-size=4096' npm run build
             pm2 restart goldenwing --update-env
             sleep 3
-            curl -sf http://localhost:3002/admin > /dev/null && echo ✅ Deploy successful || echo ❌ Health check failed
+            curl -sf http://localhost:3002 > /dev/null && echo '✅ Deploy successful' || echo '❌ Health check failed'
 
       - name: Purge Cloudflare Cache
         if: success()
         run: |
-          curl -s -X POST https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache             -H X-Auth-Email: ${{ secrets.CF_EMAIL }}             -H X-Auth-Key: ${{ secrets.CF_API_KEY }}             -H Content-Type: application/json             --data '"{purge_everything:true}"'
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache"             -H "X-Auth-Email: ${{ secrets.CF_EMAIL }}"             -H "X-Auth-Key: ${{ secrets.CF_API_KEY }}"             -H "Content-Type: application/json"             --data '{"purge_everything":true}'
