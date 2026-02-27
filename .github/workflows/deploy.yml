@@ -20,14 +20,38 @@ jobs:
           command_timeout: 10m
           script: |
             cd /var/www/goldenwing-website
+
+            # Stop non-essential services to free RAM for build
+            pm2 stop fts-backend labseo numbers-uae 2>/dev/null || true
+
+            # Pull latest code
             git pull origin master
             npm ci --prefer-offline
+
+            # Build with memory limit
             NODE_OPTIONS='--max-old-space-size=4096' npm run build
-            pm2 restart goldenwing --update-env
-            sleep 3
-            curl -sf http://localhost:3002 > /dev/null && echo '✅ Deploy successful' || echo '❌ Health check failed'
+
+            BUILD_EXIT=$?
+
+            # Restart all services (always, even if build fails)
+            if [ $BUILD_EXIT -eq 0 ]; then
+              pm2 restart goldenwing --update-env
+              echo '✅ Build successful'
+            else
+              echo '❌ Build failed with exit code '$BUILD_EXIT
+            fi
+
+            pm2 start fts-backend labseo numbers-uae 2>/dev/null || true
+
+            # Health check
+            sleep 5
+            curl -sf http://localhost:3002 > /dev/null && echo '✅ Site is live' || echo '❌ Health check failed'
 
       - name: Purge Cloudflare Cache
         if: success()
         run: |
-          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache"             -H "X-Auth-Email: ${{ secrets.CF_EMAIL }}"             -H "X-Auth-Key: ${{ secrets.CF_API_KEY }}"             -H "Content-Type: application/json"             --data '{"purge_everything":true}'
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/purge_cache" \
+            -H "X-Auth-Email: ${{ secrets.CF_EMAIL }}" \
+            -H "X-Auth-Key: ${{ secrets.CF_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
