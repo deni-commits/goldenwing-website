@@ -111,6 +111,8 @@ const defaultLogos: Logo[] = [
   { id: "15", name: "Semrush", image: "/images/partners/semrush.svg", row: 1 },
   { id: "17", name: "viridiusLAB", image: "/images/partners/viridiuslab.svg", row: 1 },
   { id: "18", name: "Adobe", image: "/images/partners/adobe.svg", row: 1 },
+  { id: "19", name: "Alinea Partners", image: "/images/partners/alinea.svg", row: 1 },
+  { id: "20", name: "Viprotect", image: "/images/partners/viprotect.svg", row: 1 },
 ]
 
 export function LogoCarousel({
