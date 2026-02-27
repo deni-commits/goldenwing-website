@@ -104,12 +104,6 @@ const LEGACY_REDIRECTS = [
   { source: '/de/leistungen/app-entwicklung', destination: '/de/leistungen/web-app-entwicklung', permanent: true },
   { source: '/de/leistungen/design', destination: '/de/leistungen/branding', permanent: true },
   { source: '/de/leistungen/google-ads', destination: '/de/leistungen/digital-marketing', permanent: true },
-// Service slug updates (2026-02-27)
-  { source: '/:locale(de|en)/leistungen/digitale-strategie', destination: '/:locale/leistungen/digital-marketing', permanent: true },
-  { source: '/:locale(de|en)/leistungen/seo-sichtbarkeit', destination: '/:locale/leistungen/seo-content', permanent: true },
-  { source: '/:locale(de|en)/leistungen/technische-loesungen', destination: '/:locale/leistungen/web-app-entwicklung', permanent: true },
-  { source: '/:locale(de|en)/leistungen/software-entwicklung', destination: '/:locale/leistungen/it-cloud-services', permanent: true },
-
   { source: '/de/leistungen/online-marketing', destination: '/de/leistungen/digital-marketing', permanent: true },
   { source: '/de/leistungen/seo', destination: '/de/leistungen/seo-content', permanent: true },
   { source: '/de/suchmaschinenoptimierung-wien', destination: '/de/seo-agentur-wien', permanent: true },

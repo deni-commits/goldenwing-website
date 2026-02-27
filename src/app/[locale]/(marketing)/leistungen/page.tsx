@@ -167,7 +167,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'Digital Marketing',
         description: 'Kampagnenstrategie, Paid Media und E-Mail-Automatisierung für messbare Ergebnisse und nachhaltiges Wachstum.',
         tags: ['Kampagnen', 'Paid Media', 'E-Mail-Automation'],
-        href: '/leistungen/digital-marketing',
+        href: '/leistungen/digitale-strategie',
         ariaLabel: 'Digital Marketing — Kampagnenstrategie, Paid Media und Automation. Mehr erfahren.'
       },
       {
@@ -177,7 +177,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'SEO & Content',
         description: 'Technical SEO, Local SEO, Keywordstrategie und Content-Produktion für nachhaltige Sichtbarkeit in Wien und ganz Österreich.',
         tags: ['Technical SEO', 'Local SEO Wien', 'Content-Strategie'],
-        href: '/leistungen/seo-content',
+        href: '/leistungen/seo-sichtbarkeit',
         ariaLabel: 'SEO & Content — Technical SEO, Local SEO und Content-Produktion. Mehr erfahren.'
       },
       {
@@ -187,7 +187,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'Web- & App-Entwicklung',
         description: 'Full-Stack Architektur, API-Integration, Mobile Apps und Automatisierung — maßgeschneidert für eure Anforderungen.',
         tags: ['Full-Stack', 'API-Integration', 'Mobile Apps', 'Automation'],
-        href: '/leistungen/web-app-entwicklung',
+        href: '/leistungen/technische-loesungen',
         ariaLabel: 'Web- & App-Entwicklung — Full-Stack, APIs und Mobile Apps. Mehr erfahren.'
       },
       {
@@ -197,7 +197,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'IT & Cloud Services',
         description: 'Cloud-Architektur, DevOps, Monitoring, Sicherheit und IT-Support für skalierbare Infrastruktur.',
         tags: ['Cloud-Architektur', 'DevOps', 'Monitoring', 'Security'],
-        href: '/leistungen/it-cloud-services',
+        href: '/leistungen/software-entwicklung',
         ariaLabel: 'IT & Cloud Services — Cloud-Architektur, DevOps und Security. Mehr erfahren.'
       }
     ],
@@ -208,10 +208,10 @@ const content: Record<SupportedLocale, PageContent> = {
         links: [
           { href: '/leistungen/branding', text: 'Branding' },
           { href: '/leistungen/webdesign', text: 'Webdesign' },
-          { href: '/leistungen/digital-marketing', text: 'Digital Marketing' },
-          { href: '/leistungen/seo-content', text: 'SEO & Content' },
-          { href: '/leistungen/web-app-entwicklung', text: 'Web- & App-Entwicklung' },
-          { href: '/leistungen/it-cloud-services', text: 'IT & Cloud Services' }
+          { href: '/leistungen/digitale-strategie', text: 'Digital Marketing' },
+          { href: '/leistungen/seo-sichtbarkeit', text: 'SEO & Content' },
+          { href: '/leistungen/technische-loesungen', text: 'Web- & App-Entwicklung' },
+          { href: '/leistungen/software-entwicklung', text: 'IT & Cloud Services' }
         ]
       },
       {
@@ -303,7 +303,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'Digital Marketing',
         description: 'Campaign strategy, paid media and email automation for measurable results and sustainable growth.',
         tags: ['Campaigns', 'Paid Media', 'Email Automation'],
-        href: '/leistungen/digital-marketing',
+        href: '/leistungen/digitale-strategie',
         ariaLabel: 'Digital Marketing — Campaign strategy, paid media and automation. Learn more.'
       },
       {
@@ -313,7 +313,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'SEO & Content',
         description: 'Technical SEO, local SEO, keyword strategy and content production for sustainable visibility.',
         tags: ['Technical SEO', 'Local SEO', 'Content Strategy'],
-        href: '/leistungen/seo-content',
+        href: '/leistungen/seo-sichtbarkeit',
         ariaLabel: 'SEO & Content — Technical SEO, local SEO and content production. Learn more.'
       },
       {
@@ -323,7 +323,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'Web & App Development',
         description: 'Full-stack architecture, API integration, mobile apps and automation — tailored to your requirements.',
         tags: ['Full-Stack', 'API Integration', 'Mobile Apps', 'Automation'],
-        href: '/leistungen/web-app-entwicklung',
+        href: '/leistungen/technische-loesungen',
         ariaLabel: 'Web & App Development — Full-stack, APIs and mobile apps. Learn more.'
       },
       {
@@ -333,7 +333,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'IT & Cloud Services',
         description: 'Cloud architecture, DevOps, monitoring, security and IT support for scalable infrastructure.',
         tags: ['Cloud Architecture', 'DevOps', 'Monitoring', 'Security'],
-        href: '/leistungen/it-cloud-services',
+        href: '/leistungen/software-entwicklung',
         ariaLabel: 'IT & Cloud Services — Cloud architecture, DevOps and security. Learn more.'
       }
     ],
@@ -344,10 +344,10 @@ const content: Record<SupportedLocale, PageContent> = {
         links: [
           { href: '/leistungen/branding', text: 'Branding' },
           { href: '/leistungen/webdesign', text: 'Web Design' },
-          { href: '/leistungen/digital-marketing', text: 'Digital Marketing' },
-          { href: '/leistungen/seo-content', text: 'SEO & Content' },
-          { href: '/leistungen/web-app-entwicklung', text: 'Web & App Development' },
-          { href: '/leistungen/it-cloud-services', text: 'IT & Cloud Services' }
+          { href: '/leistungen/digitale-strategie', text: 'Digital Marketing' },
+          { href: '/leistungen/seo-sichtbarkeit', text: 'SEO & Content' },
+          { href: '/leistungen/technische-loesungen', text: 'Web & App Development' },
+          { href: '/leistungen/software-entwicklung', text: 'IT & Cloud Services' }
         ]
       },
       {
@@ -439,7 +439,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'Цифровой маркетинг',
         description: 'Стратегия кампаний, платная реклама и автоматизация email для измеримых результатов и устойчивого роста.',
         tags: ['Кампании', 'Платная реклама', 'Email-автоматизация'],
-        href: '/leistungen/digital-marketing',
+        href: '/leistungen/digitale-strategie',
         ariaLabel: 'Цифровой маркетинг — Стратегия кампаний, платная реклама и автоматизация. Узнать больше.'
       },
       {
@@ -449,7 +449,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'SEO и контент',
         description: 'Технический SEO, локальный SEO, стратегия ключевых слов и производство контента для устойчивой видимости.',
         tags: ['Технический SEO', 'Локальный SEO', 'Контент-стратегия'],
-        href: '/leistungen/seo-content',
+        href: '/leistungen/seo-sichtbarkeit',
         ariaLabel: 'SEO и контент — Технический SEO, локальный SEO и производство контента. Узнать больше.'
       },
       {
@@ -459,7 +459,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'Веб и мобильная разработка',
         description: 'Full-stack архитектура, API интеграция, мобильные приложения и автоматизация — под ваши требования.',
         tags: ['Full-Stack', 'API интеграция', 'Мобильные приложения', 'Автоматизация'],
-        href: '/leistungen/web-app-entwicklung',
+        href: '/leistungen/technische-loesungen',
         ariaLabel: 'Веб и мобильная разработка — Full-stack, API и мобильные приложения. Узнать больше.'
       },
       {
@@ -469,7 +469,7 @@ const content: Record<SupportedLocale, PageContent> = {
         title: 'IT и облачные услуги',
         description: 'Облачная архитектура, DevOps, мониторинг, безопасность и IT-поддержка для масштабируемой инфраструктуры.',
         tags: ['Облачная архитектура', 'DevOps', 'Мониторинг', 'Безопасность'],
-        href: '/leistungen/it-cloud-services',
+        href: '/leistungen/software-entwicklung',
         ariaLabel: 'IT и облачные услуги — Облачная архитектура, DevOps и безопасность. Узнать больше.'
       }
     ],
@@ -480,10 +480,10 @@ const content: Record<SupportedLocale, PageContent> = {
         links: [
           { href: '/leistungen/branding', text: 'Брендинг' },
           { href: '/leistungen/webdesign', text: 'Веб-дизайн' },
-          { href: '/leistungen/digital-marketing', text: 'Цифровой маркетинг' },
-          { href: '/leistungen/seo-content', text: 'SEO и контент' },
-          { href: '/leistungen/web-app-entwicklung', text: 'Веб и мобильная разработка' },
-          { href: '/leistungen/it-cloud-services', text: 'IT и облачные услуги' }
+          { href: '/leistungen/digitale-strategie', text: 'Цифровой маркетинг' },
+          { href: '/leistungen/seo-sichtbarkeit', text: 'SEO и контент' },
+          { href: '/leistungen/technische-loesungen', text: 'Веб и мобильная разработка' },
+          { href: '/leistungen/software-entwicklung', text: 'IT и облачные услуги' }
         ]
       },
       {
