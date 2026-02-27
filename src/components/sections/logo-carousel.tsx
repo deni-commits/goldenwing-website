@@ -113,6 +113,8 @@ const defaultLogos: Logo[] = [
   { id: "18", name: "Adobe", image: "/images/partners/adobe.svg", row: 1 },
   { id: "19", name: "Alinea Partners", image: "/images/partners/alinea.svg", row: 1 },
   { id: "20", name: "Viprotect", image: "/images/partners/viprotect.svg", row: 1 },
+  { id: "21", name: "Wiener Linien", image: "/images/partners/wienerlinien.svg", row: 1 },
+  { id: "22", name: "Beverly Hills Salon", image: "/images/partners/beverlyhills.svg", row: 1 },
 ]
 
 export function LogoCarousel({
