@@ -518,7 +518,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Add static routes for each locale
   // Note: German uses no prefix (localePrefix: 'as-needed'), English uses /en with translated paths
   for (const route of staticRoutes) {
-    const dePath = route.path // German: no prefix (e.g., /kontakt)
+    const dePath = `/de${route.path}` // German: explicit /de/ prefix for SEO (e.g., /kontakt)
     const enPath = `/en${translatePath(route.path)}` // English: translated path (e.g., /en/contact)
     const isDeOnly = deOnlyPaths.has(route.path)
 
@@ -566,7 +566,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const service of services.docs) {
       if (service.slug) {
         const lastMod = new Date(service.updatedAt)
-        const dePath = `/leistungen/${service.slug}` // No /de/ prefix
+        const dePath = `/de/leistungen/${service.slug}` // No /de/ prefix
         // Use translatePath to translate the full path including service slug
         const enPath = `/en${translatePath(`/leistungen/${service.slug}`)}`
 
@@ -621,7 +621,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           }
 
           const lastMod = new Date(subService.updatedAt)
-          const dePath = `/leistungen/${parentSlug}/${subService.slug}` // No /de/ prefix
+          const dePath = `/de/leistungen/${parentSlug}/${subService.slug}` // No /de/ prefix
           const enPath = `/en${translatePath(`/leistungen/${parentSlug}`)}/${enSubSlug}`
 
           routes.push({
@@ -688,7 +688,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         const isTranslated = enSlug !== deSlug
         const isEnOnly = EN_ONLY_BLOG_POSTS.includes(deSlug as typeof EN_ONLY_BLOG_POSTS[number])
 
-        const dePath = `/blog/${deSlug}`
+        const dePath = `/de/blog/${deSlug}`
         const enPath = `/en/blog/${enSlug}`
 
         if (isEnOnly) {
@@ -747,7 +747,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const category of categories.docs) {
       if (category.slug) {
         const lastMod = new Date(category.updatedAt)
-        const dePath = `/blog/kategorie/${category.slug}` // No /de/ prefix
+        const dePath = `/de/blog/kategorie/${category.slug}` // No /de/ prefix
         const enCategorySlug = blogCategorySlugTranslations[category.slug] || category.slug
         const enPath = `/en/blog/category/${enCategorySlug}` // Translated EN path
 
@@ -788,7 +788,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const project of projects.docs) {
       if (project.slug) {
         const lastMod = new Date(project.updatedAt)
-        const dePath = `/projekte/${project.slug}` // No /de/ prefix
+        const dePath = `/de/projekte/${project.slug}` // No /de/ prefix
         const enPath = `/en/projects/${project.slug}` // Translated EN path
 
         routes.push({
@@ -822,7 +822,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Add Lexikon/Glossary entries
     const lexikonSlugs = getAllLexikonSlugs()
     for (const slug of lexikonSlugs) {
-      const dePath = `/lexikon/${slug}`
+      const dePath = `/de/lexikon/${slug}`
       const enPath = `/en/glossary/${slug}`
 
       routes.push({
@@ -861,7 +861,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const member of teamMembers.docs) {
       if (member.slug) {
         const lastMod = new Date(member.updatedAt)
-        const dePath = `/ueber-uns/team/${member.slug}`
+        const dePath = `/de/ueber-uns/team/${member.slug}`
         const enPath = `/en/about-us/team/${member.slug}`
 
         // German version

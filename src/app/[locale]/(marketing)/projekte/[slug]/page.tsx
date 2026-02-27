@@ -758,7 +758,7 @@ export default async function ProjectPage({
               <a
                 href={project.liveUrl}
                 target="_blank"
-                rel="noopener noreferrer nofollow sponsored"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1 text-primary ml-auto"
               >
                 <Globe className="h-4 w-4" />
@@ -820,7 +820,7 @@ export default async function ProjectPage({
                     <a
                       href={project.liveUrl}
                       target="_blank"
-                      rel="noopener noreferrer nofollow sponsored"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
                     >
                       <Globe className="h-4 w-4" />
