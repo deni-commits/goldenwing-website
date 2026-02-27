@@ -1,7 +1,7 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { buildConfig } from 'payload'
-import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor, BlocksFeature, FixedToolbarFeature } from '@payloadcms/richtext-lexical'
 
 // Blocks
@@ -127,11 +127,12 @@ export default buildConfig({
 
   // SQLite Datenbank
   // Use DATABASE_URL from env, or default to local file
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URL || `file:${path.join(process.cwd(), 'goldenwing.db')}`,
+  db: postgresAdapter({
+    pool: {
+      connectionString: process.env.DATABASE_URL || 'postgresql://postgres:dS9B337iUbqUDTLI@db.gzhvvwkoglylibvrtiqo.supabase.co:5432/postgres',
     },
-    push: false, // Disable automatic schema push prompts - run migrations manually
+    schemaName: 'payload',
+    push: true,
   }),
 
   // Plugins

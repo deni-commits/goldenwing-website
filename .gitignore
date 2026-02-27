@@ -14,3 +14,7 @@ node_modules/
 .claude/
 lighthouse-*.json
 concept-*.html
+*.db
+*.db-wal
+*.db-shm
+*.db.backup*
