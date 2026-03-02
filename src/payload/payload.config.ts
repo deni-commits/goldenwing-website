@@ -51,7 +51,7 @@ export default buildConfig({
   globals: [SiteSettings, Navigation, Footer],
   editor: lexicalEditor(),
   db: postgresAdapter({
-    pool: { connectionString: process.env.DATABASE_URI },
+    pool: { connectionString: process.env.DATABASE_URL || process.env.DATABASE_URI },
   }),
   sharp,
   typescript: {
