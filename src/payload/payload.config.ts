@@ -85,22 +85,18 @@ export default buildConfig({
         return `${base}/de/${doc.slug}`
       },
     }),
-    ...(process.env.S3_BUCKET
-      ? [
-          s3Storage({
-            collections: { media: true },
-            bucket: process.env.S3_BUCKET,
-            config: {
-              credentials: {
-                accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
-                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
-              },
-              region: process.env.S3_REGION || 'auto',
-              endpoint: process.env.S3_ENDPOINT,
-              forcePathStyle: true,
-            },
-          }),
-        ]
-      : []),
+    s3Storage({
+      collections: { media: true },
+      bucket: process.env.S3_BUCKET || 'goldenwing-media',
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+        },
+        region: process.env.S3_REGION || 'auto',
+        endpoint: process.env.S3_ENDPOINT || 'https://4b00ba5e4fec80d4941f90c7c1b9a0c2.r2.cloudflarestorage.com',
+        forcePathStyle: true,
+      },
+    }),
   ],
 })
