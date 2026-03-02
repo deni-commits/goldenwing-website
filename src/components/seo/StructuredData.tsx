@@ -63,3 +63,93 @@ export function LocalBusinessSchema() {
     />
   )
 }
+
+export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: string }> }) {
+  return (
+    <StructuredData
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: items.map((item, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: item.name,
+          item: item.url,
+        })),
+      }}
+    />
+  )
+}
+
+export function ArticleSchema({
+  title,
+  description,
+  publishedDate,
+  author,
+  url,
+  image,
+}: {
+  title: string
+  description?: string
+  publishedDate: string
+  author?: string
+  url: string
+  image?: string
+}) {
+  return (
+    <StructuredData
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        ...(description && { description }),
+        datePublished: publishedDate,
+        ...(author && {
+          author: {
+            '@type': 'Person',
+            name: author,
+          },
+        }),
+        url,
+        ...(image && { image }),
+        publisher: {
+          '@type': 'Organization',
+          name: 'GoldenWing Creative Studios',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://goldenwing.at/images/brand/logo.svg',
+          },
+        },
+      }}
+    />
+  )
+}
+
+export function ServiceSchema({
+  name,
+  description,
+  url,
+  provider,
+}: {
+  name: string
+  description?: string
+  url: string
+  provider?: string
+}) {
+  return (
+    <StructuredData
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name,
+        ...(description && { description }),
+        url,
+        provider: {
+          '@type': 'Organization',
+          name: provider ?? 'GoldenWing Creative Studios',
+          url: 'https://goldenwing.at',
+        },
+      }}
+    />
+  )
+}
