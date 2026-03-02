@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 export const CTA: Block = {
   slug: 'cta',
-  label: 'Call to Action',
+  labels: { singular: 'Call to Action', plural: 'Call to Action' },
   fields: [
     {
       name: 'headline',

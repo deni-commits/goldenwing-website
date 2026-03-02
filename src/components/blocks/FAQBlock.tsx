@@ -2,13 +2,7 @@
 
 import { useState } from 'react'
 
-type FAQProps = {
-  block: {
-    headline?: string
-    items?: Array<{ question: string; answer: string }>
-    [key: string]: unknown
-  }
-}
+type FAQProps = { block: any }
 
 export function FAQBlock({ block }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -20,7 +14,7 @@ export function FAQBlock({ block }: FAQProps) {
           <h2 className="mb-12 text-center text-3xl font-bold">{block.headline}</h2>
         )}
         <div className="space-y-4">
-          {block.items?.map((item, i) => (
+          {block.items?.map((item: any, i: number) => (
             <div key={i} className="rounded-lg border border-gray-200">
               <button
                 className="flex w-full items-center justify-between px-6 py-4 text-left font-medium"
@@ -52,7 +46,7 @@ export function FAQBlock({ block }: FAQProps) {
               __html: JSON.stringify({
                 '@context': 'https://schema.org',
                 '@type': 'FAQPage',
-                mainEntity: block.items.map((item) => ({
+                mainEntity: block.items.map((item: any) => ({
                   '@type': 'Question',
                   name: item.question,
                   acceptedAnswer: {

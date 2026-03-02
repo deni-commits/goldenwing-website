@@ -41,9 +41,9 @@ export default async function BlogPage() {
         {posts.length > 0 ? (
           <>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post: Record<string, unknown>) => {
-                const category = post.category as Record<string, unknown> | null
-                const featuredImage = post.featuredImage as Record<string, unknown> | null
+              {posts.map((post: any) => {
+                const category = post.category as any | null
+                const featuredImage = post.featuredImage as any | null
                 return (
                   <Link
                     key={post.id as string}

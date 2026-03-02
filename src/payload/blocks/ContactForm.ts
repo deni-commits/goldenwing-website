@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 export const ContactForm: Block = {
   slug: 'contact-form',
-  label: 'Kontaktformular',
+  labels: { singular: 'Kontaktformular', plural: 'Kontaktformular' },
   fields: [
     {
       name: 'headline',

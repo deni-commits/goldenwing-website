@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     limit: 1,
   })
 
-  const service = data.docs[0] as Record<string, unknown> | undefined
+  const service = data.docs[0] as any | undefined
 
   if (!service) {
     return { title: 'Service nicht gefunden' }
@@ -37,7 +37,7 @@ export async function generateStaticParams() {
     limit: 1000,
   })
 
-  return data.docs.map((service: Record<string, unknown>) => ({
+  return data.docs.map((service: any) => ({
     slug: service.slug as string,
   }))
 }
@@ -58,16 +58,16 @@ export default async function ServiceDetailPage({ params }: Props) {
     }),
   ])
 
-  const service = serviceData.docs[0] as Record<string, unknown> | undefined
+  const service = serviceData.docs[0] as any | undefined
 
   if (!service) {
     notFound()
   }
 
-  const category = service.category as Record<string, unknown> | null
-  const features = service.features as Array<Record<string, unknown>> | null
+  const category = service.category as any | null
+  const features = service.features as Array<any> | null
   const relatedServices = relatedData.docs.filter(
-    (s: Record<string, unknown>) => s.id !== service.id,
+    (s: any) => s.id !== service.id,
   )
 
   return (
@@ -155,7 +155,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               Weitere Services
             </h2>
             <div className="grid gap-8 md:grid-cols-3">
-              {relatedServices.map((related: Record<string, unknown>) => (
+              {relatedServices.map((related: any) => (
                 <Link
                   key={related.id as string}
                   href={`/services/${related.slug as string}`}

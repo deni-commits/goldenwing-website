@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 export const VideoEmbed: Block = {
   slug: 'video-embed',
-  label: 'Video',
+  labels: { singular: 'Video', plural: 'Video' },
   fields: [
     {
       name: 'url',

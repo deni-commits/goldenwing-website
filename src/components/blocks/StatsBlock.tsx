@@ -1,10 +1,4 @@
-type StatsProps = {
-  block: {
-    headline?: string
-    stats?: Array<{ value: string; label: string; suffix?: string }>
-    [key: string]: unknown
-  }
-}
+type StatsProps = { block: any }
 
 export function StatsBlock({ block }: StatsProps) {
   return (
@@ -14,7 +8,7 @@ export function StatsBlock({ block }: StatsProps) {
           <h2 className="mb-12 text-center text-3xl font-bold">{block.headline}</h2>
         )}
         <div className="grid gap-8 md:grid-cols-4">
-          {block.stats?.map((stat, i) => (
+          {block.stats?.map((stat: any, i: number) => (
             <div key={i} className="text-center">
               <div className="text-4xl font-bold text-gold-400">
                 {stat.value}{stat.suffix}

@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 export const ImageText: Block = {
   slug: 'image-text',
-  label: 'Bild + Text',
+  labels: { singular: 'Bild + Text', plural: 'Bild + Text' },
   fields: [
     {
       name: 'image',

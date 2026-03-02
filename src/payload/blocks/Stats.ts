@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 export const Stats: Block = {
   slug: 'stats',
-  label: 'Kennzahlen',
+  labels: { singular: 'Kennzahlen', plural: 'Kennzahlen' },
   fields: [
     {
       name: 'headline',

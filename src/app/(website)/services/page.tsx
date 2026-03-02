@@ -27,8 +27,8 @@ export default async function ServicesPage() {
 
         {services.length > 0 ? (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service: Record<string, unknown>) => {
-              const category = service.category as Record<string, unknown> | null
+            {services.map((service: any) => {
+              const category = service.category as any | null
               return (
                 <Link
                   key={service.id as string}

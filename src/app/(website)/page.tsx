@@ -82,7 +82,7 @@ export default async function HomePage() {
           </p>
           {services.length > 0 ? (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {services.map((service: Record<string, unknown>) => (
+              {services.map((service: any) => (
                 <Link
                   key={service.id as string}
                   href={`/services/${service.slug as string}`}
@@ -140,7 +140,7 @@ export default async function HomePage() {
               Echte Ergebnisse fuer echte Unternehmen.
             </p>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {testimonials.map((testimonial: Record<string, unknown>) => (
+              {testimonials.map((testimonial: any) => (
                 <div
                   key={testimonial.id as string}
                   className="rounded-xl border border-gray-100 bg-white p-6 transition hover:border-gold-200 hover:shadow-lg"
@@ -174,8 +174,8 @@ export default async function HomePage() {
               Insights und Tipps aus der Welt des digitalen Marketings.
             </p>
             <div className="grid gap-8 md:grid-cols-3">
-              {posts.map((post: Record<string, unknown>) => {
-                const category = post.category as Record<string, unknown> | null
+              {posts.map((post: any) => {
+                const category = post.category as any | null
                 return (
                   <Link
                     key={post.id as string}

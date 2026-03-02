@@ -24,8 +24,8 @@ export default async function UeberUnsPage() {
   ])
 
   const team = teamData.docs
-  const page = pageData.docs[0] as Record<string, unknown> | undefined
-  const layout = page?.layout as Array<Record<string, unknown>> | null
+  const page = pageData.docs[0] as any | undefined
+  const layout = page?.layout as Array<any> | null
 
   return (
     <>
@@ -56,8 +56,8 @@ export default async function UeberUnsPage() {
               Die Menschen hinter GoldenWing Creative Studios.
             </p>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {team.map((member: Record<string, unknown>) => {
-                const photo = member.photo as Record<string, unknown> | null
+              {team.map((member: any) => {
+                const photo = member.photo as any | null
                 return (
                   <div
                     key={member.id as string}

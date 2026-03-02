@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 export const LogoCloud: Block = {
   slug: 'logo-cloud',
-  label: 'Logo Cloud',
+  labels: { singular: 'Logo Cloud', plural: 'Logo Cloud' },
   fields: [
     {
       name: 'headline',

@@ -3,7 +3,7 @@ import type { Block } from 'payload'
 // Generates FAQPage schema markup for structured data / SEO
 export const FAQ: Block = {
   slug: 'faq',
-  label: 'FAQ',
+  labels: { singular: 'FAQ', plural: 'FAQ' },
   fields: [
     {
       name: 'headline',

@@ -23,6 +23,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  secret: process.env.PAYLOAD_SECRET || 'default-secret-change-in-production',
   admin: {
     user: 'users',
     meta: {

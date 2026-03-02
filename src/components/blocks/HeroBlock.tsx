@@ -1,13 +1,4 @@
-type HeroProps = {
-  block: {
-    headline?: string
-    subline?: string
-    ctaLabel?: string
-    ctaLink?: string
-    alignment?: 'left' | 'center' | 'right'
-    [key: string]: unknown
-  }
-}
+type HeroProps = { block: any }
 
 export function HeroBlock({ block }: HeroProps) {
   const align = block.alignment || 'center'

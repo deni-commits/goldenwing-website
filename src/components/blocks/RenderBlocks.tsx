@@ -11,7 +11,8 @@ type Block = {
   [key: string]: unknown
 }
 
-const blockComponents: Record<string, React.ComponentType<{ block: Block }>> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const blockComponents: Record<string, React.ComponentType<any>> = {
   hero: HeroBlock,
   'image-text': ImageTextBlock,
   'feature-grid': FeatureGridBlock,
@@ -20,7 +21,8 @@ const blockComponents: Record<string, React.ComponentType<{ block: Block }>> = {
   stats: StatsBlock,
 }
 
-export function RenderBlocks({ blocks }: { blocks: Block[] | null | undefined }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function RenderBlocks({ blocks }: { blocks: any[] | null | undefined }) {
   if (!blocks?.length) return null
 
   return (

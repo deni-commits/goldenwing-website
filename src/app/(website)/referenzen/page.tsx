@@ -28,7 +28,7 @@ export default async function ReferenzenPage() {
 
         {caseStudies.length > 0 ? (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {caseStudies.map((caseStudy: Record<string, unknown>) => {
+            {caseStudies.map((caseStudy: any) => {
               const industry = caseStudy.industry as string | null
               return (
                 <Link
@@ -39,7 +39,7 @@ export default async function ReferenzenPage() {
                   {/* Image Placeholder */}
                   <div className="mb-6 aspect-video w-full overflow-hidden rounded-lg bg-gradient-to-br from-gold-50 to-gold-100">
                     {(() => {
-                      const coverImage = caseStudy.coverImage as Record<string, unknown> | null
+                      const coverImage = caseStudy.coverImage as any | null
                       return coverImage && (coverImage.url as string) ? (
                         <img
                           src={coverImage.url as string}

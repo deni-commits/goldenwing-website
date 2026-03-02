@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 export const FeatureGrid: Block = {
   slug: 'feature-grid',
-  label: 'Feature Grid',
+  labels: { singular: 'Feature Grid', plural: 'Feature Grid' },
   fields: [
     {
       name: 'headline',

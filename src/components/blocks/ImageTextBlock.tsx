@@ -1,9 +1,4 @@
-type ImageTextProps = {
-  block: {
-    imagePosition?: 'left' | 'right'
-    [key: string]: unknown
-  }
-}
+type ImageTextProps = { block: any }
 
 export function ImageTextBlock({ block }: ImageTextProps) {
   const isRight = block.imagePosition === 'right'

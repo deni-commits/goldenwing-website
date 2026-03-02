@@ -1,13 +1,4 @@
-type CTAProps = {
-  block: {
-    headline: string
-    description?: string
-    buttonLabel: string
-    buttonLink: string
-    variant?: 'primary' | 'secondary' | 'subtle'
-    [key: string]: unknown
-  }
-}
+type CTAProps = { block: any }
 
 export function CTABlock({ block }: CTAProps) {
   const isPrimary = block.variant !== 'secondary' && block.variant !== 'subtle'

@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     limit: 1,
   })
 
-  const caseStudy = data.docs[0] as Record<string, unknown> | undefined
+  const caseStudy = data.docs[0] as any | undefined
 
   if (!caseStudy) {
     return { title: 'Referenz nicht gefunden' }
@@ -37,7 +37,7 @@ export async function generateStaticParams() {
     limit: 1000,
   })
 
-  return data.docs.map((caseStudy: Record<string, unknown>) => ({
+  return data.docs.map((caseStudy: any) => ({
     slug: caseStudy.slug as string,
   }))
 }
@@ -52,15 +52,15 @@ export default async function ReferenzDetailPage({ params }: Props) {
     limit: 1,
   })
 
-  const caseStudy = data.docs[0] as Record<string, unknown> | undefined
+  const caseStudy = data.docs[0] as any | undefined
 
   if (!caseStudy) {
     notFound()
   }
 
   const industry = caseStudy.industry as string | null
-  const metrics = caseStudy.results as Array<Record<string, unknown>> | null
-  const testimonial = caseStudy.testimonial as Record<string, unknown> | null
+  const metrics = caseStudy.results as Array<any> | null
+  const testimonial = caseStudy.testimonial as any | null
 
   return (
     <>
@@ -83,7 +83,7 @@ export default async function ReferenzDetailPage({ params }: Props) {
 
       {/* Cover Image */}
       {(() => {
-        const coverImage = caseStudy.coverImage as Record<string, unknown> | null
+        const coverImage = caseStudy.coverImage as any | null
         return coverImage && (coverImage.url as string) ? (
           <div className="px-4">
             <div className="mx-auto max-w-6xl overflow-hidden rounded-xl">

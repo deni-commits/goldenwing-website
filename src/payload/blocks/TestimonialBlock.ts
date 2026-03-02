@@ -2,7 +2,7 @@ import type { Block } from 'payload'
 
 export const TestimonialBlock: Block = {
   slug: 'testimonial',
-  label: 'Testimonial',
+  labels: { singular: 'Testimonial', plural: 'Testimonial' },
   fields: [
     {
       name: 'style',

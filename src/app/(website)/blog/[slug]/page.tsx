@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     limit: 1,
   })
 
-  const post = postsData.docs[0] as Record<string, unknown> | undefined
+  const post = postsData.docs[0] as any | undefined
 
   if (!post) {
     return { title: 'Beitrag nicht gefunden' }
@@ -46,7 +46,7 @@ export async function generateStaticParams() {
     where: { _status: { equals: 'published' } },
   })
 
-  return postsData.docs.map((post: Record<string, unknown>) => ({
+  return postsData.docs.map((post: any) => ({
     slug: post.slug as string,
   }))
 }
@@ -61,13 +61,13 @@ export default async function BlogDetailPage({ params }: Props) {
     limit: 1,
   })
 
-  const post = postsData.docs[0] as Record<string, unknown> | undefined
+  const post = postsData.docs[0] as any | undefined
 
   if (!post) {
     notFound()
   }
 
-  const category = post.category as Record<string, unknown> | null
+  const category = post.category as any | null
 
   return (
     <article className="px-4 py-24">
@@ -105,7 +105,7 @@ export default async function BlogDetailPage({ params }: Props) {
 
         {/* Featured Image */}
         {(() => {
-          const featuredImage = post.featuredImage as Record<string, unknown> | null
+          const featuredImage = post.featuredImage as any | null
           return featuredImage && (featuredImage.url as string) ? (
             <div className="mb-12 overflow-hidden rounded-xl">
               <img
