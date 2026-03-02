@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { locales, type Locale } from '@/i18n/config'
-import { HreflangTags } from '@/components/seo/HreflangTags'
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
@@ -61,7 +60,6 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <>
-      <HreflangTags locale={locale} />
       <Header locale={locale} />
       <main id="main-content">{children}</main>
       <Footer locale={locale} />
