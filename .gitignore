@@ -34,3 +34,4 @@ playwright-report/
 # Misc
 *.log
 npm-debug.log*
+.github/workflows/
