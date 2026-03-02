@@ -30,16 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const payload = await getPayload()
-
-  const data = await payload.find({
-    collection: 'services',
-    limit: 1000,
-  })
-
-  return data.docs.map((service: any) => ({
-    slug: service.slug as string,
-  }))
+  try {
+    const payload = await getPayload()
+    const data = await payload.find({ collection: 'services', limit: 1000 })
+    return data.docs.map((service: any) => ({ slug: service.slug as string }))
+  } catch {
+    return []
+  }
 }
 
 export default async function ServiceDetailPage({ params }: Props) {

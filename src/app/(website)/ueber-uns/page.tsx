@@ -8,24 +8,21 @@ export const metadata: Metadata = {
 }
 
 export default async function UeberUnsPage() {
-  const payload = await getPayload()
+  let team: any[] = []
+  let layout: Array<any> | null = null
 
-  const [teamData, pageData] = await Promise.all([
-    payload.find({
-      collection: 'team',
-      sort: 'sortOrder',
-      limit: 20,
-    }),
-    payload.find({
-      collection: 'pages',
-      where: { slug: { equals: 'ueber-uns' } },
-      limit: 1,
-    }),
-  ])
-
-  const team = teamData.docs
-  const page = pageData.docs[0] as any | undefined
-  const layout = page?.layout as Array<any> | null
+  try {
+    const payload = await getPayload()
+    const [teamData, pageData] = await Promise.all([
+      payload.find({ collection: 'team', sort: 'sortOrder', limit: 20 }),
+      payload.find({ collection: 'pages', where: { slug: { equals: 'ueber-uns' } }, limit: 1 }),
+    ])
+    team = teamData.docs
+    const page = pageData.docs[0] as any | undefined
+    layout = page?.layout as Array<any> | null
+  } catch {
+    // Tables may not exist yet on first build
+  }
 
   return (
     <>

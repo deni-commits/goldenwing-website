@@ -18,28 +18,23 @@ function formatDate(dateString: string): string {
 }
 
 export default async function HomePage() {
-  const payload = await getPayload()
+  let posts: any[] = []
+  let services: any[] = []
+  let testimonials: any[] = []
 
-  const [postsData, servicesData, testimonialsData] = await Promise.all([
-    payload.find({
-      collection: 'posts',
-      limit: 3,
-      sort: '-publishedDate',
-      where: { _status: { equals: 'published' } },
-    }),
-    payload.find({
-      collection: 'services',
-      limit: 10,
-    }),
-    payload.find({
-      collection: 'testimonials',
-      limit: 6,
-    }),
-  ])
-
-  const posts = postsData.docs
-  const services = servicesData.docs
-  const testimonials = testimonialsData.docs
+  try {
+    const payload = await getPayload()
+    const [postsData, servicesData, testimonialsData] = await Promise.all([
+      payload.find({ collection: 'posts', limit: 3, sort: '-publishedDate', where: { _status: { equals: 'published' } } }),
+      payload.find({ collection: 'services', limit: 10 }),
+      payload.find({ collection: 'testimonials', limit: 6 }),
+    ])
+    posts = postsData.docs
+    services = servicesData.docs
+    testimonials = testimonialsData.docs
+  } catch {
+    // Tables may not exist yet on first build
+  }
 
   return (
     <>

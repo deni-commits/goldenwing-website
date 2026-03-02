@@ -17,18 +17,19 @@ function formatDate(dateString: string): string {
 }
 
 export default async function BlogPage() {
-  const payload = await getPayload()
+  let posts: any[] = []
+  let totalPages = 1
+  let currentPage = 1
 
-  const postsData = await payload.find({
-    collection: 'posts',
-    page: 1,
-    limit: 12,
-    sort: '-publishedDate',
-    where: { _status: { equals: 'published' } },
-  })
-
-  const posts = postsData.docs
-  const { totalPages, page: currentPage } = postsData
+  try {
+    const payload = await getPayload()
+    const postsData = await payload.find({ collection: 'posts', page: 1, limit: 12, sort: '-publishedDate', where: { _status: { equals: 'published' } } })
+    posts = postsData.docs
+    totalPages = postsData.totalPages
+    currentPage = postsData.page ?? 1
+  } catch {
+    // Tables may not exist yet on first build
+  }
 
   return (
     <section className="px-4 py-24">

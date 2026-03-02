@@ -33,16 +33,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const payload = await getPayload()
-
-  const data = await payload.find({
-    collection: 'landing-pages',
-    limit: 1000,
-  })
-
-  return data.docs.map((page: Record<string, unknown>) => ({
-    landing: (page.slug as string).split('/'),
-  }))
+  try {
+    const payload = await getPayload()
+    const data = await payload.find({ collection: 'landing-pages', limit: 1000 })
+    return data.docs.map((page: Record<string, unknown>) => ({
+      landing: (page.slug as string).split('/'),
+    }))
+  } catch {
+    return []
+  }
 }
 
 export default async function LandingPage({ params }: Props) {

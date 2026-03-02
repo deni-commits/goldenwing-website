@@ -30,16 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const payload = await getPayload()
-
-  const data = await payload.find({
-    collection: 'case-studies',
-    limit: 1000,
-  })
-
-  return data.docs.map((caseStudy: any) => ({
-    slug: caseStudy.slug as string,
-  }))
+  try {
+    const payload = await getPayload()
+    const data = await payload.find({ collection: 'case-studies', limit: 1000 })
+    return data.docs.map((caseStudy: any) => ({ slug: caseStudy.slug as string }))
+  } catch {
+    return []
+  }
 }
 
 export default async function ReferenzDetailPage({ params }: Props) {

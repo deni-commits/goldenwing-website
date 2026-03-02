@@ -8,14 +8,15 @@ export const metadata: Metadata = {
 }
 
 export default async function ServicesPage() {
-  const payload = await getPayload()
+  let services: any[] = []
 
-  const servicesData = await payload.find({
-    collection: 'services',
-    limit: 20,
-  })
-
-  const services = servicesData.docs
+  try {
+    const payload = await getPayload()
+    const servicesData = await payload.find({ collection: 'services', limit: 20 })
+    services = servicesData.docs
+  } catch {
+    // Tables may not exist yet on first build
+  }
 
   return (
     <section className="px-4 py-24">

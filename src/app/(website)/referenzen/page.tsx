@@ -8,15 +8,15 @@ export const metadata: Metadata = {
 }
 
 export default async function ReferenzenPage() {
-  const payload = await getPayload()
+  let caseStudies: any[] = []
 
-  const caseStudiesData = await payload.find({
-    collection: 'case-studies',
-    limit: 20,
-    sort: '-publishedDate',
-  })
-
-  const caseStudies = caseStudiesData.docs
+  try {
+    const payload = await getPayload()
+    const caseStudiesData = await payload.find({ collection: 'case-studies', limit: 20, sort: '-publishedDate' })
+    caseStudies = caseStudiesData.docs
+  } catch {
+    // Tables may not exist yet on first build
+  }
 
   return (
     <section className="px-4 py-24">
