@@ -4,33 +4,15 @@ export const FeatureGrid: Block = {
   slug: 'feature-grid',
   labels: { singular: 'Feature Grid', plural: 'Feature Grid' },
   fields: [
-    {
-      name: 'headline',
-      type: 'text',
-      label: 'Überschrift',
-    },
+    { name: 'headline', type: 'text', label: 'Ueberschrift', localized: true },
     {
       name: 'features',
       type: 'array',
       label: 'Features',
       fields: [
-        {
-          name: 'icon',
-          type: 'text',
-          label: 'Icon',
-        },
-        {
-          name: 'title',
-          type: 'text',
-          label: 'Titel',
-          required: true,
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          label: 'Beschreibung',
-          required: true,
-        },
+        { name: 'icon', type: 'text', label: 'Icon' },
+        { name: 'title', type: 'text', label: 'Titel', required: true, localized: true },
+        { name: 'description', type: 'textarea', label: 'Beschreibung', required: true, localized: true },
       ],
     },
     {

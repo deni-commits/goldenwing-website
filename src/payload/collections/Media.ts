@@ -7,24 +7,9 @@ export const Media: CollectionConfig = {
   },
   upload: {
     imageSizes: [
-      {
-        name: 'thumbnail',
-        width: 400,
-        height: 300,
-        position: 'centre',
-      },
-      {
-        name: 'card',
-        width: 768,
-        height: undefined,
-        position: 'centre',
-      },
-      {
-        name: 'hero',
-        width: 1920,
-        height: undefined,
-        position: 'centre',
-      },
+      { name: 'thumbnail', width: 400, height: 300, position: 'centre' },
+      { name: 'card', width: 768, height: undefined, position: 'centre' },
+      { name: 'hero', width: 1920, height: undefined, position: 'centre' },
     ],
     mimeTypes: ['image/*', 'application/pdf'],
   },
@@ -33,14 +18,16 @@ export const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Alternativtext',
       admin: {
-        description: 'Beschreibung des Bildes für Barrierefreiheit und SEO',
+        description: 'Beschreibung des Bildes fuer Barrierefreiheit und SEO',
       },
     },
     {
       name: 'caption',
       type: 'text',
+      localized: true,
       label: 'Bildunterschrift',
     },
   ],

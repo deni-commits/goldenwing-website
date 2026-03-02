@@ -7,36 +7,17 @@ export const Navigation: GlobalConfig = {
     {
       name: 'mainMenu',
       type: 'array',
-      label: 'Hauptmenü',
+      label: 'Hauptmenue',
       fields: [
-        {
-          name: 'label',
-          type: 'text',
-          label: 'Bezeichnung',
-          required: true,
-        },
-        {
-          name: 'link',
-          type: 'text',
-          label: 'Link',
-        },
+        { name: 'label', type: 'text', label: 'Bezeichnung', required: true, localized: true },
+        { name: 'link', type: 'text', label: 'Link' },
         {
           name: 'children',
           type: 'array',
-          label: 'Untermenü',
+          label: 'Untermenue',
           fields: [
-            {
-              name: 'label',
-              type: 'text',
-              label: 'Bezeichnung',
-              required: true,
-            },
-            {
-              name: 'link',
-              type: 'text',
-              label: 'Link',
-              required: true,
-            },
+            { name: 'label', type: 'text', label: 'Bezeichnung', required: true, localized: true },
+            { name: 'link', type: 'text', label: 'Link', required: true },
           ],
         },
       ],
@@ -46,48 +27,8 @@ export const Navigation: GlobalConfig = {
       name: 'ctaButton',
       label: 'CTA Button',
       fields: [
-        {
-          name: 'label',
-          type: 'text',
-          label: 'Bezeichnung',
-        },
-        {
-          name: 'link',
-          type: 'text',
-          label: 'Link',
-        },
-      ],
-    },
-    {
-      name: 'footerMenu',
-      type: 'array',
-      label: 'Footer-Menü',
-      fields: [
-        {
-          name: 'heading',
-          type: 'text',
-          label: 'Überschrift',
-          required: true,
-        },
-        {
-          name: 'links',
-          type: 'array',
-          label: 'Links',
-          fields: [
-            {
-              name: 'label',
-              type: 'text',
-              label: 'Bezeichnung',
-              required: true,
-            },
-            {
-              name: 'link',
-              type: 'text',
-              label: 'Link',
-              required: true,
-            },
-          ],
-        },
+        { name: 'label', type: 'text', label: 'Bezeichnung', localized: true },
+        { name: 'link', type: 'text', label: 'Link' },
       ],
     },
   ],

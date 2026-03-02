@@ -4,6 +4,7 @@ import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { s3Storage } from '@payloadcms/storage-s3'
 import sharp from 'sharp'
 
 import { Pages } from './collections/Pages'
@@ -29,6 +30,15 @@ export default buildConfig({
     meta: {
       titleSuffix: ' | GoldenWing CMS',
     },
+  },
+  localization: {
+    locales: [
+      { label: 'Deutsch', code: 'de' },
+      { label: 'English', code: 'en' },
+      { label: 'Русский', code: 'ru' },
+    ],
+    defaultLocale: 'de',
+    fallback: true,
   },
   collections: [
     Pages,
@@ -67,12 +77,30 @@ export default buildConfig({
       generateDescription: ({ doc }) => doc.excerpt || '',
       generateURL: ({ doc, collectionSlug }) => {
         const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
-        if (collectionSlug === 'pages') return `${base}/${doc.slug}`
-        if (collectionSlug === 'posts') return `${base}/blog/${doc.slug}`
-        if (collectionSlug === 'services') return `${base}/services/${doc.slug}`
-        if (collectionSlug === 'case-studies') return `${base}/referenzen/${doc.slug}`
-        return `${base}/${doc.slug}`
+        if (collectionSlug === 'pages') return `${base}/de/${doc.slug}`
+        if (collectionSlug === 'posts') return `${base}/de/blog/${doc.slug}`
+        if (collectionSlug === 'services') return `${base}/de/services/${doc.slug}`
+        if (collectionSlug === 'case-studies') return `${base}/de/referenzen/${doc.slug}`
+        if (collectionSlug === 'landing-pages') return `${base}/de/${doc.slug}`
+        return `${base}/de/${doc.slug}`
       },
     }),
+    ...(process.env.S3_BUCKET
+      ? [
+          s3Storage({
+            collections: { media: true },
+            bucket: process.env.S3_BUCKET,
+            config: {
+              credentials: {
+                accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+              },
+              region: process.env.S3_REGION || 'auto',
+              endpoint: process.env.S3_ENDPOINT,
+              forcePathStyle: true,
+            },
+          }),
+        ]
+      : []),
   ],
 })

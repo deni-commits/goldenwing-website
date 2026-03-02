@@ -2,35 +2,13 @@ import type { Block } from 'payload'
 
 export const Hero: Block = {
   slug: 'hero',
-  labels: { singular: 'Hero Section', plural: 'Hero Section' },
+  labels: { singular: 'Hero Section', plural: 'Hero Sections' },
   fields: [
-    {
-      name: 'headline',
-      type: 'text',
-      label: 'Überschrift',
-      required: true,
-    },
-    {
-      name: 'subline',
-      type: 'textarea',
-      label: 'Unterzeile',
-    },
-    {
-      name: 'ctaLabel',
-      type: 'text',
-      label: 'CTA Bezeichnung',
-    },
-    {
-      name: 'ctaLink',
-      type: 'text',
-      label: 'CTA Link',
-    },
-    {
-      name: 'backgroundImage',
-      type: 'upload',
-      relationTo: 'media',
-      label: 'Hintergrundbild',
-    },
+    { name: 'headline', type: 'text', label: 'Ueberschrift', required: true, localized: true },
+    { name: 'subline', type: 'textarea', label: 'Unterzeile', localized: true },
+    { name: 'ctaLabel', type: 'text', label: 'CTA Bezeichnung', localized: true },
+    { name: 'ctaLink', type: 'text', label: 'CTA Link' },
+    { name: 'backgroundImage', type: 'upload', relationTo: 'media', label: 'Hintergrundbild' },
     {
       name: 'backgroundType',
       type: 'select',

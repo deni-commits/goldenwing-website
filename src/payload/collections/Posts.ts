@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from '../fields/slug'
+import { revalidateOnChange } from '../hooks/revalidateOnChange'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -10,17 +11,22 @@ export const Posts: CollectionConfig = {
   versions: {
     drafts: true,
   },
+  hooks: {
+    afterChange: [revalidateOnChange],
+  },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Titel',
     },
     ...slugField,
     {
       name: 'excerpt',
       type: 'textarea',
+      localized: true,
       label: 'Kurzbeschreibung',
     },
     {
@@ -32,6 +38,7 @@ export const Posts: CollectionConfig = {
     {
       name: 'content',
       type: 'richText',
+      localized: true,
       label: 'Inhalt',
     },
     {
@@ -58,21 +65,15 @@ export const Posts: CollectionConfig = {
       type: 'array',
       label: 'Tags',
       fields: [
-        {
-          name: 'tag',
-          type: 'text',
-          label: 'Tag',
-        },
+        { name: 'tag', type: 'text', label: 'Tag' },
       ],
     },
     {
       name: 'publishedDate',
       type: 'date',
-      label: 'Veröffentlichungsdatum',
+      label: 'Veroeffentlichungsdatum',
       admin: {
-        date: {
-          pickerAppearance: 'dayAndTime',
-        },
+        date: { pickerAppearance: 'dayAndTime' },
       },
     },
     {
@@ -85,18 +86,12 @@ export const Posts: CollectionConfig = {
       },
       hooks: {
         beforeChange: [
-          ({ data, siblingData }) => {
+          ({ siblingData }) => {
             const content = siblingData?.content
             if (!content) return 1
-
-            const text =
-              typeof content === 'string'
-                ? content
-                : JSON.stringify(content)
-
+            const text = typeof content === 'string' ? content : JSON.stringify(content)
             const wordCount = text.trim().split(/\s+/).length
-            const minutes = Math.max(1, Math.ceil(wordCount / 200))
-            return minutes
+            return Math.max(1, Math.ceil(wordCount / 200))
           },
         ],
       },

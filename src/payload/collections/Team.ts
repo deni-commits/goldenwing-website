@@ -17,6 +17,7 @@ export const Team: CollectionConfig = {
       name: 'role',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Position',
     },
     {
@@ -28,6 +29,7 @@ export const Team: CollectionConfig = {
     {
       name: 'bio',
       type: 'textarea',
+      localized: true,
       label: 'Biografie',
     },
     {

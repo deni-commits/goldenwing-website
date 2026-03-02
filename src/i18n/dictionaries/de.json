@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "services": "Leistungen",
+    "referenzen": "Referenzen",
+    "blog": "Blog",
+    "about": "Ueber uns",
+    "contact": "Kontakt",
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutz"
+  },
+  "common": {
+    "readMore": "Weiterlesen",
+    "viewAll": "Alle anzeigen",
+    "backTo": "Zurueck zu",
+    "share": "Teilen",
+    "loading": "Laden...",
+    "noResults": "Keine Ergebnisse gefunden.",
+    "search": "Suchen",
+    "submit": "Absenden",
+    "close": "Schliessen",
+    "language": "Sprache",
+    "readingTime": "{min} Min. Lesezeit",
+    "publishedOn": "Veroeffentlicht am"
+  },
+  "home": {
+    "heroTitle": "Kreativagentur Wien",
+    "heroSubtitle": "Marketing, Branding & Web Development aus einer Hand.",
+    "servicesTitle": "Unsere Leistungen",
+    "referencesTitle": "Referenzen",
+    "blogTitle": "Aktuelles",
+    "ctaTitle": "Bereit fuer dein Projekt?",
+    "ctaButton": "Kontakt aufnehmen"
+  },
+  "services": {
+    "title": "Unsere Leistungen",
+    "subtitle": "Von der Strategie bis zur Umsetzung — alles aus einer Hand.",
+    "subServices": "Teilleistungen",
+    "relatedServices": "Verwandte Leistungen"
+  },
+  "referenzen": {
+    "title": "Referenzen",
+    "subtitle": "Erfahre, wie wir unseren Kunden geholfen haben, ihre Ziele zu erreichen.",
+    "challenge": "Herausforderung",
+    "solution": "Loesung",
+    "results": "Ergebnisse"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights, Tipps und News aus der Welt des digitalen Marketings.",
+    "categories": "Kategorien",
+    "allPosts": "Alle Beitraege",
+    "relatedPosts": "Verwandte Beitraege"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Wir freuen uns auf deine Nachricht.",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "success": "Vielen Dank! Wir melden uns bei dir.",
+    "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+  },
+  "about": {
+    "title": "Ueber uns",
+    "teamTitle": "Unser Team",
+    "teamSubtitle": "Die Menschen hinter GoldenWing Creative Studios.",
+    "valuesTitle": "Unsere Werte",
+    "valuesSubtitle": "Was uns antreibt und wie wir arbeiten."
+  },
+  "footer": {
+    "copyright": "Alle Rechte vorbehalten.",
+    "madeWith": "Made with"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "description": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "backHome": "Zurueck zur Startseite"
+  }
+}

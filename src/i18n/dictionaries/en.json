@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "referenzen": "Portfolio",
+    "blog": "Blog",
+    "about": "About Us",
+    "contact": "Contact",
+    "impressum": "Legal Notice",
+    "datenschutz": "Privacy Policy"
+  },
+  "common": {
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "backTo": "Back to",
+    "share": "Share",
+    "loading": "Loading...",
+    "noResults": "No results found.",
+    "search": "Search",
+    "submit": "Submit",
+    "close": "Close",
+    "language": "Language",
+    "readingTime": "{min} min read",
+    "publishedOn": "Published on"
+  },
+  "home": {
+    "heroTitle": "Creative Agency Vienna",
+    "heroSubtitle": "Marketing, branding & web development — all from one source.",
+    "servicesTitle": "Our Services",
+    "referencesTitle": "Portfolio",
+    "blogTitle": "Latest News",
+    "ctaTitle": "Ready for your project?",
+    "ctaButton": "Get in touch"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "From strategy to execution — everything under one roof.",
+    "subServices": "Sub-Services",
+    "relatedServices": "Related Services"
+  },
+  "referenzen": {
+    "title": "Portfolio",
+    "subtitle": "Discover how we helped our clients achieve their goals.",
+    "challenge": "Challenge",
+    "solution": "Solution",
+    "results": "Results"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Insights, tips, and news from the world of digital marketing.",
+    "categories": "Categories",
+    "allPosts": "All Posts",
+    "relatedPosts": "Related Posts"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We look forward to hearing from you.",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Thank you! We will get back to you soon.",
+    "error": "Something went wrong. Please try again."
+  },
+  "about": {
+    "title": "About Us",
+    "teamTitle": "Our Team",
+    "teamSubtitle": "The people behind GoldenWing Creative Studios.",
+    "valuesTitle": "Our Values",
+    "valuesSubtitle": "What drives us and how we work."
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "madeWith": "Made with"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to Homepage"
+  }
+}

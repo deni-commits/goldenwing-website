@@ -4,14 +4,8 @@ import { FeatureGridBlock } from './FeatureGridBlock'
 import { CTABlock } from './CTABlock'
 import { FAQBlock } from './FAQBlock'
 import { StatsBlock } from './StatsBlock'
+import { BeforeAfterBlock } from './BeforeAfterBlock'
 
-type Block = {
-  blockType: string
-  id?: string
-  [key: string]: unknown
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const blockComponents: Record<string, React.ComponentType<any>> = {
   hero: HeroBlock,
   'image-text': ImageTextBlock,
@@ -19,9 +13,15 @@ const blockComponents: Record<string, React.ComponentType<any>> = {
   cta: CTABlock,
   faq: FAQBlock,
   stats: StatsBlock,
+  'before-after': BeforeAfterBlock,
+  // These need components created later:
+  // 'pricing-table': PricingTableBlock,
+  // 'logo-cloud': LogoCloudBlock,
+  // testimonial: TestimonialBlock,
+  // 'video-embed': VideoEmbedBlock,
+  // 'contact-form': ContactFormBlock,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function RenderBlocks({ blocks }: { blocks: any[] | null | undefined }) {
   if (!blocks?.length) return null
 

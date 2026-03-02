@@ -1,16 +1,21 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from '../fields/slug'
+import { revalidateOnChange } from '../hooks/revalidateOnChange'
 
 export const CaseStudies: CollectionConfig = {
   slug: 'case-studies',
   admin: {
     useAsTitle: 'title',
   },
+  hooks: {
+    afterChange: [revalidateOnChange],
+  },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Titel',
     },
     ...slugField,
@@ -23,6 +28,7 @@ export const CaseStudies: CollectionConfig = {
     {
       name: 'industry',
       type: 'select',
+      localized: true,
       label: 'Branche',
       options: [
         { label: 'Technologie', value: 'tech' },
@@ -37,35 +43,23 @@ export const CaseStudies: CollectionConfig = {
     {
       name: 'challenge',
       type: 'richText',
+      localized: true,
       label: 'Herausforderung',
     },
     {
       name: 'solution',
       type: 'richText',
-      label: 'Lösung',
+      localized: true,
+      label: 'Loesung',
     },
     {
       name: 'results',
       type: 'array',
       label: 'Ergebnisse',
       fields: [
-        {
-          name: 'metric',
-          type: 'text',
-          required: true,
-          label: 'Kennzahl',
-        },
-        {
-          name: 'value',
-          type: 'text',
-          required: true,
-          label: 'Wert',
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          label: 'Beschreibung',
-        },
+        { name: 'metric', type: 'text', required: true, localized: true, label: 'Kennzahl' },
+        { name: 'value', type: 'text', required: true, label: 'Wert' },
+        { name: 'description', type: 'textarea', localized: true, label: 'Beschreibung' },
       ],
     },
     {
@@ -73,13 +67,7 @@ export const CaseStudies: CollectionConfig = {
       type: 'array',
       label: 'Bilder',
       fields: [
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          label: 'Bild',
-        },
+        { name: 'image', type: 'upload', relationTo: 'media', required: true, label: 'Bild' },
       ],
     },
     {
@@ -89,13 +77,17 @@ export const CaseStudies: CollectionConfig = {
       label: 'Testimonial',
     },
     {
+      name: 'coverImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Titelbild',
+    },
+    {
       name: 'publishedDate',
       type: 'date',
-      label: 'Veröffentlichungsdatum',
+      label: 'Veroeffentlichungsdatum',
       admin: {
-        date: {
-          pickerAppearance: 'dayAndTime',
-        },
+        date: { pickerAppearance: 'dayAndTime' },
       },
     },
   ],

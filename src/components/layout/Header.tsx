@@ -2,21 +2,28 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
-const navItems = [
-  { label: 'Services', href: '/services' },
-  { label: 'Referenzen', href: '/referenzen' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Ueber uns', href: '/ueber-uns' },
-]
+interface HeaderProps {
+  locale: string
+}
 
-export function Header() {
+export function Header({ locale }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  const navItems = [
+    { label: locale === 'de' ? 'Leistungen' : locale === 'ru' ? 'Услуги' : 'Services', href: `/${locale}/services` },
+    { label: locale === 'de' ? 'Referenzen' : locale === 'ru' ? 'Портфолио' : 'Portfolio', href: `/${locale}/referenzen` },
+    { label: 'Blog', href: `/${locale}/blog` },
+    { label: locale === 'de' ? 'Ueber uns' : locale === 'ru' ? 'О нас' : 'About Us', href: `/${locale}/ueber-uns` },
+  ]
+
+  const ctaLabel = locale === 'de' ? 'Kontakt' : locale === 'ru' ? 'Контакт' : 'Contact'
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-sm">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href="/" className="text-xl font-bold tracking-tight">
+        <Link href={`/${locale}`} className="text-xl font-bold tracking-tight">
           GoldenWing
         </Link>
 
@@ -33,11 +40,14 @@ export function Header() {
             </li>
           ))}
           <li>
+            <LanguageSwitcher locale={locale} />
+          </li>
+          <li>
             <Link
-              href="/kontakt"
+              href={`/${locale}/kontakt`}
               className="rounded-lg bg-gold-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-gold-600"
             >
-              Kontakt
+              {ctaLabel}
             </Link>
           </li>
         </ul>
@@ -74,13 +84,16 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li className="pt-2">
+              <LanguageSwitcher locale={locale} />
+            </li>
             <li>
               <Link
-                href="/kontakt"
+                href={`/${locale}/kontakt`}
                 className="mt-2 block rounded-lg bg-gold-500 px-5 py-2 text-center text-sm font-semibold text-white"
                 onClick={() => setMobileOpen(false)}
               >
-                Kontakt
+                {ctaLabel}
               </Link>
             </li>
           </ul>

@@ -1,22 +1,29 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from '../fields/slug'
+import { revalidateOnChange } from '../hooks/revalidateOnChange'
 
 export const Services: CollectionConfig = {
   slug: 'services',
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'category', 'parent', 'order'],
+  },
+  hooks: {
+    afterChange: [revalidateOnChange],
   },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Titel',
     },
     ...slugField,
     {
       name: 'excerpt',
       type: 'textarea',
+      localized: true,
       label: 'Kurzbeschreibung',
     },
     {
@@ -39,8 +46,18 @@ export const Services: CollectionConfig = {
       ],
     },
     {
+      name: 'parent',
+      type: 'relationship',
+      relationTo: 'services',
+      label: 'Uebergeordneter Service',
+      admin: {
+        description: 'Wenn gesetzt, ist dies ein Sub-Service. Leer lassen fuer Hauptservices.',
+      },
+    },
+    {
       name: 'content',
       type: 'richText',
+      localized: true,
       label: 'Inhalt',
     },
     {
@@ -48,17 +65,8 @@ export const Services: CollectionConfig = {
       type: 'array',
       label: 'Features',
       fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          label: 'Titel',
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          label: 'Beschreibung',
-        },
+        { name: 'title', type: 'text', required: true, localized: true, label: 'Titel' },
+        { name: 'description', type: 'textarea', localized: true, label: 'Beschreibung' },
       ],
     },
     {
@@ -67,6 +75,15 @@ export const Services: CollectionConfig = {
       relationTo: 'services',
       hasMany: true,
       label: 'Verwandte Leistungen',
+    },
+    {
+      name: 'order',
+      type: 'number',
+      label: 'Reihenfolge',
+      defaultValue: 0,
+      admin: {
+        description: 'Niedrigere Zahlen erscheinen zuerst',
+      },
     },
   ],
 }
