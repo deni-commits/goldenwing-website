@@ -5,6 +5,7 @@ import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
+import { ServiceSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
 
 export async function generateStaticParams() {
   try {
@@ -47,8 +48,22 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
 
   if (!service) notFound()
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
+
   return (
     <>
+      <ServiceSchema
+        name={service.title as string}
+        description={(service.excerpt as string) || undefined}
+        url={`${siteUrl}/${locale}/services/${slug}`}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: t.nav.home, url: `${siteUrl}/${locale}` },
+          { name: t.nav.services, url: `${siteUrl}/${locale}/services` },
+          { name: service.title as string, url: `${siteUrl}/${locale}/services/${slug}` },
+        ]}
+      />
       {/* Service Header */}
       <section className="bg-dark px-4 py-24 text-white">
         <div className="mx-auto max-w-4xl">

@@ -5,6 +5,11 @@ import { CTABlock } from './CTABlock'
 import { FAQBlock } from './FAQBlock'
 import { StatsBlock } from './StatsBlock'
 import { BeforeAfterBlock } from './BeforeAfterBlock'
+import { PricingTableBlock } from './PricingTableBlock'
+import { LogoCloudBlock } from './LogoCloudBlock'
+import { TestimonialBlock } from './TestimonialBlock'
+import { VideoEmbedBlock } from './VideoEmbedBlock'
+import { ContactFormBlock } from './ContactFormBlock'
 
 const blockComponents: Record<string, React.ComponentType<any>> = {
   hero: HeroBlock,
@@ -14,12 +19,11 @@ const blockComponents: Record<string, React.ComponentType<any>> = {
   faq: FAQBlock,
   stats: StatsBlock,
   'before-after': BeforeAfterBlock,
-  // These need components created later:
-  // 'pricing-table': PricingTableBlock,
-  // 'logo-cloud': LogoCloudBlock,
-  // testimonial: TestimonialBlock,
-  // 'video-embed': VideoEmbedBlock,
-  // 'contact-form': ContactFormBlock,
+  'pricing-table': PricingTableBlock,
+  'logo-cloud': LogoCloudBlock,
+  testimonial: TestimonialBlock,
+  'video-embed': VideoEmbedBlock,
+  'contact-form': ContactFormBlock,
 }
 
 export function RenderBlocks({ blocks }: { blocks: any[] | null | undefined }) {

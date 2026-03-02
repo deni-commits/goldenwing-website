@@ -5,6 +5,7 @@ import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { RichText } from '@/components/ui/RichText'
+import { ArticleSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
 
 export async function generateStaticParams() {
   try {
@@ -55,7 +56,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
   if (!post) notFound()
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
+  const postUrl = `${siteUrl}/${locale}/blog/${slug}`
+
   return (
+    <>
+      <ArticleSchema
+        title={post.title as string}
+        description={(post.excerpt as string) || undefined}
+        publishedDate={(post.publishedDate as string) || new Date().toISOString()}
+        url={postUrl}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: t.nav.home, url: `${siteUrl}/${locale}` },
+          { name: t.nav.blog, url: `${siteUrl}/${locale}/blog` },
+          { name: post.title as string, url: postUrl },
+        ]}
+      />
     <article className="px-4 py-24">
       <div className="mx-auto max-w-3xl">
         <nav className="mb-6 text-sm text-muted">
@@ -84,5 +102,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         )}
       </div>
     </article>
+    </>
   )
 }

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
+import { OrganizationSchema } from '@/components/seo/StructuredData'
 
 function formatDate(dateString: string, locale: string): string {
   const localeMap: Record<string, string> = { de: 'de-AT', en: 'en-US', ru: 'ru-RU' }
@@ -36,6 +37,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
+      <OrganizationSchema />
       {/* Hero Section */}
       <section className="relative flex min-h-[80vh] items-center justify-center bg-dark px-4 text-white">
         <div className="mx-auto max-w-4xl text-center">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
+import { LocalBusinessSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -12,7 +13,17 @@ export default async function KontaktPage({ params }: { params: Promise<{ locale
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
+
   return (
+    <>
+      <LocalBusinessSchema />
+      <BreadcrumbSchema
+        items={[
+          { name: t.nav.home, url: `${siteUrl}/${locale}` },
+          { name: t.contact.title, url: `${siteUrl}/${locale}/kontakt` },
+        ]}
+      />
     <section className="px-4 py-24">
       <div className="mx-auto max-w-4xl">
         <h1 className="mb-4 text-4xl font-bold md:text-5xl">{t.contact.title}</h1>
@@ -56,5 +67,6 @@ export default async function KontaktPage({ params }: { params: Promise<{ locale
         </div>
       </div>
     </section>
+    </>
   )
 }
