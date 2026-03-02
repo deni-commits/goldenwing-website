@@ -1,0 +1,76 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { buildConfig } from 'payload'
+import { postgresAdapter } from '@payloadcms/db-postgres'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { seoPlugin } from '@payloadcms/plugin-seo'
+import sharp from 'sharp'
+
+import { Pages } from './collections/Pages'
+import { Posts } from './collections/Posts'
+import { Services } from './collections/Services'
+import { CaseStudies } from './collections/CaseStudies'
+import { LandingPages } from './collections/LandingPages'
+import { Team } from './collections/Team'
+import { Testimonials } from './collections/Testimonials'
+import { Media } from './collections/Media'
+
+import { SiteSettings } from './globals/SiteSettings'
+import { Navigation } from './globals/Navigation'
+import { Footer } from './globals/Footer'
+
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
+
+export default buildConfig({
+  admin: {
+    user: 'users',
+    meta: {
+      titleSuffix: ' | GoldenWing CMS',
+    },
+  },
+  collections: [
+    Pages,
+    Posts,
+    Services,
+    CaseStudies,
+    LandingPages,
+    Team,
+    Testimonials,
+    Media,
+    {
+      slug: 'users',
+      auth: true,
+      admin: { useAsTitle: 'email' },
+      fields: [
+        { name: 'name', type: 'text', required: true },
+        { name: 'role', type: 'select', options: ['admin', 'editor'], defaultValue: 'editor' },
+      ],
+    },
+  ],
+  globals: [SiteSettings, Navigation, Footer],
+  editor: lexicalEditor(),
+  db: postgresAdapter({
+    pool: { connectionString: process.env.DATABASE_URI },
+  }),
+  sharp,
+  typescript: {
+    outputFile: path.resolve(dirname, '../types/payload-types.ts'),
+  },
+  plugins: [
+    seoPlugin({
+      collections: ['pages', 'posts', 'services', 'case-studies', 'landing-pages'],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `${doc.title} | GoldenWing Creative Studios`,
+      generateDescription: ({ doc }) => doc.excerpt || '',
+      generateURL: ({ doc, collectionSlug }) => {
+        const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
+        if (collectionSlug === 'pages') return `${base}/${doc.slug}`
+        if (collectionSlug === 'posts') return `${base}/blog/${doc.slug}`
+        if (collectionSlug === 'services') return `${base}/services/${doc.slug}`
+        if (collectionSlug === 'case-studies') return `${base}/referenzen/${doc.slug}`
+        return `${base}/${doc.slug}`
+      },
+    }),
+  ],
+})

@@ -1,0 +1,36 @@
+# GoldenWing Creative Studios
+
+> Marketing- und Branding-Agentur aus Wien, Oesterreich.
+
+## Ueberblick
+
+GoldenWing Creative Studios ist eine Wiener Agentur, spezialisiert auf digitales Marketing, Branding, Web Development und Suchmaschinenoptimierung (SEO). Wir arbeiten mit Unternehmen aus verschiedenen Branchen in Oesterreich und dem DACH-Raum.
+
+## Services
+
+- **Web Development**: Moderne Websites und Web-Applikationen mit Fokus auf Performance, UX und Barrierefreiheit. Technologien: Next.js, React, TypeScript, Tailwind CSS.
+- **SEO (Suchmaschinenoptimierung)**: Technisches SEO, On-Page-Optimierung, Content-Strategie, Local SEO fuer Wien und Oesterreich.
+- **Branding**: Markenidentitaet, Logo-Design, Corporate Design, Brand Strategy.
+- **Marketing**: Digitale Kampagnen, Social Media Marketing, Content Marketing, Google Ads.
+
+## Standort
+
+Wien, Oesterreich (DACH-Raum)
+
+## Kontakt
+
+- Website: https://goldenwing.at
+- E-Mail: office@goldenwing.at
+
+## Sprachen
+
+Deutsch, Englisch
+
+## Spezialisierungen
+
+- Agentur-Websites und Corporate Websites
+- E-Commerce und Online-Shops
+- SEO fuer lokale Unternehmen in Wien
+- Branding fuer Startups und KMUs
+- GEO (Generative Engine Optimization)
+- AI-First Marketing Strategien
