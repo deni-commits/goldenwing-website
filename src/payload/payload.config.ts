@@ -53,6 +53,7 @@ export default buildConfig({
   editor: lexicalEditor(),
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || process.env.DATABASE_URI },
+    push: true,
   }),
   sharp,
   typescript: {
