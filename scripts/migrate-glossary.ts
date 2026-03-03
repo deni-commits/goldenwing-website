@@ -9,12 +9,14 @@
 import pg from 'pg'
 import * as fs from 'fs'
 
-const LOCAL_URL = 'postgresql://denikhachukaev@localhost:5432/goldenwing_dev'
+const LOCAL_URL = process.env.DATABASE_URL || 'postgresql://denikhachukaev@localhost:5432/goldenwing_dev'
 const local = new pg.Pool({ connectionString: LOCAL_URL })
 
-// Path to old repo's lexikon data
+// Path to old repo's lexikon data (check multiple locations)
 const DATA_FILE =
-  '/Users/denikhachukaev/Documents/GoldenWing 360/goldenwing-website/src/lib/lexikon/data.ts'
+  fs.existsSync('/tmp/lexikon-data/data.ts')
+    ? '/tmp/lexikon-data/data.ts'
+    : '/Users/denikhachukaev/Documents/GoldenWing 360/goldenwing-website/src/lib/lexikon/data.ts'
 
 async function localExec(sql: string, params?: unknown[]) {
   await local.query(sql, params)
@@ -164,8 +166,12 @@ async function main() {
     console.log(`  - ${e.slug} (${e.category}) [SV: ${e.searchVolume}, KD: ${e.difficulty}]`)
   }
 
-  // Disable triggers for bulk insert
-  await localExec("SET session_replication_role = 'replica'")
+  // Disable triggers for bulk insert (requires superuser; skip if not available)
+  try {
+    await localExec("SET session_replication_role = 'replica'")
+  } catch {
+    console.log('⚠️  Could not disable triggers (non-superuser), continuing...')
+  }
 
   // Clean existing glossary data
   console.log('\n🗑️  Cleaning existing glossary data...')
@@ -286,7 +292,9 @@ async function main() {
   console.log(`✅ Created ${relCount} related term links`)
 
   // Re-enable triggers
-  await localExec("SET session_replication_role = 'origin'")
+  try {
+    await localExec("SET session_replication_role = 'origin'")
+  } catch {}
 
   // Fix sequences
   console.log('\n🔧 Fixing sequences...')
