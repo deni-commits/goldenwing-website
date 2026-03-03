@@ -99,6 +99,7 @@
     "successTitle": "Thank you!",
     "successMsg": "We will get back to you within 24 hours.",
     "location": "Location",
+    "locationAddress": "Vienna, Austria",
     "metaDescription": "Contact GoldenWing Creative Studios — your marketing agency in Vienna. We look forward to your project."
   },
   "about": {
@@ -115,11 +116,26 @@
     "valueInnovation": "Innovation",
     "valueInnovationDesc": "We stay ahead of the curve and focus on future-proof solutions."
   },
+  "blocks": {
+    "before": "Before",
+    "after": "After",
+    "recommended": "Recommended",
+    "selectPlaceholder": "Please select...",
+    "sending": "Sending...",
+    "send": "Submit",
+    "formSuccess": "Thank you!",
+    "formSuccessMsg": "We will get back to you shortly.",
+    "formError": "Something went wrong. Please try again."
+  },
   "footer": {
     "copyright": "All rights reserved.",
     "madeWith": "Made with",
     "services": "Services",
     "company": "Company",
+    "webDev": "Web Development",
+    "seo": "SEO",
+    "branding": "Branding",
+    "marketing": "Marketing",
     "agency": "Marketing and branding agency from Vienna.",
     "allRights": "All rights reserved."
   },

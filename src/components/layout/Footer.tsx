@@ -16,7 +16,7 @@ export function Footer({ locale, t, footerData, siteSettings }: FooterProps) {
   const cmsCopyright = footerData?.copyright as string | undefined
 
   const contactEmail = (siteSettings?.contact?.email as string) || 'office@goldenwing.at'
-  const contactAddress = (siteSettings?.contact?.address as string) || 'Wien, Oesterreich'
+  const contactAddress = (siteSettings?.contact?.address as string) || t.contact.locationAddress
 
   // Social links from SiteSettings
   const social = siteSettings?.social as { instagram?: string; linkedin?: string; facebook?: string; twitter?: string } | undefined
@@ -81,10 +81,10 @@ export function Footer({ locale, t, footerData, siteSettings }: FooterProps) {
                   {t.footer.services}
                 </h3>
                 <ul className="space-y-2 text-sm">
-                  <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">Web Development</Link></li>
-                  <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">SEO</Link></li>
-                  <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">Branding</Link></li>
-                  <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">Marketing</Link></li>
+                  <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">{t.footer.webDev}</Link></li>
+                  <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">{t.footer.seo}</Link></li>
+                  <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">{t.footer.branding}</Link></li>
+                  <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">{t.footer.marketing}</Link></li>
                 </ul>
               </div>
 

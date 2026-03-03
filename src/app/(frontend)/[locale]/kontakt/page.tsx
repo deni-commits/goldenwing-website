@@ -57,7 +57,7 @@ export default async function KontaktPage({ params }: { params: Promise<{ locale
               </div>
               <div>
                 <h3 className="mb-2 text-lg font-semibold">{t.contact.location}</h3>
-                <p className="text-muted">Wien, Oesterreich</p>
+                <p className="text-muted">{t.contact.locationAddress}</p>
               </div>
             </div>
           </div>

@@ -33,7 +33,7 @@ export default async function UeberUnsPage({ params }: { params: Promise<{ local
   return (
     <>
       {layout && layout.length > 0 ? (
-        <RenderBlocks blocks={layout} />
+        <RenderBlocks blocks={layout} t={t} />
       ) : (
         <section className="bg-dark px-4 py-24 text-white">
           <div className="mx-auto max-w-4xl">

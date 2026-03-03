@@ -3,6 +3,8 @@ import { getPayload } from '@/lib/payload'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
 import type { Metadata } from 'next'
 import { getPageSeo } from '@/lib/seo'
+import { getDictionary } from '@/i18n/getDictionary'
+import type { Locale } from '@/i18n/config'
 
 export async function generateStaticParams() {
   try {
@@ -30,6 +32,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   const { locale, slug } = await params
   const pageSlug = slug.join('/')
 
+  const t = await getDictionary(locale as Locale)
   let page: any = null
 
   try {
@@ -45,7 +48,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <>
       {layout.length > 0 ? (
-        <RenderBlocks blocks={layout} />
+        <RenderBlocks blocks={layout} t={t} />
       ) : (
         <section className="px-4 py-24">
           <div className="mx-auto max-w-4xl">

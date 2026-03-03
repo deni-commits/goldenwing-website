@@ -99,6 +99,7 @@
     "successTitle": "Vielen Dank!",
     "successMsg": "Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
     "location": "Standort",
+    "locationAddress": "Wien, Oesterreich",
     "metaDescription": "Kontaktiere GoldenWing Creative Studios — deine Marketing-Agentur in Wien. Wir freuen uns auf dein Projekt."
   },
   "about": {
@@ -115,11 +116,26 @@
     "valueInnovation": "Innovation",
     "valueInnovationDesc": "Wir bleiben am Puls der Zeit und setzen auf zukunftsfaehige Loesungen."
   },
+  "blocks": {
+    "before": "Vorher",
+    "after": "Nachher",
+    "recommended": "Empfohlen",
+    "selectPlaceholder": "Bitte waehlen...",
+    "sending": "Wird gesendet...",
+    "send": "Absenden",
+    "formSuccess": "Vielen Dank!",
+    "formSuccessMsg": "Wir melden uns in Kuerze bei Ihnen.",
+    "formError": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+  },
   "footer": {
     "copyright": "Alle Rechte vorbehalten.",
     "madeWith": "Made with",
     "services": "Leistungen",
     "company": "Unternehmen",
+    "webDev": "Webentwicklung",
+    "seo": "SEO",
+    "branding": "Branding",
+    "marketing": "Marketing",
     "agency": "Marketing- und Branding-Agentur aus Wien.",
     "allRights": "Alle Rechte vorbehalten."
   },

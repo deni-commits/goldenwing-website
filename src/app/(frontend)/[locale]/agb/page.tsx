@@ -31,7 +31,7 @@ export default async function AGBPage({ params }: { params: Promise<{ locale: st
       <div className="mx-auto max-w-3xl">
         <h1 className="mb-8 text-4xl font-bold">{t.nav.agbFull}</h1>
         {layout && layout.length > 0 ? (
-          <RenderBlocks blocks={layout} />
+          <RenderBlocks blocks={layout} t={t} />
         ) : (
           <p className="text-muted">{t.common.comingSoon}</p>
         )}

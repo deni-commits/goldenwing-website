@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import type { Dictionary } from '@/i18n/getDictionary'
 
 interface ContactFormBlockProps {
   block: {
@@ -14,9 +15,10 @@ interface ContactFormBlockProps {
       options?: string
     }>
   }
+  t?: Dictionary
 }
 
-export function ContactFormBlock({ block }: ContactFormBlockProps) {
+export function ContactFormBlock({ block, t }: ContactFormBlockProps) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -45,6 +47,8 @@ export function ContactFormBlock({ block }: ContactFormBlockProps) {
     }
   }
 
+  const labels = t?.blocks
+
   return (
     <section className="px-4 py-24">
       <div className="mx-auto max-w-2xl">
@@ -57,8 +61,8 @@ export function ContactFormBlock({ block }: ContactFormBlockProps) {
 
         {status === 'sent' ? (
           <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center">
-            <p className="text-lg font-semibold text-green-800">Vielen Dank!</p>
-            <p className="mt-2 text-sm text-green-700">Wir melden uns in Kuerze bei Ihnen.</p>
+            <p className="text-lg font-semibold text-green-800">{labels?.formSuccess}</p>
+            <p className="mt-2 text-sm text-green-700">{labels?.formSuccessMsg}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -84,7 +88,7 @@ export function ContactFormBlock({ block }: ContactFormBlockProps) {
                     required={field.required}
                     className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                   >
-                    <option value="">Bitte waehlen...</option>
+                    <option value="">{labels?.selectPlaceholder}</option>
                     {field.options
                       ?.split('\n')
                       .filter(Boolean)
@@ -111,12 +115,12 @@ export function ContactFormBlock({ block }: ContactFormBlockProps) {
               disabled={status === 'sending'}
               className="w-full rounded-lg bg-gold py-3 font-semibold text-white transition hover:bg-gold-dark disabled:opacity-50"
             >
-              {status === 'sending' ? 'Wird gesendet...' : 'Absenden'}
+              {status === 'sending' ? labels?.sending : labels?.send}
             </button>
 
             {status === 'error' && (
               <p className="text-center text-sm text-red-600">
-                Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.
+                {labels?.formError}
               </p>
             )}
           </form>

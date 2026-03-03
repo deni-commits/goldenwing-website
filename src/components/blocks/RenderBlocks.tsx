@@ -1,3 +1,4 @@
+import type { Dictionary } from '@/i18n/getDictionary'
 import { HeroBlock } from './HeroBlock'
 import { ImageTextBlock } from './ImageTextBlock'
 import { FeatureGridBlock } from './FeatureGridBlock'
@@ -26,7 +27,7 @@ const blockComponents: Record<string, React.ComponentType<any>> = {
   'contact-form': ContactFormBlock,
 }
 
-export function RenderBlocks({ blocks }: { blocks: any[] | null | undefined }) {
+export function RenderBlocks({ blocks, t }: { blocks: any[] | null | undefined; t?: Dictionary }) {
   if (!blocks?.length) return null
 
   return (
@@ -34,7 +35,7 @@ export function RenderBlocks({ blocks }: { blocks: any[] | null | undefined }) {
       {blocks.map((block, index) => {
         const Component = blockComponents[block.blockType]
         if (!Component) return null
-        return <Component key={block.id || index} block={block} />
+        return <Component key={block.id || index} block={block} t={t} />
       })}
     </>
   )

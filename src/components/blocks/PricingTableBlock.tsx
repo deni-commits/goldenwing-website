@@ -1,3 +1,5 @@
+import type { Dictionary } from '@/i18n/getDictionary'
+
 interface PricingTableBlockProps {
   block: {
     headline?: string
@@ -7,13 +9,15 @@ interface PricingTableBlockProps {
       period?: string
       features?: Array<{ feature: string }>
       highlighted?: boolean
+      highlightedLabel?: string
       ctaLabel?: string
       ctaLink?: string
     }>
   }
+  t?: Dictionary
 }
 
-export function PricingTableBlock({ block }: PricingTableBlockProps) {
+export function PricingTableBlock({ block, t }: PricingTableBlockProps) {
   return (
     <section className="px-4 py-24">
       <div className="mx-auto max-w-6xl">
@@ -32,7 +36,7 @@ export function PricingTableBlock({ block }: PricingTableBlockProps) {
             >
               {pkg.highlighted && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gold px-4 py-1 text-xs font-semibold text-white">
-                  Empfohlen
+                  {pkg.highlightedLabel || t?.blocks.recommended || ''}
                 </span>
               )}
               <h3 className="mb-2 text-xl font-bold">{pkg.name}</h3>

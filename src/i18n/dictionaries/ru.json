@@ -99,6 +99,7 @@
     "successTitle": "Спасибо!",
     "successMsg": "Мы свяжемся с вами в течение 24 часов.",
     "location": "Местоположение",
+    "locationAddress": "Вена, Австрия",
     "metaDescription": "Свяжитесь с GoldenWing Creative Studios — ваше маркетинговое агентство в Вене."
   },
   "about": {
@@ -115,11 +116,26 @@
     "valueInnovation": "Инновации",
     "valueInnovationDesc": "Мы идём в ногу со временем и делаем ставку на перспективные решения."
   },
+  "blocks": {
+    "before": "До",
+    "after": "После",
+    "recommended": "Рекомендуем",
+    "selectPlaceholder": "Выберите...",
+    "sending": "Отправка...",
+    "send": "Отправить",
+    "formSuccess": "Спасибо!",
+    "formSuccessMsg": "Мы свяжемся с вами в ближайшее время.",
+    "formError": "Что-то пошло не так. Попробуйте ещё раз."
+  },
   "footer": {
     "copyright": "Все права защищены.",
     "madeWith": "Сделано с",
     "services": "Услуги",
     "company": "Компания",
+    "webDev": "Веб-разработка",
+    "seo": "SEO",
+    "branding": "Брендинг",
+    "marketing": "Маркетинг",
     "agency": "Маркетинговое и брендинговое агентство из Вены.",
     "allRights": "Все права защищены."
   },

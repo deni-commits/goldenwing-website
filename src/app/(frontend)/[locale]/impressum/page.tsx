@@ -28,7 +28,7 @@ export default async function ImpressumPage({ params }: { params: Promise<{ loca
       <div className="mx-auto max-w-3xl">
         <h1 className="mb-8 text-4xl font-bold">{t.nav.impressum}</h1>
         {layout && layout.length > 0 ? (
-          <RenderBlocks blocks={layout} />
+          <RenderBlocks blocks={layout} t={t} />
         ) : (
           <p className="text-muted">{t.common.comingSoon}</p>
         )}
