@@ -4,7 +4,7 @@ import { getDictionary } from '@/i18n/getDictionary'
 import Image from 'next/image'
 import type { Locale } from '@/i18n/config'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
-import { getAlternates } from '@/lib/seo'
+import { getPageSeo } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     en: 'Meet the team behind GoldenWing Creative Studios — values, vision and expertise.',
     ru: 'Познакомьтесь с командой GoldenWing Creative Studios — ценности, видение и экспертиза.',
   }
-  return { title: t.about.title, description: descriptions[locale] || descriptions.de, alternates: getAlternates('ueber-uns', locale) }
+  return { title: t.about.title, description: descriptions[locale] || descriptions.de, ...getPageSeo('ueber-uns', locale) }
 }
 
 export default async function UeberUnsPage({ params }: { params: Promise<{ locale: string }> }) {

@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google'
+import { headers } from 'next/headers'
 import '@/styles/globals.css'
 
 const inter = Inter({
@@ -7,9 +8,12 @@ const inter = Inter({
   variable: '--font-sans',
 })
 
-export default function FrontendLayout({ children }: { children: React.ReactNode }) {
+export default async function FrontendLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers()
+  const locale = headersList.get('x-locale') || 'de'
+
   return (
-    <html lang="de" className={inter.variable} suppressHydrationWarning>
+    <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <body className="bg-white text-dark antialiased">{children}</body>
     </html>
   )

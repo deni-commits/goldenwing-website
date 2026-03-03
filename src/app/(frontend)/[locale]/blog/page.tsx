@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
-import { getAlternates } from '@/lib/seo'
+import { getPageSeo } from '@/lib/seo'
+
+const POSTS_PER_PAGE = 9
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -13,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     en: 'Expert articles on SEO, web design, branding and digital marketing — insights from practice.',
     ru: 'Экспертные статьи о SEO, веб-дизайне, брендинге и цифровом маркетинге.',
   }
-  return { title: t.blog.title, description: descriptions[locale] || descriptions.de, alternates: getAlternates('blog', locale) }
+  return { title: t.blog.title, description: descriptions[locale] || descriptions.de, ...getPageSeo('blog', locale) }
 }
 
 function formatDate(dateString: string, locale: string): string {
@@ -25,22 +27,33 @@ function formatDate(dateString: string, locale: string): string {
   })
 }
 
-export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function BlogPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
   const { locale } = await params
+  const sp = await searchParams
   const t = await getDictionary(locale as Locale)
+  const page = Math.max(1, Number(sp.page) || 1)
 
   let posts: any[] = []
+  let totalPages = 1
 
   try {
     const payload = await getPayload()
     const data = await payload.find({
       collection: 'posts',
       locale,
-      limit: 12,
+      limit: POSTS_PER_PAGE,
+      page,
       sort: '-publishedDate',
       where: { _status: { equals: 'published' } },
     })
     posts = data.docs
+    totalPages = data.totalPages
   } catch {}
 
   return (
@@ -74,6 +87,41 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
           </div>
         ) : (
           <p className="text-muted">{t.common.noResults}</p>
+        )}
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <nav className="mt-16 flex items-center justify-center gap-2" aria-label="Pagination">
+            {page > 1 && (
+              <Link
+                href={`/${locale}/blog${page === 2 ? '' : `?page=${page - 1}`}`}
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium transition hover:border-gold-300 hover:text-gold-600"
+              >
+                &larr;
+              </Link>
+            )}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+              <Link
+                key={p}
+                href={`/${locale}/blog${p === 1 ? '' : `?page=${p}`}`}
+                className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
+                  p === page
+                    ? 'bg-gold-500 text-white'
+                    : 'border border-gray-200 hover:border-gold-300 hover:text-gold-600'
+                }`}
+              >
+                {p}
+              </Link>
+            ))}
+            {page < totalPages && (
+              <Link
+                href={`/${locale}/blog?page=${page + 1}`}
+                className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium transition hover:border-gold-300 hover:text-gold-600"
+              >
+                &rarr;
+              </Link>
+            )}
+          </nav>
         )}
       </div>
     </section>

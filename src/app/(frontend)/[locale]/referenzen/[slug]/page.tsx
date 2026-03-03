@@ -5,7 +5,7 @@ import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { RichText } from '@/components/ui/RichText'
-import { getAlternates } from '@/lib/seo'
+import { getPageSeo } from '@/lib/seo'
 
 export async function generateStaticParams() {
   try {
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     const payload = await getPayload()
     const data = await payload.find({ collection: 'case-studies', locale, where: { slug: { equals: slug } }, limit: 1 })
     const cs = data.docs[0] as any | undefined
-    if (cs) return { title: cs.title as string, alternates: getAlternates(`referenzen/${slug}`, locale) }
+    if (cs) return { title: cs.title as string, ...getPageSeo(`referenzen/${slug}`, locale) }
   } catch {}
   return { title: slug }
 }

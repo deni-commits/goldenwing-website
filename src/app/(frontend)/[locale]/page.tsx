@@ -4,11 +4,11 @@ import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { OrganizationSchema } from '@/components/seo/StructuredData'
-import { getAlternates } from '@/lib/seo'
+import { getPageSeo } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
-  return { alternates: getAlternates('', locale) }
+  return { ...getPageSeo('', locale) }
 }
 
 function formatDate(dateString: string, locale: string): string {

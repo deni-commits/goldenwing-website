@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
-import { getAlternates } from '@/lib/seo'
+import { getPageSeo } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     en: 'Our references and success stories — selected projects in web design, SEO and branding.',
     ru: 'Наши кейсы и истории успеха — избранные проекты в веб-дизайне, SEO и брендинге.',
   }
-  return { title: t.referenzen.title, description: descriptions[locale] || descriptions.de, alternates: getAlternates('referenzen', locale) }
+  return { title: t.referenzen.title, description: descriptions[locale] || descriptions.de, ...getPageSeo('referenzen', locale) }
 }
 
 export default async function ReferenzenPage({ params }: { params: Promise<{ locale: string }> }) {

@@ -68,6 +68,7 @@ export function Footer({ locale }: FooterProps) {
           <div className="mt-4 flex gap-6 md:mt-0">
             <Link href={`/${locale}/impressum`} className="hover:text-gold-400">{t.impressum}</Link>
             <Link href={`/${locale}/datenschutz`} className="hover:text-gold-400">{t.datenschutz}</Link>
+            <Link href={`/${locale}/agb`} className="hover:text-gold-400">{t.agb}</Link>
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ export function OrganizationSchema() {
           '@type': 'ContactPoint',
           email: 'office@goldenwing.at',
           contactType: 'customer service',
-          availableLanguage: ['German', 'English'],
+          availableLanguage: ['German', 'English', 'Russian'],
         },
         address: {
           '@type': 'PostalAddress',

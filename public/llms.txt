@@ -8,10 +8,10 @@ GoldenWing Creative Studios ist eine Wiener Agentur fuer digitales Marketing, Br
 
 ## Services
 
-- [Webdesign & Entwicklung](/de/services/webdesign-entwicklung): Moderne, blitzschnelle Websites mit Next.js, Headless CMS und responsivem Design. Server-Side Rendering, Core Web Vitals Optimierung.
-- [SEO & Online Marketing](/de/services/seo-online-marketing): Datengetriebene SEO-Strategien fuer nachhaltige Sichtbarkeit. Technical SEO, Local SEO, GEO (Generative Engine Optimization), AEO (Answer Engine Optimization).
-- [Branding & Corporate Design](/de/services/branding-corporate-design): Einzigartige Markenidentitaeten — Logo-Design, Corporate Identity, Brand Guidelines, Print & Digital.
-- [Content Marketing](/de/services/content-marketing): Strategische Inhalte fuer Blog, Social Media, E-Mail und Video. SEO-optimierte Fachbeitraege.
+- [Webdesign & Entwicklung](https://goldenwing.at/de/services/webdesign-entwicklung): Moderne, blitzschnelle Websites mit Next.js, Headless CMS und responsivem Design. Server-Side Rendering, Core Web Vitals Optimierung.
+- [SEO & Online Marketing](https://goldenwing.at/de/services/seo-online-marketing): Datengetriebene SEO-Strategien fuer nachhaltige Sichtbarkeit. Technical SEO, Local SEO, GEO (Generative Engine Optimization), AEO (Answer Engine Optimization).
+- [Branding & Corporate Design](https://goldenwing.at/de/services/branding-corporate-design): Einzigartige Markenidentitaeten — Logo-Design, Corporate Identity, Brand Guidelines, Print & Digital.
+- [Content Marketing](https://goldenwing.at/de/services/content-marketing): Strategische Inhalte fuer Blog, Social Media, E-Mail und Video. SEO-optimierte Fachbeitraege.
 
 ## Team
 
@@ -33,7 +33,7 @@ Neubaugasse 25/3, 1070 Wien, Oesterreich
 ## Kontakt
 
 - Website: https://goldenwing.at
-- E-Mail: hello@goldenwing.at
+- E-Mail: office@goldenwing.at
 - Telefon: +43 1 234 5678
 
 ## Sprachen

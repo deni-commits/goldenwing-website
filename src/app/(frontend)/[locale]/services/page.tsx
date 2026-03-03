@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
-import { getAlternates } from '@/lib/seo'
+import { getPageSeo } from '@/lib/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
 
 const serviceDescriptions: Record<string, string> = {
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t.services.title,
     description: serviceDescriptions[locale] || serviceDescriptions.de,
-    alternates: getAlternates('services', locale),
+    ...getPageSeo('services', locale),
   }
 }
 

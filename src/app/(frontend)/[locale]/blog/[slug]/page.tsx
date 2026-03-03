@@ -6,7 +6,7 @@ import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { RichText } from '@/components/ui/RichText'
 import { ArticleSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
-import { getAlternates } from '@/lib/seo'
+import { getPageSeo } from '@/lib/seo'
 
 export async function generateStaticParams() {
   try {
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       return {
         title: post.title as string,
         description: (post.excerpt as string) || undefined,
-        alternates: getAlternates(`blog/${slug}`, locale),
+        ...getPageSeo(`blog/${slug}`, locale),
       }
     }
   } catch {}

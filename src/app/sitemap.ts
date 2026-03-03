@@ -2,13 +2,22 @@ import type { MetadataRoute } from 'next'
 import { getPayload } from '@/lib/payload'
 import { locales } from '@/i18n/config'
 
+function alternatesFor(siteUrl: string, path: string) {
+  return {
+    languages: Object.fromEntries([
+      ...locales.map((l) => [l, `${siteUrl}/${l}${path}`]),
+      ['x-default', `${siteUrl}/de${path}`],
+    ]),
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
 
   const entries: MetadataRoute.Sitemap = []
 
   // Static pages per locale
-  const staticPaths = ['', '/services', '/referenzen', '/blog', '/ueber-uns', '/kontakt', '/impressum', '/datenschutz']
+  const staticPaths = ['', '/services', '/referenzen', '/blog', '/ueber-uns', '/kontakt', '/impressum', '/datenschutz', '/agb']
 
   for (const locale of locales) {
     for (const path of staticPaths) {
@@ -17,11 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: path === '' ? 'weekly' : 'monthly',
         priority: path === '' ? 1 : 0.8,
-        alternates: {
-          languages: Object.fromEntries(
-            [...locales.map((l) => [l, `${siteUrl}/${l}${path}`]), ['x-default', `${siteUrl}/de${path}`]]
-          ),
-        },
+        alternates: alternatesFor(siteUrl, path),
       })
     }
   }
@@ -37,17 +42,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ])
 
     for (const post of posts.docs) {
+      const path = `/blog/${(post as any).slug}`
       for (const locale of locales) {
         entries.push({
-          url: `${siteUrl}/${locale}/blog/${(post as any).slug}`,
+          url: `${siteUrl}/${locale}${path}`,
           lastModified: new Date((post as any).updatedAt),
           changeFrequency: 'monthly',
           priority: 0.7,
-          alternates: {
-            languages: Object.fromEntries(
-              locales.map((l) => [l, `${siteUrl}/${l}/blog/${(post as any).slug}`])
-            ),
-          },
+          alternates: alternatesFor(siteUrl, path),
         })
       }
     }
@@ -55,52 +57,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const service of services.docs) {
       const s = service as any
       const parentService = s.parent as any | null
+      const path = parentService?.slug
+        ? `/services/${parentService.slug}/${s.slug}`
+        : `/services/${s.slug}`
       for (const locale of locales) {
-        const path = parentService?.slug
-          ? `/services/${parentService.slug}/${s.slug}`
-          : `/services/${s.slug}`
         entries.push({
           url: `${siteUrl}/${locale}${path}`,
           lastModified: new Date(s.updatedAt),
           changeFrequency: 'monthly',
           priority: 0.8,
-          alternates: {
-            languages: Object.fromEntries(
-              [...locales.map((l) => [l, `${siteUrl}/${l}${path}`]), ['x-default', `${siteUrl}/de${path}`]]
-            ),
-          },
+          alternates: alternatesFor(siteUrl, path),
         })
       }
     }
 
     for (const cs of caseStudies.docs) {
+      const path = `/referenzen/${(cs as any).slug}`
       for (const locale of locales) {
         entries.push({
-          url: `${siteUrl}/${locale}/referenzen/${(cs as any).slug}`,
+          url: `${siteUrl}/${locale}${path}`,
           lastModified: new Date((cs as any).updatedAt),
           changeFrequency: 'monthly',
           priority: 0.7,
-          alternates: {
-            languages: Object.fromEntries(
-              locales.map((l) => [l, `${siteUrl}/${l}/referenzen/${(cs as any).slug}`])
-            ),
-          },
+          alternates: alternatesFor(siteUrl, path),
         })
       }
     }
 
     for (const lp of landingPages.docs) {
+      const path = `/${(lp as any).slug}`
       for (const locale of locales) {
         entries.push({
-          url: `${siteUrl}/${locale}/${(lp as any).slug}`,
+          url: `${siteUrl}/${locale}${path}`,
           lastModified: new Date((lp as any).updatedAt),
           changeFrequency: 'monthly',
           priority: 0.6,
-          alternates: {
-            languages: Object.fromEntries(
-              locales.map((l) => [l, `${siteUrl}/${l}/${(lp as any).slug}`])
-            ),
-          },
+          alternates: alternatesFor(siteUrl, path),
         })
       }
     }

@@ -45,7 +45,9 @@ export function middleware(request: NextRequest) {
   const segments = pathname.split('/')
   const firstSegment = segments[1] ?? ''
   if (isValidLocale(firstSegment)) {
-    return NextResponse.next()
+    const response = NextResponse.next()
+    response.headers.set('x-locale', firstSegment)
+    return response
   }
 
   // Redirect to locale-prefixed path
