@@ -68,20 +68,51 @@ export function ContactForm({ labels, datenschutzHref }: ContactFormProps) {
       </div>
 
       <div>
-        <label htmlFor="name" className="mb-2 block text-sm font-medium">{labels.name}</label>
-        <input type="text" id="name" name="name" required className="w-full rounded-lg border border-gray-200 px-4 py-3 transition focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500" />
+        <label htmlFor="name" className="mb-2 block text-sm font-medium">
+          {labels.name}
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          className="border-border focus:border-primary focus:ring-primary w-full rounded-lg border px-4 py-3 transition focus:ring-1 focus:outline-none"
+        />
       </div>
       <div>
-        <label htmlFor="email" className="mb-2 block text-sm font-medium">{labels.email}</label>
-        <input type="email" id="email" name="email" required className="w-full rounded-lg border border-gray-200 px-4 py-3 transition focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500" />
+        <label htmlFor="email" className="mb-2 block text-sm font-medium">
+          {labels.email}
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          className="border-border focus:border-primary focus:ring-primary w-full rounded-lg border px-4 py-3 transition focus:ring-1 focus:outline-none"
+        />
       </div>
       <div>
-        <label htmlFor="phone" className="mb-2 block text-sm font-medium">{labels.phone}</label>
-        <input type="tel" id="phone" name="phone" className="w-full rounded-lg border border-gray-200 px-4 py-3 transition focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500" />
+        <label htmlFor="phone" className="mb-2 block text-sm font-medium">
+          {labels.phone}
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          className="border-border focus:border-primary focus:ring-primary w-full rounded-lg border px-4 py-3 transition focus:ring-1 focus:outline-none"
+        />
       </div>
       <div>
-        <label htmlFor="message" className="mb-2 block text-sm font-medium">{labels.message}</label>
-        <textarea id="message" name="message" rows={5} required className="w-full rounded-lg border border-gray-200 px-4 py-3 transition focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500" />
+        <label htmlFor="message" className="mb-2 block text-sm font-medium">
+          {labels.message}
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows={5}
+          required
+          className="border-border focus:border-primary focus:ring-primary w-full rounded-lg border px-4 py-3 transition focus:ring-1 focus:outline-none"
+        />
       </div>
 
       {/* Privacy consent checkbox */}
@@ -92,27 +123,30 @@ export function ContactForm({ labels, datenschutzHref }: ContactFormProps) {
           checked={privacyAccepted}
           onChange={(e) => setPrivacyAccepted(e.target.checked)}
           required
-          className="mt-1 h-4 w-4 rounded border-gray-300 text-gold-500 focus:ring-gold-500"
+          className="border-border text-primary focus:ring-primary mt-1 h-4 w-4 rounded"
         />
-        <label htmlFor="privacy" className="text-sm text-muted">
+        <label htmlFor="privacy" className="text-muted-foreground text-sm">
           {labels.privacyLabel}{' '}
-          <a href={datenschutzHref} className="text-gold-600 underline hover:text-gold-700" target="_blank" rel="noopener noreferrer">
+          <a
+            href={datenschutzHref}
+            className="text-primary hover:text-primary underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {labels.privacyLink}
-          </a>
-          {' '}{labels.privacySuffix}
+          </a>{' '}
+          {labels.privacySuffix}
         </label>
       </div>
 
       <button
         type="submit"
         disabled={status === 'sending' || !privacyAccepted}
-        className="rounded-lg bg-gold-500 px-8 py-3 font-semibold text-white transition hover:bg-gold-600 disabled:opacity-50"
+        className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-8 py-3 font-semibold transition disabled:opacity-50"
       >
         {status === 'sending' ? '...' : labels.send}
       </button>
-      {status === 'error' && (
-        <p className="text-sm text-red-600">{labels.errorMsg}</p>
-      )}
+      {status === 'error' && <p className="text-sm text-red-600">{labels.errorMsg}</p>}
     </form>
   )
 }

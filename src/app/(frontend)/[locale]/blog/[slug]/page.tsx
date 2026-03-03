@@ -7,6 +7,7 @@ import type { Locale } from '@/i18n/config'
 import { RichText } from '@/components/ui/RichText'
 import { ArticleSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
 import { getPageSeo } from '@/lib/seo'
+import { MotionSection } from '@/components/ui/AnimatedSection'
 
 export async function generateStaticParams() {
   try {
@@ -18,7 +19,11 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>
+}): Promise<Metadata> {
   const { locale, slug } = await params
   try {
     const payload = await getPayload()
@@ -76,34 +81,37 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           { name: post.title as string, url: postUrl },
         ]}
       />
-    <article className="px-4 py-24">
-      <div className="mx-auto max-w-3xl">
-        <nav className="mb-6 text-sm text-muted">
-          <Link href={`/${locale}`} className="hover:text-gold-600">{t.nav.home}</Link>
-          {' / '}
-          <Link href={`/${locale}/blog`} className="hover:text-gold-600">{t.nav.blog}</Link>
-          {' / '}
-          <span className="text-dark">{post.title as string}</span>
-        </nav>
+      <article className="px-4 py-24">
+        <div className="mx-auto max-w-3xl">
+          <nav className="text-muted-foreground mb-6 text-sm">
+            <Link href={`/${locale}`} className="hover:text-primary">
+              {t.nav.home}
+            </Link>
+            {' / '}
+            <Link href={`/${locale}/blog`} className="hover:text-primary">
+              {t.nav.blog}
+            </Link>
+            {' / '}
+            <span className="text-foreground">{post.title as string}</span>
+          </nav>
 
-        <h1 className="mb-4 text-4xl font-bold md:text-5xl">{post.title as string}</h1>
+          <MotionSection>
+            <h1 className="mb-4 text-4xl font-bold md:text-5xl">{post.title as string}</h1>
+            <div className="text-muted-foreground mb-8 flex items-center gap-4 text-sm">
+              {post.publishedDate && <time>{formatDate(post.publishedDate as string, locale)}</time>}
+              {post.readingTime && <span>{t.common.readingTime.replace('{min}', String(post.readingTime))}</span>}
+            </div>
+          </MotionSection>
 
-        <div className="mb-8 flex items-center gap-4 text-sm text-muted">
-          {post.publishedDate && (
-            <time>{formatDate(post.publishedDate as string, locale)}</time>
-          )}
-          {post.readingTime && (
-            <span>{t.common.readingTime.replace('{min}', String(post.readingTime))}</span>
+          {post.content && (
+            <MotionSection delay={0.15}>
+              <div className="prose prose-lg max-w-none">
+                <RichText content={post.content} />
+              </div>
+            </MotionSection>
           )}
         </div>
-
-        {post.content && (
-          <div className="prose prose-lg max-w-none">
-            <RichText content={post.content} />
-          </div>
-        )}
-      </div>
-    </article>
+      </article>
     </>
   )
 }

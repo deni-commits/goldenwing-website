@@ -4,6 +4,7 @@ import type { Locale } from '@/i18n/config'
 import { LocalBusinessSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
 import { getPageSeo } from '@/lib/seo'
 import { ContactForm } from '@/components/kontakt/ContactForm'
+import { MotionSection } from '@/components/ui/AnimatedSection'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -28,10 +29,12 @@ export default async function KontaktPage({ params }: { params: Promise<{ locale
       />
       <section className="px-4 py-24">
         <div className="mx-auto max-w-4xl">
-          <h1 className="mb-4 text-4xl font-bold md:text-5xl">{t.contact.title}</h1>
-          <p className="mb-16 text-lg text-muted">{t.contact.subtitle}</p>
+          <MotionSection>
+            <h1 className="mb-4 text-4xl font-bold md:text-5xl">{t.contact.title}</h1>
+            <p className="text-muted-foreground mb-16 text-lg">{t.contact.subtitle}</p>
+          </MotionSection>
 
-          <div className="grid gap-12 md:grid-cols-2">
+          <MotionSection delay={0.2} className="grid gap-12 md:grid-cols-2">
             <ContactForm
               datenschutzHref={`/${locale}/datenschutz`}
               labels={{
@@ -53,14 +56,16 @@ export default async function KontaktPage({ params }: { params: Promise<{ locale
             <div className="space-y-8">
               <div>
                 <h3 className="mb-2 text-lg font-semibold">{t.contact.email}</h3>
-                <a href="mailto:office@goldenwing.at" className="text-gold-600 hover:underline">office@goldenwing.at</a>
+                <a href="mailto:office@goldenwing.at" className="text-primary hover:underline">
+                  office@goldenwing.at
+                </a>
               </div>
               <div>
                 <h3 className="mb-2 text-lg font-semibold">{t.contact.location}</h3>
-                <p className="text-muted">{t.contact.locationAddress}</p>
+                <p className="text-muted-foreground">{t.contact.locationAddress}</p>
               </div>
             </div>
-          </div>
+          </MotionSection>
         </div>
       </section>
     </>

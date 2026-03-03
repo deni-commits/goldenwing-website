@@ -41,10 +41,8 @@ export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
           lang={loc}
           aria-label={localeNames[loc]}
           aria-current={loc === locale ? 'true' : undefined}
-          className={`rounded px-2 py-1 text-xs font-medium transition focus:outline-none focus:ring-2 focus:ring-gold-500 ${
-            loc === locale
-              ? 'bg-gold-50 text-gold-600'
-              : 'text-muted hover:text-dark'
+          className={`focus:ring-primary/50 rounded px-2 py-1 text-xs font-medium transition focus:ring-2 focus:outline-none ${
+            loc === locale ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:text-foreground'
           }`}
         >
           {localeLabels[loc]}

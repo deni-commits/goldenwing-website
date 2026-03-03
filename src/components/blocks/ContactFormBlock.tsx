@@ -52,12 +52,8 @@ export function ContactFormBlock({ block, t }: ContactFormBlockProps) {
   return (
     <section className="px-4 py-24">
       <div className="mx-auto max-w-2xl">
-        {block.headline && (
-          <h2 className="mb-4 text-center text-3xl font-bold">{block.headline}</h2>
-        )}
-        {block.description && (
-          <p className="mb-8 text-center text-muted">{block.description}</p>
-        )}
+        {block.headline && <h2 className="mb-4 text-center text-3xl font-bold">{block.headline}</h2>}
+        {block.description && <p className="text-muted-foreground mb-8 text-center">{block.description}</p>}
 
         {status === 'sent' ? (
           <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center">
@@ -79,14 +75,14 @@ export function ContactFormBlock({ block, t }: ContactFormBlockProps) {
                     name={field.name}
                     required={field.required}
                     rows={5}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                    className="border-border focus:border-primary focus:ring-primary w-full rounded-lg border px-4 py-2.5 text-sm transition focus:ring-1 focus:outline-none"
                   />
                 ) : field.type === 'select' ? (
                   <select
                     id={field.name}
                     name={field.name}
                     required={field.required}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                    className="border-border focus:border-primary focus:ring-primary w-full rounded-lg border px-4 py-2.5 text-sm transition focus:ring-1 focus:outline-none"
                   >
                     <option value="">{labels?.selectPlaceholder}</option>
                     {field.options
@@ -104,7 +100,7 @@ export function ContactFormBlock({ block, t }: ContactFormBlockProps) {
                     name={field.name}
                     type={field.type === 'phone' ? 'tel' : field.type}
                     required={field.required}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm transition focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                    className="border-border focus:border-primary focus:ring-primary w-full rounded-lg border px-4 py-2.5 text-sm transition focus:ring-1 focus:outline-none"
                   />
                 )}
               </div>
@@ -113,16 +109,12 @@ export function ContactFormBlock({ block, t }: ContactFormBlockProps) {
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="w-full rounded-lg bg-gold py-3 font-semibold text-white transition hover:bg-gold-dark disabled:opacity-50"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-lg py-3 font-semibold transition disabled:opacity-50"
             >
               {status === 'sending' ? labels?.sending : labels?.send}
             </button>
 
-            {status === 'error' && (
-              <p className="text-center text-sm text-red-600">
-                {labels?.formError}
-              </p>
-            )}
+            {status === 'error' && <p className="text-center text-sm text-red-600">{labels?.formError}</p>}
           </form>
         )}
       </div>

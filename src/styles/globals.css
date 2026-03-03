@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -23,7 +23,8 @@
   --color-ring: var(--ring);
   --color-gold: var(--gold);
   --color-neon: var(--neon);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -46,8 +47,8 @@
   --muted-foreground: #737373;
   --accent: #2d2d2d;
   --accent-foreground: #ffffff;
-  --gold: #f2fb31;
-  --neon: #f2fb31;
+  --gold: #d4ff00;
+  --neon: #d4ff00;
   --destructive: #dc2626;
   --border: #e5e5e5;
   --input: #e5e5e5;
@@ -55,22 +56,22 @@
 }
 
 .dark {
-  --background: #171717;
+  --background: #0a0a0a;
   --foreground: #fafafa;
-  --card: #262626;
+  --card: #1a1a1a;
   --card-foreground: #fafafa;
-  --popover: #262626;
+  --popover: #1a1a1a;
   --popover-foreground: #fafafa;
-  --primary: #f2fb31;
+  --primary: #d4ff00;
   --primary-foreground: #000000;
-  --secondary: #404040;
+  --secondary: #262626;
   --secondary-foreground: #fafafa;
-  --muted: #404040;
+  --muted: #262626;
   --muted-foreground: #a3a3a3;
-  --accent: #f2fb31;
+  --accent: #d4ff00;
   --accent-foreground: #000000;
-  --gold: #f2fb31;
-  --neon: #f2fb31;
+  --gold: #d4ff00;
+  --neon: #d4ff00;
   --destructive: #ef4444;
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.15);
@@ -87,10 +88,18 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     line-height: 1.2;
   }
-  p, span, li, a {
+  p,
+  span,
+  li,
+  a {
     line-height: 1.6;
   }
 }
@@ -124,7 +133,9 @@ html {
 }
 
 @media (min-width: 768px) {
-  .container { max-width: 768px; }
+  .container {
+    max-width: 768px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -136,11 +147,15 @@ html {
 }
 
 @media (min-width: 1280px) {
-  .container { max-width: 1280px; }
+  .container {
+    max-width: 1280px;
+  }
 }
 
 @media (min-width: 1536px) {
-  .container { max-width: 1400px; }
+  .container {
+    max-width: 1152px;
+  }
 }
 
 /* ===========================================
@@ -148,13 +163,23 @@ html {
    =========================================== */
 
 @keyframes hero-slide-up {
-  from { transform: translateY(8px); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 @keyframes hero-fade-in-delayed {
-  0% { opacity: 0; transform: translateY(15px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-headline {
@@ -209,8 +234,15 @@ html {
    =========================================== */
 
 @keyframes pulse-slow {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.05); opacity: 0.8; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
 }
 
 .animate-pulse-slow {
@@ -220,8 +252,12 @@ html {
 }
 
 @keyframes spin-slow {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .animate-spin-slow {
@@ -242,8 +278,12 @@ html {
    =========================================== */
 
 @keyframes scroll-up {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
 }
 
 .animate-scroll-up {
@@ -267,9 +307,15 @@ html {
    =========================================== */
 
 @keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .animate-gradient-shift {
@@ -280,5 +326,72 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .animate-gradient-shift {
     animation: none;
+  }
+}
+
+/* ===========================================
+   Accordion Animations (Radix)
+   =========================================== */
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@theme inline {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+/* ===========================================
+   Sheet / Dialog Animations (Radix)
+   =========================================== */
+
+@keyframes slide-in-from-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-to-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

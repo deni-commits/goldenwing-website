@@ -24,6 +24,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: { default: t.meta.siteTitle, template: '%s | GoldenWing Creative Studios' },
     description: t.meta.siteDescription,
     metadataBase: new URL(siteUrl),
+    alternates: {
+      canonical: `${siteUrl}/${locale}`,
+      languages: {
+        'de-AT': `${siteUrl}/de`,
+        'en-US': `${siteUrl}/en`,
+        'ru-RU': `${siteUrl}/ru`,
+        'x-default': `${siteUrl}/de`,
+      },
+    },
     openGraph: {
       type: 'website',
       locale: t.meta.ogLocale,
@@ -63,7 +72,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-gold-500 focus:px-4 focus:py-2 focus:text-white"
+        className="focus:bg-primary focus:text-primary-foreground sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:px-4 focus:py-2"
       >
         {t.common.skipToContent}
       </a>

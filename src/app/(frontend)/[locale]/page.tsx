@@ -11,7 +11,7 @@ import { ServicesSection } from '@/components/sections/ServicesSection'
 import { ProcessSection } from '@/components/sections/ProcessSection'
 import { ProjectsSection } from '@/components/sections/ProjectsSection'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
-import { CTASection } from '@/components/sections/CTASection'
+import { CTASection } from '@/components/ui/CTASection'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -32,7 +32,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   try {
     const payload = await getPayload()
     const [postsData, servicesData, testimonialsData, caseStudiesData, homepageData] = await Promise.all([
-      payload.find({ collection: 'posts', locale, limit: 3, sort: '-publishedDate', where: { _status: { equals: 'published' } } }),
+      payload.find({
+        collection: 'posts',
+        locale,
+        limit: 3,
+        sort: '-publishedDate',
+        where: { _status: { equals: 'published' } },
+      }),
       payload.find({ collection: 'services', locale, limit: 10, where: { parent: { exists: false } }, sort: 'order' }),
       payload.find({ collection: 'testimonials', locale, limit: 20 }),
       payload.find({ collection: 'case-studies', locale, limit: 4, sort: '-publishedDate' }),
@@ -68,9 +74,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         ctaSecondaryLink={hero?.ctaSecondaryLink || `/${locale}/referenzen`}
       />
 
-      {cmsStats && cmsStats.length > 0 && (
-        <StatsSection stats={cmsStats} />
-      )}
+      {cmsStats && cmsStats.length > 0 && <StatsSection stats={cmsStats} />}
 
       {services.length > 0 && (
         <ServicesSection
@@ -83,11 +87,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       )}
 
       {cmsProcess?.steps && (cmsProcess.steps as any[]).length > 0 && (
-        <ProcessSection
-          heading={cmsProcess.heading}
-          subline={cmsProcess.subline}
-          steps={cmsProcess.steps}
-        />
+        <ProcessSection heading={cmsProcess.heading} subline={cmsProcess.subline} steps={cmsProcess.steps} />
       )}
 
       {caseStudies.length > 0 && (
@@ -108,10 +108,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       )}
 
       <CTASection
+        variant="dark"
         heading={(cmsCta?.heading as string) || t.home.ctaHeading}
-        subline={(cmsCta?.subline as string) || t.home.ctaSub}
-        buttonLabel={(cmsCta?.buttonLabel as string) || t.home.ctaButton}
-        buttonLink={(cmsCta?.buttonLink as string) || `/${locale}/kontakt`}
+        sub={(cmsCta?.subline as string) || t.home.ctaSub}
+        buttonText={(cmsCta?.buttonLabel as string) || t.home.ctaButton}
+        buttonHref={(cmsCta?.buttonLink as string) || `/${locale}/kontakt`}
       />
     </>
   )

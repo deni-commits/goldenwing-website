@@ -5,11 +5,17 @@ import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { getPageSeo } from '@/lib/seo'
+import { MotionSection } from '@/components/ui/AnimatedSection'
 
 export async function generateStaticParams() {
   try {
     const payload = await getPayload()
-    const subServices = await payload.find({ collection: 'services', limit: 200, where: { parent: { exists: true } }, depth: 1 })
+    const subServices = await payload.find({
+      collection: 'services',
+      limit: 200,
+      where: { parent: { exists: true } },
+      depth: 1,
+    })
     return subServices.docs.map((s: any) => {
       const parent = s.parent as any
       return { slug: (parent?.slug || 'unknown') as string, subSlug: s.slug as string }
@@ -19,7 +25,11 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string; subSlug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string; subSlug: string }>
+}): Promise<Metadata> {
   const { locale, slug, subSlug } = await params
   try {
     const payload = await getPayload()
@@ -30,7 +40,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: subSlug }
 }
 
-export default async function SubServicePage({ params }: { params: Promise<{ locale: string; slug: string; subSlug: string }> }) {
+export default async function SubServicePage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string; subSlug: string }>
+}) {
   const { locale, slug, subSlug } = await params
   const t = await getDictionary(locale as Locale)
 
@@ -39,7 +53,13 @@ export default async function SubServicePage({ params }: { params: Promise<{ loc
 
   try {
     const payload = await getPayload()
-    const data = await payload.find({ collection: 'services', locale, where: { slug: { equals: subSlug } }, limit: 1, depth: 1 })
+    const data = await payload.find({
+      collection: 'services',
+      locale,
+      where: { slug: { equals: subSlug } },
+      limit: 1,
+      depth: 1,
+    })
     service = data.docs[0] as any | undefined
     if (service?.parent) {
       parentService = service.parent as any
@@ -50,25 +70,33 @@ export default async function SubServicePage({ params }: { params: Promise<{ loc
 
   return (
     <>
-      <section className="bg-dark px-4 py-24 text-white">
+      <section className="bg-foreground text-background px-4 py-24">
         <div className="mx-auto max-w-4xl">
-          <nav className="mb-6 text-sm text-gray-400">
-            <Link href={`/${locale}`} className="hover:text-gold-400">{t.nav.home}</Link>
+          <nav className="text-muted-foreground mb-6 text-sm">
+            <Link href={`/${locale}`} className="hover:text-primary">
+              {t.nav.home}
+            </Link>
             {' / '}
-            <Link href={`/${locale}/leistungen`} className="hover:text-gold-400">{t.nav.services}</Link>
+            <Link href={`/${locale}/leistungen`} className="hover:text-primary">
+              {t.nav.services}
+            </Link>
             {' / '}
             {parentService && (
               <>
-                <Link href={`/${locale}/leistungen/${slug}`} className="hover:text-gold-400">{parentService.title as string}</Link>
+                <Link href={`/${locale}/leistungen/${slug}`} className="hover:text-primary">
+                  {parentService.title as string}
+                </Link>
                 {' / '}
               </>
             )}
-            <span className="text-white">{service.title as string}</span>
+            <span className="text-background">{service.title as string}</span>
           </nav>
-          <h1 className="mb-6 text-4xl font-bold md:text-5xl">{service.title as string}</h1>
-          {service.excerpt && (
-            <p className="max-w-2xl text-xl leading-relaxed text-gray-300">{service.excerpt as string}</p>
-          )}
+          <MotionSection>
+            <h1 className="mb-6 text-4xl font-bold md:text-5xl">{service.title as string}</h1>
+            {service.excerpt && (
+              <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed">{service.excerpt as string}</p>
+            )}
+          </MotionSection>
         </div>
       </section>
 
@@ -76,25 +104,25 @@ export default async function SubServicePage({ params }: { params: Promise<{ loc
       {service.features && (service.features as any[]).length > 0 && (
         <section className="px-4 py-24">
           <div className="mx-auto max-w-6xl">
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <MotionSection as="div" stagger={0.08} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {(service.features as any[]).map((feature: any, i: number) => (
-                <div key={i} className="rounded-xl border border-gray-100 p-6">
+                <div key={i} className="border-border rounded-xl border p-6">
                   <h3 className="mb-2 text-lg font-semibold">{feature.title as string}</h3>
-                  {feature.description && <p className="text-muted">{feature.description as string}</p>}
+                  {feature.description && <p className="text-muted-foreground">{feature.description as string}</p>}
                 </div>
               ))}
-            </div>
+            </MotionSection>
           </div>
         </section>
       )}
 
       {/* CTA */}
-      <section className="bg-dark px-4 py-24 text-white">
+      <section className="bg-foreground text-background px-4 py-24">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="mb-4 text-3xl font-bold">{t.home.ctaTitle}</h2>
           <Link
             href={`/${locale}/kontakt`}
-            className="mt-6 inline-block rounded-lg bg-gold-500 px-8 py-3 font-semibold text-white transition hover:bg-gold-600"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 mt-6 inline-block rounded-lg px-8 py-3 font-semibold transition"
           >
             {t.home.ctaButton}
           </Link>

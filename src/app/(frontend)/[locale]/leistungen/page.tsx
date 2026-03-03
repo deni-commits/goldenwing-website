@@ -5,6 +5,7 @@ import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { getPageSeo } from '@/lib/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
+import { MotionSection } from '@/components/ui/AnimatedSection'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -40,52 +41,52 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
 
   return (
     <>
-    <StructuredData data={{
-      '@context': 'https://schema.org',
-      '@type': 'ItemList',
-      name: t.services.title,
-      itemListElement: services.map((service: any, i: number) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        item: {
-          '@type': 'Service',
-          name: service.title as string,
-          url: `${siteUrl}/${locale}/leistungen/${service.slug as string}`,
-          ...(service.excerpt ? { description: service.excerpt as string } : {}),
-          provider: { '@type': 'Organization', name: 'GoldenWing Creative Studios' },
-        },
-      })),
-    }} />
-    <section className="px-4 py-24">
-      <div className="mx-auto max-w-6xl">
-        <h1 className="mb-4 text-4xl font-bold md:text-5xl">{t.services.title}</h1>
-        <p className="mb-16 max-w-2xl text-lg text-muted">{t.services.subtitle}</p>
+      <StructuredData
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: t.services.title,
+          itemListElement: services.map((service: any, i: number) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            item: {
+              '@type': 'Service',
+              name: service.title as string,
+              url: `${siteUrl}/${locale}/leistungen/${service.slug as string}`,
+              ...(service.excerpt ? { description: service.excerpt as string } : {}),
+              provider: { '@type': 'Organization', name: 'GoldenWing Creative Studios' },
+            },
+          })),
+        }}
+      />
+      <section className="px-4 py-24">
+        <div className="mx-auto max-w-6xl">
+          <MotionSection>
+            <h1 className="mb-4 text-4xl font-bold md:text-5xl">{t.services.title}</h1>
+            <p className="text-muted-foreground mb-16 max-w-2xl text-lg">{t.services.subtitle}</p>
+          </MotionSection>
 
-        {services.length > 0 ? (
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service: any) => (
-              <Link
-                key={service.id as string}
-                href={`/${locale}/leistungen/${service.slug as string}`}
-                className="group rounded-xl border border-gray-100 p-6 transition hover:border-gold-200 hover:shadow-lg"
-              >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gold-50">
-                  <span className="text-2xl text-gold-500">&#9733;</span>
-                </div>
-                <h2 className="mb-2 text-xl font-semibold group-hover:text-gold-600">
-                  {service.title as string}
-                </h2>
-                {service.excerpt && (
-                  <p className="text-muted">{service.excerpt as string}</p>
-                )}
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <p className="text-muted">{t.common.noResults}</p>
-        )}
-      </div>
-    </section>
+          {services.length > 0 ? (
+            <MotionSection as="div" stagger={0.08} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {services.map((service: any) => (
+                <Link
+                  key={service.id as string}
+                  href={`/${locale}/leistungen/${service.slug as string}`}
+                  className="group border-border hover:border-primary/30 rounded-xl border p-6 transition hover:shadow-lg"
+                >
+                  <div className="bg-primary/10 mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
+                    <span className="text-primary text-2xl">&#9733;</span>
+                  </div>
+                  <h2 className="group-hover:text-primary mb-2 text-xl font-semibold">{service.title as string}</h2>
+                  {service.excerpt && <p className="text-muted-foreground">{service.excerpt as string}</p>}
+                </Link>
+              ))}
+            </MotionSection>
+          ) : (
+            <p className="text-muted-foreground">{t.common.noResults}</p>
+          )}
+        </div>
+      </section>
     </>
   )
 }

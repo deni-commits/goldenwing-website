@@ -24,14 +24,14 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
     <>
       <BreadcrumbSchema items={schemaItems} />
       <nav aria-label="Breadcrumb">
-        <ol className="flex flex-wrap items-center gap-1 text-sm text-muted">
+        <ol className="text-muted-foreground flex flex-wrap items-center gap-1 text-sm">
           {items.map((item, index) => {
             const isLast = index === items.length - 1
 
             return (
               <li key={index} className="flex items-center gap-1">
                 {index > 0 && (
-                  <span aria-hidden="true" className="select-none text-muted">
+                  <span aria-hidden="true" className="text-muted-foreground select-none">
                     &gt;
                   </span>
                 )}
@@ -40,10 +40,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
                     {item.label}
                   </span>
                 ) : (
-                  <Link
-                    href={item.href}
-                    className="transition-colors hover:text-gold-500"
-                  >
+                  <Link href={item.href} className="hover:text-primary transition-colors">
                     {item.label}
                   </Link>
                 )}

@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteTitle": "GoldenWing Creative Studios | Marketing & Branding Agentur Wien",
-    "siteDescription": "GoldenWing Creative Studios ist eine Wiener Marketing- und Branding-Agentur. Wir entwickeln Websites, SEO-Strategien und Markenidentitaeten.",
+    "siteDescription": "GoldenWing Creative Studios ist eine Wiener Marketing- und Branding-Agentur. Wir entwickeln Websites, SEO-Strategien und Markenidentitäten.",
     "ogLocale": "de_AT"
   },
   "nav": {
@@ -9,30 +9,31 @@
     "services": "Leistungen",
     "referenzen": "Referenzen",
     "blog": "Blog",
-    "about": "Ueber uns",
+    "about": "Über uns",
+    "glossar": "Glossar",
     "contact": "Kontakt",
     "impressum": "Impressum",
     "datenschutz": "Datenschutz",
     "agb": "AGB",
-    "agbFull": "Allgemeine Geschaeftsbedingungen",
+    "agbFull": "Allgemeine Geschäftsbedingungen",
     "impressumMeta": "Impressum und rechtliche Angaben von GoldenWing Creative Studios, Wien.",
-    "datenschutzMeta": "Datenschutzerklaerung von GoldenWing Creative Studios — Informationen zum Umgang mit Ihren Daten."
+    "datenschutzMeta": "Datenschutzerklärung von GoldenWing Creative Studios — Informationen zum Umgang mit Ihren Daten."
   },
   "common": {
     "readMore": "Weiterlesen",
     "viewAll": "Alle anzeigen",
-    "backTo": "Zurueck zu",
+    "backTo": "Zurück zu",
     "share": "Teilen",
     "loading": "Laden...",
     "noResults": "Keine Ergebnisse gefunden.",
     "search": "Suchen",
     "submit": "Absenden",
-    "close": "Schliessen",
+    "close": "Schließen",
     "skipToContent": "Zum Inhalt springen",
-    "comingSoon": "Inhalt wird in Kuerze ergaenzt.",
+    "comingSoon": "Inhalt wird in Kürze ergänzt.",
     "language": "Sprache",
     "readingTime": "{min} Min. Lesezeit",
-    "publishedOn": "Veroeffentlicht am"
+    "publishedOn": "Veröffentlicht am"
   },
   "home": {
     "heroTitle": "Kreativagentur Wien",
@@ -40,21 +41,21 @@
     "heroLine1": "Ihre Vision.",
     "heroHighlight": "Unsere Expertise.",
     "heroLine2": "Perfekte Umsetzung.",
-    "heroSub": "Wir setzen Ihre individuellen Wuensche professionell um — von der ersten Idee bis zum fertigen Produkt.",
+    "heroSub": "Wir setzen Ihre individuellen Wünsche professionell um — von der ersten Idee bis zum fertigen Produkt.",
     "heroBadge": "Kreativagentur aus Wien",
-    "heroCtaPrimary": "Kostenloses Erstgespraech",
+    "heroCtaPrimary": "Kostenloses Erstgespräch",
     "heroCtaSecondary": "Unsere Arbeiten ansehen",
     "servicesTitle": "Unsere Leistungen",
-    "servicesHeading": "Was wir fuer Sie tun koennen",
+    "servicesHeading": "Was wir für Sie tun können",
     "allServices": "Alle Leistungen entdecken",
     "referencesTitle": "Referenzen",
     "blogTitle": "Aktuelles",
     "testimonialsHeading": "Was unsere Kunden sagen",
-    "testimonialsSub": "Ueber 50 zufriedene Kunden vertrauen auf unsere Expertise.",
-    "ctaTitle": "Bereit fuer dein Projekt?",
-    "ctaHeading": "Erzaehlen Sie uns von Ihrer Idee",
-    "ctaSub": "Jedes grosse Projekt beginnt mit einem Gespraech. Erzaehlen Sie uns, was Sie sich vorstellen — wir zeigen Ihnen, wie wir es umsetzen koennen.",
-    "ctaButton": "Kostenloses Erstgespraech vereinbaren",
+    "testimonialsSub": "Über 50 zufriedene Kunden vertrauen auf unsere Expertise.",
+    "ctaTitle": "Bereit für dein Projekt?",
+    "ctaHeading": "Erzählen Sie uns von Ihrer Idee",
+    "ctaSub": "Jedes große Projekt beginnt mit einem Gespräch. Erzählen Sie uns, was Sie sich vorstellen — wir zeigen Ihnen, wie wir es umsetzen können.",
+    "ctaButton": "Kostenloses Erstgespräch vereinbaren",
     "metaDescription": "GoldenWing Creative Studios — Marketing-, Branding- und Webdesign-Agentur aus Wien. Ihre Vision. Unsere Expertise. Perfekte Umsetzung."
   },
   "services": {
@@ -62,26 +63,26 @@
     "subtitle": "Von der Strategie bis zur Umsetzung — alles aus einer Hand.",
     "subServices": "Teilleistungen",
     "relatedServices": "Verwandte Leistungen",
-    "metaDescription": "Webdesign, SEO, Branding und Content Marketing — alle Services von GoldenWing Creative Studios im Ueberblick."
+    "metaDescription": "Webdesign, SEO, Branding und Content Marketing — alle Services von GoldenWing Creative Studios im Überblick."
   },
   "referenzen": {
     "title": "Referenzen",
     "subtitle": "Erfahre, wie wir unseren Kunden geholfen haben, ihre Ziele zu erreichen.",
     "challenge": "Herausforderung",
-    "solution": "Loesung",
+    "solution": "Lösung",
     "results": "Ergebnisse",
-    "ctaHeading": "Ihr Projekt koennte das naechste sein",
+    "ctaHeading": "Ihr Projekt könnte das nächste sein",
     "ctaButton": "Projekt besprechen",
     "emptyState": "Noch keine Referenzen vorhanden.",
-    "metaDescription": "Unsere Referenzen und Erfolgsgeschichten — ausgewaehlte Projekte aus Webdesign, SEO und Branding."
+    "metaDescription": "Unsere Referenzen und Erfolgsgeschichten — ausgewählte Projekte aus Webdesign, SEO und Branding."
   },
   "blog": {
     "title": "Blog",
     "subtitle": "Insights, Tipps und News aus der Welt des digitalen Marketings.",
     "categories": "Kategorien",
-    "allPosts": "Alle Beitraege",
-    "relatedPosts": "Verwandte Beitraege",
-    "metaDescription": "Fachbeitraege zu SEO, Webdesign, Branding und digitalem Marketing — Insights aus der Praxis."
+    "allPosts": "Alle Beiträge",
+    "relatedPosts": "Verwandte Beiträge",
+    "metaDescription": "Fachbeiträge zu SEO, Webdesign, Branding und digitalem Marketing — Insights aus der Praxis."
   },
   "contact": {
     "title": "Kontakt",
@@ -93,38 +94,38 @@
     "send": "Nachricht senden",
     "success": "Vielen Dank! Wir melden uns bei dir.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
-    "privacyLabel": "Ich stimme der Verarbeitung meiner Daten gemaess der",
-    "privacyLink": "Datenschutzerklaerung",
+    "privacyLabel": "Ich stimme der Verarbeitung meiner Daten gemäß der",
+    "privacyLink": "Datenschutzerklärung",
     "privacySuffix": "zu.",
     "successTitle": "Vielen Dank!",
     "successMsg": "Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
     "location": "Standort",
-    "locationAddress": "Wien, Oesterreich",
+    "locationAddress": "Wien, Österreich",
     "metaDescription": "Kontaktiere GoldenWing Creative Studios — deine Marketing-Agentur in Wien. Wir freuen uns auf dein Projekt."
   },
   "about": {
-    "title": "Ueber uns",
+    "title": "Über uns",
     "teamTitle": "Unser Team",
     "teamSubtitle": "Die Menschen hinter GoldenWing Creative Studios.",
     "valuesTitle": "Unsere Werte",
     "valuesSubtitle": "Was uns antreibt und wie wir arbeiten.",
     "metaDescription": "Lerne das Team hinter GoldenWing Creative Studios kennen — Werte, Vision und Expertise.",
-    "valueQuality": "Qualitaet",
+    "valueQuality": "Qualität",
     "valueQualityDesc": "Wir liefern keine Kompromisse — nur exzellente Ergebnisse, die wirken.",
     "valuePartnership": "Partnerschaft",
     "valuePartnershipDesc": "Wir sehen uns als langfristige Partner, nicht nur als Dienstleister.",
     "valueInnovation": "Innovation",
-    "valueInnovationDesc": "Wir bleiben am Puls der Zeit und setzen auf zukunftsfaehige Loesungen."
+    "valueInnovationDesc": "Wir bleiben am Puls der Zeit und setzen auf zukunftsfähige Lösungen."
   },
   "blocks": {
     "before": "Vorher",
     "after": "Nachher",
     "recommended": "Empfohlen",
-    "selectPlaceholder": "Bitte waehlen...",
+    "selectPlaceholder": "Bitte wählen...",
     "sending": "Wird gesendet...",
     "send": "Absenden",
     "formSuccess": "Vielen Dank!",
-    "formSuccessMsg": "Wir melden uns in Kuerze bei Ihnen.",
+    "formSuccessMsg": "Wir melden uns in Kürze bei Ihnen.",
     "formError": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
   },
   "footer": {
@@ -137,11 +138,48 @@
     "branding": "Branding",
     "marketing": "Marketing",
     "agency": "Marketing- und Branding-Agentur aus Wien.",
-    "allRights": "Alle Rechte vorbehalten."
+    "allRights": "Alle Rechte vorbehalten.",
+    "locations": "Standorte",
+    "packages": "Pakete",
+    "faq": "Häufige Fragen",
+    "cookie": "Cookie-Einstellungen"
+  },
+  "ui": {
+    "faq": "Häufige Fragen",
+    "benefits": "Vorteile",
+    "process": "Unser Prozess",
+    "locations": "Standorte",
+    "idealFor": "Ideal für",
+    "startProject": "Projekt starten",
+    "freeConsultation": "Kostenloses Erstgespräch",
+    "learnMore": "Mehr erfahren",
+    "comparison": "Vergleich",
+    "testimonials": "Kundenstimmen",
+    "ourServices": "Unsere Leistungen",
+    "contactUs": "Kontaktieren Sie uns",
+    "allServices": "Alle Leistungen"
+  },
+  "glossar": {
+    "title": "Glossar",
+    "subtitle": "Fachbegriffe aus SEO, Marketing, Design und Webentwicklung einfach erklärt.",
+    "metaDescription": "Glossar mit über 100 Fachbegriffen aus SEO, Marketing, Design und Webentwicklung — einfach erklärt von GoldenWing Creative Studios.",
+    "searchPlaceholder": "Begriff suchen...",
+    "allCategories": "Alle",
+    "keyPoints": "Das Wichtigste in Kürze",
+    "usageExample": "Anwendungsbeispiel",
+    "relatedTerms": "Verwandte Begriffe",
+    "externalLinks": "Weiterführende Links",
+    "backToOverview": "Zurück zum Glossar",
+    "entries": "Einträge",
+    "categorySeo": "SEO & Suchmaschinen",
+    "categoryMarketing": "Marketing & Strategie",
+    "categoryDesign": "Design & UX",
+    "categoryDevelopment": "Entwicklung & Technologie",
+    "categoryStrategy": "Strategie & Branding"
   },
   "notFound": {
     "title": "Seite nicht gefunden",
     "description": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
-    "backHome": "Zurueck zur Startseite"
+    "backHome": "Zurück zur Startseite"
   }
 }

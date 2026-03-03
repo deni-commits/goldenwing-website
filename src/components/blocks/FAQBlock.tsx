@@ -10,12 +10,10 @@ export function FAQBlock({ block }: FAQProps) {
   return (
     <section className="px-4 py-24">
       <div className="mx-auto max-w-3xl">
-        {block.headline && (
-          <h2 className="mb-12 text-center text-3xl font-bold">{block.headline}</h2>
-        )}
+        {block.headline && <h2 className="mb-12 text-center text-3xl font-bold">{block.headline}</h2>}
         <div className="space-y-4">
           {block.items?.map((item: any, i: number) => (
-            <div key={i} className="rounded-lg border border-gray-200">
+            <div key={i} className="border-border rounded-lg border">
               <button
                 className="flex w-full items-center justify-between px-6 py-4 text-left font-medium"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
@@ -31,9 +29,7 @@ export function FAQBlock({ block }: FAQProps) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              {openIndex === i && (
-                <div className="px-6 pb-4 text-muted">{item.answer}</div>
-              )}
+              {openIndex === i && <div className="text-muted-foreground px-6 pb-4">{item.answer}</div>}
             </div>
           ))}
         </div>

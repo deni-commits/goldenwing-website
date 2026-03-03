@@ -26,7 +26,7 @@ export function VideoEmbedBlock({ block }: VideoEmbedBlockProps) {
   return (
     <section className="px-4 py-16">
       <div className="mx-auto max-w-4xl">
-        <div className="relative aspect-video overflow-hidden rounded-xl bg-black">
+        <div className="bg-foreground relative aspect-video overflow-hidden rounded-xl">
           <iframe
             src={embedUrl}
             className="absolute inset-0 h-full w-full"
@@ -36,9 +36,7 @@ export function VideoEmbedBlock({ block }: VideoEmbedBlockProps) {
             title={block.caption || 'Video'}
           />
         </div>
-        {block.caption && (
-          <p className="mt-3 text-center text-sm text-muted">{block.caption}</p>
-        )}
+        {block.caption && <p className="text-muted mt-3 text-center text-sm">{block.caption}</p>}
       </div>
     </section>
   )
