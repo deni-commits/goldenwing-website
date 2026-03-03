@@ -23,8 +23,8 @@ export function Header({ locale }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-sm">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href={`/${locale}`} className="text-xl font-bold tracking-tight">
-          GoldenWing
+        <Link href={`/${locale}`} className="flex items-center gap-2 text-xl font-bold tracking-tight">
+          <span className="text-gold-500">Golden</span><span>Wing</span>
         </Link>
 
         {/* Desktop Nav */}

@@ -4,6 +4,7 @@ import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { getPageSeo } from '@/lib/seo'
+import { StructuredData } from '@/components/seo/StructuredData'
 
 const POSTS_PER_PAGE = 9
 
@@ -56,7 +57,26 @@ export default async function BlogPage({
     totalPages = data.totalPages
   } catch {}
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
+
   return (
+    <>
+    {posts.length > 0 && (
+      <StructuredData data={{
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: t.blog.title,
+        url: `${siteUrl}/${locale}/blog`,
+        mainEntity: {
+          '@type': 'ItemList',
+          itemListElement: posts.map((post: any, i: number) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            url: `${siteUrl}/${locale}/blog/${post.slug as string}`,
+          })),
+        },
+      }} />
+    )}
     <section className="px-4 py-24">
       <div className="mx-auto max-w-6xl">
         <h1 className="mb-4 text-4xl font-bold md:text-5xl">{t.blog.title}</h1>
@@ -125,5 +145,6 @@ export default async function BlogPage({
         )}
       </div>
     </section>
+    </>
   )
 }

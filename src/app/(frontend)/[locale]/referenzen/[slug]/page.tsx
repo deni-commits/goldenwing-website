@@ -5,6 +5,7 @@ import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { RichText } from '@/components/ui/RichText'
+import { BreadcrumbSchema, StructuredData } from '@/components/seo/StructuredData'
 import { getPageSeo } from '@/lib/seo'
 
 export async function generateStaticParams() {
@@ -23,7 +24,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     const payload = await getPayload()
     const data = await payload.find({ collection: 'case-studies', locale, where: { slug: { equals: slug } }, limit: 1 })
     const cs = data.docs[0] as any | undefined
-    if (cs) return { title: cs.title as string, ...getPageSeo(`referenzen/${slug}`, locale) }
+    if (cs) return {
+      title: cs.title as string,
+      description: (cs.client ? `${cs.title} — ${cs.client}` : cs.title) as string,
+      ...getPageSeo(`referenzen/${slug}`, locale),
+    }
   } catch {}
   return { title: slug }
 }
@@ -43,8 +48,26 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ loca
   if (!caseStudy) notFound()
 
   const results = (caseStudy.results as any[] | null) || []
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
+  const pageUrl = `${siteUrl}/${locale}/referenzen/${slug}`
 
   return (
+    <>
+    <BreadcrumbSchema
+      items={[
+        { name: t.nav.home, url: `${siteUrl}/${locale}` },
+        { name: t.nav.referenzen, url: `${siteUrl}/${locale}/referenzen` },
+        { name: caseStudy.title as string, url: pageUrl },
+      ]}
+    />
+    <StructuredData data={{
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      name: caseStudy.title as string,
+      ...(caseStudy.client ? { about: { '@type': 'Organization', name: caseStudy.client as string } } : {}),
+      url: pageUrl,
+      creator: { '@type': 'Organization', name: 'GoldenWing Creative Studios', url: 'https://goldenwing.at' },
+    }} />
     <article className="px-4 py-24">
       <div className="mx-auto max-w-4xl">
         <nav className="mb-6 text-sm text-muted">
@@ -87,5 +110,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ loca
         )}
       </div>
     </article>
+    </>
   )
 }
