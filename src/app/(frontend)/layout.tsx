@@ -5,7 +5,9 @@ import '@/styles/globals.css'
 const inter = Inter({
   subsets: ['latin', 'latin-ext', 'cyrillic'],
   display: 'swap',
-  variable: '--font-sans',
+  variable: '--font-inter',
+  preload: true,
+  adjustFontFallback: true,
 })
 
 export default async function FrontendLayout({ children }: { children: React.ReactNode }) {
@@ -13,8 +15,8 @@ export default async function FrontendLayout({ children }: { children: React.Rea
   const locale = headersList.get('x-locale') || 'de'
 
   return (
-    <html lang={locale} className={inter.variable} suppressHydrationWarning>
-      <body className="bg-white text-dark antialiased">{children}</body>
+    <html lang={locale} className={`dark ${inter.variable}`} suppressHydrationWarning>
+      <body className="font-sans antialiased">{children}</body>
     </html>
   )
 }

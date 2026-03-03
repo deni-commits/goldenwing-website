@@ -15,7 +15,6 @@ interface HeaderProps {
 export function Header({ locale, t, navigation, siteSettings }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  // Use CMS navigation if available, otherwise fall back to dictionary
   const cmsMenu = navigation?.mainMenu as any[] | undefined
   const navItems = cmsMenu && cmsMenu.length > 0
     ? cmsMenu.map((item: any) => ({
@@ -33,22 +32,20 @@ export function Header({ locale, t, navigation, siteSettings }: HeaderProps) {
   const ctaLabel = ctaButton?.label || t.nav.contact
   const ctaHref = ctaButton?.link || `/${locale}/kontakt`
 
-  const companyName = (siteSettings?.companyName as string) || 'GoldenWing Creative Studios'
-
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-sm">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href={`/${locale}`} className="flex items-center gap-2 text-xl font-bold tracking-tight">
-          <span className="text-gold-500">Golden</span><span>Wing</span>
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <nav className="container flex h-16 items-center justify-between">
+        <Link href={`/${locale}`} className="flex items-center gap-1 text-xl font-bold tracking-tight">
+          <span className="text-primary">Golden</span><span className="text-foreground">Wing</span>
         </Link>
 
         {/* Desktop Nav */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-8 lg:flex">
           {navItems.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="text-sm font-medium text-muted transition hover:text-dark"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 {item.label}
               </Link>
@@ -60,7 +57,7 @@ export function Header({ locale, t, navigation, siteSettings }: HeaderProps) {
           <li>
             <Link
               href={ctaHref}
-              className="rounded-lg bg-gold-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-gold-600"
+              className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
               {ctaLabel}
             </Link>
@@ -69,12 +66,12 @@ export function Header({ locale, t, navigation, siteSettings }: HeaderProps) {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden"
+          className="lg:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label={mobileOpen ? t.common.close : t.nav.home}
           aria-expanded={mobileOpen}
         >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-6 w-6 text-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {mobileOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -86,13 +83,13 @@ export function Header({ locale, t, navigation, siteSettings }: HeaderProps) {
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="border-t border-gray-100 bg-white px-4 py-4 md:hidden">
+        <div className="border-t border-border bg-background px-4 py-4 lg:hidden">
           <ul className="space-y-3">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block text-sm font-medium text-muted"
+                  className="block py-2 text-base font-medium text-muted-foreground transition-colors hover:text-primary"
                   onClick={() => setMobileOpen(false)}
                 >
                   {item.label}
@@ -105,7 +102,7 @@ export function Header({ locale, t, navigation, siteSettings }: HeaderProps) {
             <li>
               <Link
                 href={ctaHref}
-                className="mt-2 block rounded-lg bg-gold-500 px-5 py-2 text-center text-sm font-semibold text-white"
+                className="mt-2 block rounded-lg bg-primary px-5 py-3 text-center text-sm font-semibold text-primary-foreground"
                 onClick={() => setMobileOpen(false)}
               >
                 {ctaLabel}
