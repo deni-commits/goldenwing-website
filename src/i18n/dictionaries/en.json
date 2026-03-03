@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "siteTitle": "GoldenWing Creative Studios | Marketing & Branding Agency Vienna",
+    "siteDescription": "GoldenWing Creative Studios is a Vienna-based marketing and branding agency. We build websites, SEO strategies, and brand identities.",
+    "ogLocale": "en_US"
+  },
   "nav": {
     "home": "Home",
     "services": "Services",
@@ -7,7 +12,11 @@
     "about": "About Us",
     "contact": "Contact",
     "impressum": "Legal Notice",
-    "datenschutz": "Privacy Policy"
+    "datenschutz": "Privacy Policy",
+    "agb": "Terms",
+    "agbFull": "Terms and Conditions",
+    "impressumMeta": "Legal notice and information about GoldenWing Creative Studios, Vienna.",
+    "datenschutzMeta": "Privacy policy of GoldenWing Creative Studios — information on handling your data."
   },
   "common": {
     "readMore": "Read more",
@@ -19,6 +28,8 @@
     "search": "Search",
     "submit": "Submit",
     "close": "Close",
+    "skipToContent": "Skip to content",
+    "comingSoon": "Content coming soon.",
     "language": "Language",
     "readingTime": "{min} min read",
     "publishedOn": "Published on"
@@ -26,31 +37,51 @@
   "home": {
     "heroTitle": "Creative Agency Vienna",
     "heroSubtitle": "Marketing, branding & web development — all from one source.",
+    "heroLine1": "Your Vision.",
+    "heroHighlight": "Our Expertise.",
+    "heroLine2": "Perfect Execution.",
+    "heroSub": "We professionally implement your individual requirements — from the first idea to the finished product.",
+    "heroBadge": "Creative Agency from Vienna",
+    "heroCtaPrimary": "Free Consultation",
+    "heroCtaSecondary": "View Our Work",
     "servicesTitle": "Our Services",
+    "servicesHeading": "What we can do for you",
+    "allServices": "Discover All Services",
     "referencesTitle": "Portfolio",
     "blogTitle": "Latest News",
+    "testimonialsHeading": "What our clients say",
+    "testimonialsSub": "Over 50 satisfied clients trust our expertise.",
     "ctaTitle": "Ready for your project?",
-    "ctaButton": "Get in touch"
+    "ctaHeading": "Tell us about your idea",
+    "ctaSub": "Every great project starts with a conversation. Tell us what you envision — we will show you how we can make it happen.",
+    "ctaButton": "Book a Free Consultation",
+    "metaDescription": "GoldenWing Creative Studios — Marketing, branding & web design agency from Vienna. Your vision. Our expertise. Perfect execution."
   },
   "services": {
     "title": "Our Services",
     "subtitle": "From strategy to execution — everything under one roof.",
     "subServices": "Sub-Services",
-    "relatedServices": "Related Services"
+    "relatedServices": "Related Services",
+    "metaDescription": "Web design, SEO, branding and content marketing — all services from GoldenWing Creative Studios at a glance."
   },
   "referenzen": {
     "title": "Portfolio",
     "subtitle": "Discover how we helped our clients achieve their goals.",
     "challenge": "Challenge",
     "solution": "Solution",
-    "results": "Results"
+    "results": "Results",
+    "ctaHeading": "Your project could be next",
+    "ctaButton": "Discuss Your Project",
+    "emptyState": "No references available yet.",
+    "metaDescription": "Our references and success stories — selected projects in web design, SEO and branding."
   },
   "blog": {
     "title": "Blog",
     "subtitle": "Insights, tips, and news from the world of digital marketing.",
     "categories": "Categories",
     "allPosts": "All Posts",
-    "relatedPosts": "Related Posts"
+    "relatedPosts": "Related Posts",
+    "metaDescription": "Expert articles on SEO, web design, branding and digital marketing — insights from practice."
   },
   "contact": {
     "title": "Contact",
@@ -61,18 +92,36 @@
     "message": "Message",
     "send": "Send Message",
     "success": "Thank you! We will get back to you soon.",
-    "error": "Something went wrong. Please try again."
+    "error": "Something went wrong. Please try again.",
+    "privacyLabel": "I agree to the processing of my data according to the",
+    "privacyLink": "Privacy Policy",
+    "privacySuffix": ".",
+    "successTitle": "Thank you!",
+    "successMsg": "We will get back to you within 24 hours.",
+    "location": "Location",
+    "metaDescription": "Contact GoldenWing Creative Studios — your marketing agency in Vienna. We look forward to your project."
   },
   "about": {
     "title": "About Us",
     "teamTitle": "Our Team",
     "teamSubtitle": "The people behind GoldenWing Creative Studios.",
     "valuesTitle": "Our Values",
-    "valuesSubtitle": "What drives us and how we work."
+    "valuesSubtitle": "What drives us and how we work.",
+    "metaDescription": "Meet the team behind GoldenWing Creative Studios — values, vision and expertise.",
+    "valueQuality": "Quality",
+    "valueQualityDesc": "We deliver no compromises — only excellent results that make an impact.",
+    "valuePartnership": "Partnership",
+    "valuePartnershipDesc": "We see ourselves as long-term partners, not just service providers.",
+    "valueInnovation": "Innovation",
+    "valueInnovationDesc": "We stay ahead of the curve and focus on future-proof solutions."
   },
   "footer": {
     "copyright": "All rights reserved.",
-    "madeWith": "Made with"
+    "madeWith": "Made with",
+    "services": "Services",
+    "company": "Company",
+    "agency": "Marketing and branding agency from Vienna.",
+    "allRights": "All rights reserved."
   },
   "notFound": {
     "title": "Page Not Found",

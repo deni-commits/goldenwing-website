@@ -10,23 +10,8 @@ import { BreadcrumbSchema, StructuredData } from '@/components/seo/StructuredDat
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  const descriptions: Record<string, string> = {
-    de: 'Unsere Referenzen und Erfolgsgeschichten — ausgewaehlte Projekte aus Webdesign, SEO und Branding.',
-    en: 'Our references and success stories — selected projects in web design, SEO and branding.',
-    ru: 'Наши кейсы и истории успеха — избранные проекты в веб-дизайне, SEO и брендинге.',
-  }
-  return { title: t.referenzen.title, description: descriptions[locale] || descriptions.de, ...getPageSeo('referenzen', locale) }
+  return { title: t.referenzen.title, description: t.referenzen.metaDescription, ...getPageSeo('referenzen', locale) }
 }
-
-// Fallback data from real projects (shown when CMS is empty)
-const fallbackProjects = [
-  { slug: 'domoferm', title: 'Domoferm - B2B Digitalstrategie', client: 'Domoferm', category: 'Strategie', results: [{ value: '+180%', label: 'Qualifizierte Leads' }, { value: '+95%', label: 'Organischer Traffic' }] },
-  { slug: 'point-of-new', title: 'Point of New - Marken-Relaunch', client: 'Point of New', category: 'Branding', results: [{ value: '+85%', label: 'Brand Awareness' }, { value: '+120%', label: 'Social Engagement' }] },
-  { slug: 'lamberg', title: 'LAMBERG - E-Commerce Erfolgsgeschichte', client: 'LAMBERG', category: 'Software', results: [{ value: '+300%', label: 'Online-Umsatz' }, { value: '3.2%', label: 'Conversion Rate' }] },
-  { slug: 'simax', title: 'SiMAX - Technologie fuer Inklusion', client: 'SiMAX', category: 'Software', results: [{ value: '15+', label: 'App-Integrationen' }, { value: '50K+', label: 'Endnutzer' }] },
-  { slug: 'atta-pallet', title: 'Atta Pallet - Digitale Marktpraesenz', client: 'Atta Pallet', category: 'Webdesign', results: [{ value: '+250%', label: 'Website-Anfragen' }, { value: 'Top 3', label: 'Google Rankings' }] },
-  { slug: 'glaeser-law', title: 'Glaeser Law - Juristische Sichtbarkeit', client: 'Glaeser Law', category: 'SEO', results: [{ value: '+300%', label: 'Organischer Traffic' }, { value: 'Top 5', label: 'Kern-Keywords' }] },
-]
 
 export default async function ReferenzenPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -41,15 +26,13 @@ export default async function ReferenzenPage({ params }: { params: Promise<{ loc
     caseStudies = data.docs
   } catch {}
 
-  const hasCMS = caseStudies.length > 0
-
   return (
     <>
       <BreadcrumbSchema items={[
-        { name: locale === 'de' ? 'Startseite' : 'Home', url: `${siteUrl}/${locale}` },
+        { name: t.nav.home, url: `${siteUrl}/${locale}` },
         { name: t.referenzen.title, url: `${siteUrl}/${locale}/referenzen` },
       ]} />
-      {hasCMS && (
+      {caseStudies.length > 0 && (
         <StructuredData data={{
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
@@ -81,7 +64,7 @@ export default async function ReferenzenPage({ params }: { params: Promise<{ loc
       {/* Projects Grid */}
       <section className="px-4 py-24">
         <div className="mx-auto max-w-6xl">
-          {hasCMS ? (
+          {caseStudies.length > 0 ? (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {caseStudies.map((cs: any) => {
                 const coverImage = cs.coverImage as any | null
@@ -130,34 +113,7 @@ export default async function ReferenzenPage({ params }: { params: Promise<{ loc
               })}
             </div>
           ) : (
-            /* Fallback: Show real project data even without CMS */
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {fallbackProjects.map((project) => (
-                <div
-                  key={project.slug}
-                  className="flex flex-col rounded-xl border border-gray-100 transition hover:border-gold-200 hover:shadow-lg"
-                >
-                  <div className="flex aspect-video w-full items-center justify-center overflow-hidden rounded-t-xl bg-gradient-to-br from-gold-50 to-gold-100">
-                    <span className="text-5xl text-gold-300">&#9670;</span>
-                  </div>
-                  <div className="flex flex-1 flex-col p-6">
-                    <span className="mb-3 inline-block self-start rounded-full bg-gold-50 px-3 py-1 text-xs font-medium text-gold-700">
-                      {project.category}
-                    </span>
-                    <h2 className="mb-1 text-xl font-semibold">{project.title}</h2>
-                    <p className="mb-4 text-sm text-muted">{project.client}</p>
-                    <div className="mt-auto flex flex-wrap gap-3 pt-4">
-                      {project.results.map((r, i) => (
-                        <div key={i} className="rounded-lg bg-gray-50 px-3 py-1.5">
-                          <span className="font-bold text-gold-600">{r.value}</span>{' '}
-                          <span className="text-xs text-muted">{r.label}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p className="text-center text-muted">{t.referenzen.emptyState}</p>
           )}
         </div>
       </section>
@@ -166,13 +122,13 @@ export default async function ReferenzenPage({ params }: { params: Promise<{ loc
       <section className="bg-dark px-4 py-16 text-white">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="mb-4 text-2xl font-bold md:text-3xl">
-            {locale === 'de' ? 'Ihr Projekt koennte das naechste sein' : locale === 'ru' ? 'Ваш проект может быть следующим' : 'Your project could be next'}
+            {t.referenzen.ctaHeading}
           </h2>
           <Link
             href={`/${locale}/kontakt`}
             className="mt-4 inline-block rounded-lg bg-gold-500 px-8 py-3 font-semibold text-white transition hover:bg-gold-600"
           >
-            {locale === 'de' ? 'Projekt besprechen' : locale === 'ru' ? 'Обсудить проект' : 'Discuss Your Project'}
+            {t.referenzen.ctaButton}
           </Link>
         </div>
       </section>

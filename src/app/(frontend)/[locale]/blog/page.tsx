@@ -11,12 +11,7 @@ const POSTS_PER_PAGE = 9
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  const descriptions: Record<string, string> = {
-    de: 'Fachbeitraege zu SEO, Webdesign, Branding und digitalem Marketing — Insights aus der Praxis.',
-    en: 'Expert articles on SEO, web design, branding and digital marketing — insights from practice.',
-    ru: 'Экспертные статьи о SEO, веб-дизайне, брендинге и цифровом маркетинге.',
-  }
-  return { title: t.blog.title, description: descriptions[locale] || descriptions.de, ...getPageSeo('blog', locale) }
+  return { title: t.blog.title, description: t.blog.metaDescription, ...getPageSeo('blog', locale) }
 }
 
 function formatDate(dateString: string, locale: string): string {

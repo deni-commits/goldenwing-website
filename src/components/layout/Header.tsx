@@ -3,22 +3,37 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import type { Dictionary } from '@/i18n/getDictionary'
 
 interface HeaderProps {
   locale: string
+  t: Dictionary
+  navigation?: any | null
+  siteSettings?: any | null
 }
 
-export function Header({ locale }: HeaderProps) {
+export function Header({ locale, t, navigation, siteSettings }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const navItems = [
-    { label: locale === 'de' ? 'Leistungen' : locale === 'ru' ? 'Услуги' : 'Services', href: `/${locale}/leistungen` },
-    { label: locale === 'de' ? 'Referenzen' : locale === 'ru' ? 'Портфолио' : 'Portfolio', href: `/${locale}/referenzen` },
-    { label: 'Blog', href: `/${locale}/blog` },
-    { label: locale === 'de' ? 'Ueber uns' : locale === 'ru' ? 'О нас' : 'About Us', href: `/${locale}/ueber-uns` },
-  ]
+  // Use CMS navigation if available, otherwise fall back to dictionary
+  const cmsMenu = navigation?.mainMenu as any[] | undefined
+  const navItems = cmsMenu && cmsMenu.length > 0
+    ? cmsMenu.map((item: any) => ({
+        label: item.label as string,
+        href: item.link as string,
+      }))
+    : [
+        { label: t.nav.services, href: `/${locale}/leistungen` },
+        { label: t.nav.referenzen, href: `/${locale}/referenzen` },
+        { label: t.nav.blog || 'Blog', href: `/${locale}/blog` },
+        { label: t.nav.about, href: `/${locale}/ueber-uns` },
+      ]
 
-  const ctaLabel = locale === 'de' ? 'Kontakt' : locale === 'ru' ? 'Контакт' : 'Contact'
+  const ctaButton = navigation?.ctaButton as { label?: string; link?: string } | undefined
+  const ctaLabel = ctaButton?.label || t.nav.contact
+  const ctaHref = ctaButton?.link || `/${locale}/kontakt`
+
+  const companyName = (siteSettings?.companyName as string) || 'GoldenWing Creative Studios'
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-sm">
@@ -44,7 +59,7 @@ export function Header({ locale }: HeaderProps) {
           </li>
           <li>
             <Link
-              href={`/${locale}/kontakt`}
+              href={ctaHref}
               className="rounded-lg bg-gold-500 px-5 py-2 text-sm font-semibold text-white transition hover:bg-gold-600"
             >
               {ctaLabel}
@@ -56,7 +71,7 @@ export function Header({ locale }: HeaderProps) {
         <button
           className="md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? 'Menue schliessen' : 'Menue oeffnen'}
+          aria-label={mobileOpen ? t.common.close : t.nav.home}
           aria-expanded={mobileOpen}
         >
           <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -89,7 +104,7 @@ export function Header({ locale }: HeaderProps) {
             </li>
             <li>
               <Link
-                href={`/${locale}/kontakt`}
+                href={ctaHref}
                 className="mt-2 block rounded-lg bg-gold-500 px-5 py-2 text-center text-sm font-semibold text-white"
                 onClick={() => setMobileOpen(false)}
               >

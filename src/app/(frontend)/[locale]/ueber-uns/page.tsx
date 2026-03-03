@@ -9,12 +9,7 @@ import { getPageSeo } from '@/lib/seo'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  const descriptions: Record<string, string> = {
-    de: 'Lerne das Team hinter GoldenWing Creative Studios kennen — Werte, Vision und Expertise.',
-    en: 'Meet the team behind GoldenWing Creative Studios — values, vision and expertise.',
-    ru: 'Познакомьтесь с командой GoldenWing Creative Studios — ценности, видение и экспертиза.',
-  }
-  return { title: t.about.title, description: descriptions[locale] || descriptions.de, ...getPageSeo('ueber-uns', locale) }
+  return { title: t.about.title, description: t.about.metaDescription, ...getPageSeo('ueber-uns', locale) }
 }
 
 export default async function UeberUnsPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -82,24 +77,11 @@ export default async function UeberUnsPage({ params }: { params: Promise<{ local
           <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">{t.about.valuesTitle}</h2>
           <p className="mx-auto mb-16 max-w-2xl text-center text-muted">{t.about.valuesSubtitle}</p>
           <div className="grid gap-8 md:grid-cols-3">
-            {(locale === 'de'
-              ? [
-                  { title: 'Qualitaet', desc: 'Wir liefern keine Kompromisse — nur exzellente Ergebnisse, die wirken.' },
-                  { title: 'Partnerschaft', desc: 'Wir sehen uns als langfristige Partner, nicht nur als Dienstleister.' },
-                  { title: 'Innovation', desc: 'Wir bleiben am Puls der Zeit und setzen auf zukunftsfaehige Loesungen.' },
-                ]
-              : locale === 'ru'
-              ? [
-                  { title: 'Качество', desc: 'Мы не идём на компромиссы — только отличные результаты.' },
-                  { title: 'Партнёрство', desc: 'Мы видим себя долгосрочными партнёрами, а не просто поставщиками услуг.' },
-                  { title: 'Инновации', desc: 'Мы идём в ногу со временем и делаем ставку на перспективные решения.' },
-                ]
-              : [
-                  { title: 'Quality', desc: 'We deliver no compromises — only excellent results that make an impact.' },
-                  { title: 'Partnership', desc: 'We see ourselves as long-term partners, not just service providers.' },
-                  { title: 'Innovation', desc: 'We stay ahead of the curve and focus on future-proof solutions.' },
-                ]
-            ).map((value) => (
+            {[
+              { title: t.about.valueQuality, desc: t.about.valueQualityDesc },
+              { title: t.about.valuePartnership, desc: t.about.valuePartnershipDesc },
+              { title: t.about.valueInnovation, desc: t.about.valueInnovationDesc },
+            ].map((value) => (
               <div key={value.title} className="rounded-xl border border-gray-100 bg-white p-6">
                 <h3 className="mb-2 text-xl font-semibold">{value.title}</h3>
                 <p className="text-muted">{value.desc}</p>

@@ -8,7 +8,7 @@ import { getPageSeo } from '@/lib/seo'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  return { title: t.nav.datenschutz, description: 'Datenschutzerklaerung von GoldenWing Creative Studios — Informationen zum Umgang mit Ihren Daten.', ...getPageSeo('datenschutz', locale) }
+  return { title: t.nav.datenschutz, description: t.nav.datenschutzMeta, ...getPageSeo('datenschutz', locale) }
 }
 
 export default async function DatenschutzPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -30,7 +30,7 @@ export default async function DatenschutzPage({ params }: { params: Promise<{ lo
         {layout && layout.length > 0 ? (
           <RenderBlocks blocks={layout} />
         ) : (
-          <p className="text-muted">{locale === 'de' ? 'Datenschutzerklaerung wird in Kuerze ergaenzt.' : 'Privacy policy coming soon.'}</p>
+          <p className="text-muted">{t.common.comingSoon}</p>
         )}
       </div>
     </section>

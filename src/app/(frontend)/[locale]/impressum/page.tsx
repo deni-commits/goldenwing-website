@@ -8,7 +8,7 @@ import { getPageSeo } from '@/lib/seo'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  return { title: t.nav.impressum, description: 'Impressum und rechtliche Angaben von GoldenWing Creative Studios, Wien.', ...getPageSeo('impressum', locale) }
+  return { title: t.nav.impressum, description: t.nav.impressumMeta, ...getPageSeo('impressum', locale) }
 }
 
 export default async function ImpressumPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -30,7 +30,7 @@ export default async function ImpressumPage({ params }: { params: Promise<{ loca
         {layout && layout.length > 0 ? (
           <RenderBlocks blocks={layout} />
         ) : (
-          <p className="text-muted">{locale === 'de' ? 'Impressum wird in Kuerze ergaenzt.' : 'Legal notice coming soon.'}</p>
+          <p className="text-muted">{t.common.comingSoon}</p>
         )}
       </div>
     </section>

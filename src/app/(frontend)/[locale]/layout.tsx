@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { locales, type Locale } from '@/i18n/config'
+import { getDictionary } from '@/i18n/getDictionary'
+import { getPayload } from '@/lib/payload'
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
@@ -16,28 +18,15 @@ type Props = {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
-
-  const titles: Record<string, string> = {
-    de: 'GoldenWing Creative Studios | Marketing & Branding Agentur Wien',
-    en: 'GoldenWing Creative Studios | Marketing & Branding Agency Vienna',
-    ru: 'GoldenWing Creative Studios | Маркетинговое агентство Вена',
-  }
-
-  const descriptions: Record<string, string> = {
-    de: 'GoldenWing Creative Studios ist eine Wiener Marketing- und Branding-Agentur. Wir entwickeln Websites, SEO-Strategien und Markenidentitaeten.',
-    en: 'GoldenWing Creative Studios is a Vienna-based marketing and branding agency. We build websites, SEO strategies, and brand identities.',
-    ru: 'GoldenWing Creative Studios — маркетинговое и брендинговое агентство из Вены. Мы создаём сайты, SEO-стратегии и бренд-идентичность.',
-  }
-
-  const ogLocales: Record<string, string> = { de: 'de_AT', en: 'en_US', ru: 'ru_RU' }
+  const t = await getDictionary(locale as Locale)
 
   return {
-    title: { default: (titles[locale] || titles.de) as string, template: '%s | GoldenWing Creative Studios' },
-    description: descriptions[locale] || descriptions.de,
+    title: { default: t.meta.siteTitle, template: '%s | GoldenWing Creative Studios' },
+    description: t.meta.siteDescription,
     metadataBase: new URL(siteUrl),
     openGraph: {
       type: 'website',
-      locale: ogLocales[locale] || 'de_AT',
+      locale: t.meta.ogLocale,
       siteName: 'GoldenWing Creative Studios',
     },
   }
@@ -50,17 +39,37 @@ export default async function LocaleLayout({ children, params }: Props) {
     notFound()
   }
 
+  const t = await getDictionary(locale as Locale)
+
+  let siteSettings: any = null
+  let navigation: any = null
+  let footerData: any = null
+
+  try {
+    const payload = await getPayload()
+    const [settingsRes, navRes, footerRes] = await Promise.all([
+      payload.findGlobal({ slug: 'site-settings', locale }),
+      payload.findGlobal({ slug: 'navigation', locale }),
+      payload.findGlobal({ slug: 'footer', locale }),
+    ])
+    siteSettings = settingsRes
+    navigation = navRes
+    footerData = footerRes
+  } catch {
+    // Globals may not exist yet on first build
+  }
+
   return (
     <>
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-gold-500 focus:px-4 focus:py-2 focus:text-white"
       >
-        {locale === 'de' ? 'Zum Inhalt springen' : locale === 'ru' ? 'Перейти к содержанию' : 'Skip to content'}
+        {t.common.skipToContent}
       </a>
-      <Header locale={locale} />
+      <Header locale={locale} t={t} navigation={navigation} siteSettings={siteSettings} />
       <main id="main-content">{children}</main>
-      <Footer locale={locale} />
+      <Footer locale={locale} t={t} footerData={footerData} siteSettings={siteSettings} />
     </>
   )
 }

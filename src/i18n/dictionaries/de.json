@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "siteTitle": "GoldenWing Creative Studios | Marketing & Branding Agentur Wien",
+    "siteDescription": "GoldenWing Creative Studios ist eine Wiener Marketing- und Branding-Agentur. Wir entwickeln Websites, SEO-Strategien und Markenidentitaeten.",
+    "ogLocale": "de_AT"
+  },
   "nav": {
     "home": "Startseite",
     "services": "Leistungen",
@@ -7,7 +12,11 @@
     "about": "Ueber uns",
     "contact": "Kontakt",
     "impressum": "Impressum",
-    "datenschutz": "Datenschutz"
+    "datenschutz": "Datenschutz",
+    "agb": "AGB",
+    "agbFull": "Allgemeine Geschaeftsbedingungen",
+    "impressumMeta": "Impressum und rechtliche Angaben von GoldenWing Creative Studios, Wien.",
+    "datenschutzMeta": "Datenschutzerklaerung von GoldenWing Creative Studios — Informationen zum Umgang mit Ihren Daten."
   },
   "common": {
     "readMore": "Weiterlesen",
@@ -19,6 +28,8 @@
     "search": "Suchen",
     "submit": "Absenden",
     "close": "Schliessen",
+    "skipToContent": "Zum Inhalt springen",
+    "comingSoon": "Inhalt wird in Kuerze ergaenzt.",
     "language": "Sprache",
     "readingTime": "{min} Min. Lesezeit",
     "publishedOn": "Veroeffentlicht am"
@@ -26,31 +37,51 @@
   "home": {
     "heroTitle": "Kreativagentur Wien",
     "heroSubtitle": "Marketing, Branding & Web Development aus einer Hand.",
+    "heroLine1": "Ihre Vision.",
+    "heroHighlight": "Unsere Expertise.",
+    "heroLine2": "Perfekte Umsetzung.",
+    "heroSub": "Wir setzen Ihre individuellen Wuensche professionell um — von der ersten Idee bis zum fertigen Produkt.",
+    "heroBadge": "Kreativagentur aus Wien",
+    "heroCtaPrimary": "Kostenloses Erstgespraech",
+    "heroCtaSecondary": "Unsere Arbeiten ansehen",
     "servicesTitle": "Unsere Leistungen",
+    "servicesHeading": "Was wir fuer Sie tun koennen",
+    "allServices": "Alle Leistungen entdecken",
     "referencesTitle": "Referenzen",
     "blogTitle": "Aktuelles",
+    "testimonialsHeading": "Was unsere Kunden sagen",
+    "testimonialsSub": "Ueber 50 zufriedene Kunden vertrauen auf unsere Expertise.",
     "ctaTitle": "Bereit fuer dein Projekt?",
-    "ctaButton": "Kontakt aufnehmen"
+    "ctaHeading": "Erzaehlen Sie uns von Ihrer Idee",
+    "ctaSub": "Jedes grosse Projekt beginnt mit einem Gespraech. Erzaehlen Sie uns, was Sie sich vorstellen — wir zeigen Ihnen, wie wir es umsetzen koennen.",
+    "ctaButton": "Kostenloses Erstgespraech vereinbaren",
+    "metaDescription": "GoldenWing Creative Studios — Marketing-, Branding- und Webdesign-Agentur aus Wien. Ihre Vision. Unsere Expertise. Perfekte Umsetzung."
   },
   "services": {
     "title": "Unsere Leistungen",
     "subtitle": "Von der Strategie bis zur Umsetzung — alles aus einer Hand.",
     "subServices": "Teilleistungen",
-    "relatedServices": "Verwandte Leistungen"
+    "relatedServices": "Verwandte Leistungen",
+    "metaDescription": "Webdesign, SEO, Branding und Content Marketing — alle Services von GoldenWing Creative Studios im Ueberblick."
   },
   "referenzen": {
     "title": "Referenzen",
     "subtitle": "Erfahre, wie wir unseren Kunden geholfen haben, ihre Ziele zu erreichen.",
     "challenge": "Herausforderung",
     "solution": "Loesung",
-    "results": "Ergebnisse"
+    "results": "Ergebnisse",
+    "ctaHeading": "Ihr Projekt koennte das naechste sein",
+    "ctaButton": "Projekt besprechen",
+    "emptyState": "Noch keine Referenzen vorhanden.",
+    "metaDescription": "Unsere Referenzen und Erfolgsgeschichten — ausgewaehlte Projekte aus Webdesign, SEO und Branding."
   },
   "blog": {
     "title": "Blog",
     "subtitle": "Insights, Tipps und News aus der Welt des digitalen Marketings.",
     "categories": "Kategorien",
     "allPosts": "Alle Beitraege",
-    "relatedPosts": "Verwandte Beitraege"
+    "relatedPosts": "Verwandte Beitraege",
+    "metaDescription": "Fachbeitraege zu SEO, Webdesign, Branding und digitalem Marketing — Insights aus der Praxis."
   },
   "contact": {
     "title": "Kontakt",
@@ -61,18 +92,36 @@
     "message": "Nachricht",
     "send": "Nachricht senden",
     "success": "Vielen Dank! Wir melden uns bei dir.",
-    "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+    "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    "privacyLabel": "Ich stimme der Verarbeitung meiner Daten gemaess der",
+    "privacyLink": "Datenschutzerklaerung",
+    "privacySuffix": "zu.",
+    "successTitle": "Vielen Dank!",
+    "successMsg": "Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
+    "location": "Standort",
+    "metaDescription": "Kontaktiere GoldenWing Creative Studios — deine Marketing-Agentur in Wien. Wir freuen uns auf dein Projekt."
   },
   "about": {
     "title": "Ueber uns",
     "teamTitle": "Unser Team",
     "teamSubtitle": "Die Menschen hinter GoldenWing Creative Studios.",
     "valuesTitle": "Unsere Werte",
-    "valuesSubtitle": "Was uns antreibt und wie wir arbeiten."
+    "valuesSubtitle": "Was uns antreibt und wie wir arbeiten.",
+    "metaDescription": "Lerne das Team hinter GoldenWing Creative Studios kennen — Werte, Vision und Expertise.",
+    "valueQuality": "Qualitaet",
+    "valueQualityDesc": "Wir liefern keine Kompromisse — nur exzellente Ergebnisse, die wirken.",
+    "valuePartnership": "Partnerschaft",
+    "valuePartnershipDesc": "Wir sehen uns als langfristige Partner, nicht nur als Dienstleister.",
+    "valueInnovation": "Innovation",
+    "valueInnovationDesc": "Wir bleiben am Puls der Zeit und setzen auf zukunftsfaehige Loesungen."
   },
   "footer": {
     "copyright": "Alle Rechte vorbehalten.",
-    "madeWith": "Made with"
+    "madeWith": "Made with",
+    "services": "Leistungen",
+    "company": "Unternehmen",
+    "agency": "Marketing- und Branding-Agentur aus Wien.",
+    "allRights": "Alle Rechte vorbehalten."
   },
   "notFound": {
     "title": "Seite nicht gefunden",

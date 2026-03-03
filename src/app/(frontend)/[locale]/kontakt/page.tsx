@@ -8,12 +8,7 @@ import { ContactForm } from '@/components/kontakt/ContactForm'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  const descriptions: Record<string, string> = {
-    de: 'Kontaktiere GoldenWing Creative Studios — deine Marketing-Agentur in Wien. Wir freuen uns auf dein Projekt.',
-    en: 'Contact GoldenWing Creative Studios — your marketing agency in Vienna. We look forward to your project.',
-    ru: 'Свяжитесь с GoldenWing Creative Studios — ваше маркетинговое агентство в Вене.',
-  }
-  return { title: t.contact.title, description: descriptions[locale] || descriptions.de, ...getPageSeo('kontakt', locale) }
+  return { title: t.contact.title, description: t.contact.metaDescription, ...getPageSeo('kontakt', locale) }
 }
 
 export default async function KontaktPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -38,13 +33,19 @@ export default async function KontaktPage({ params }: { params: Promise<{ locale
 
           <div className="grid gap-12 md:grid-cols-2">
             <ContactForm
-              locale={locale}
+              datenschutzHref={`/${locale}/datenschutz`}
               labels={{
                 name: t.contact.name,
                 email: t.contact.email,
                 phone: t.contact.phone,
                 message: t.contact.message,
                 send: t.contact.send,
+                privacyLabel: t.contact.privacyLabel,
+                privacyLink: t.contact.privacyLink,
+                privacySuffix: t.contact.privacySuffix,
+                successTitle: t.contact.successTitle,
+                successMsg: t.contact.successMsg,
+                errorMsg: t.contact.error,
               }}
             />
 
@@ -55,7 +56,7 @@ export default async function KontaktPage({ params }: { params: Promise<{ locale
                 <a href="mailto:office@goldenwing.at" className="text-gold-600 hover:underline">office@goldenwing.at</a>
               </div>
               <div>
-                <h3 className="mb-2 text-lg font-semibold">{locale === 'de' ? 'Standort' : locale === 'ru' ? 'Местоположение' : 'Location'}</h3>
+                <h3 className="mb-2 text-lg font-semibold">{t.contact.location}</h3>
                 <p className="text-muted">Wien, Oesterreich</p>
               </div>
             </div>

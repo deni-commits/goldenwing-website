@@ -6,18 +6,12 @@ import type { Locale } from '@/i18n/config'
 import { getPageSeo } from '@/lib/seo'
 import { StructuredData } from '@/components/seo/StructuredData'
 
-const serviceDescriptions: Record<string, string> = {
-  de: 'Webdesign, SEO, Branding und Content Marketing — alle Services von GoldenWing Creative Studios im Ueberblick.',
-  en: 'Web design, SEO, branding and content marketing — all services from GoldenWing Creative Studios at a glance.',
-  ru: 'Веб-дизайн, SEO, брендинг и контент-маркетинг — все услуги GoldenWing Creative Studios.',
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
   return {
     title: t.services.title,
-    description: serviceDescriptions[locale] || serviceDescriptions.de,
+    description: t.services.metaDescription,
     ...getPageSeo('leistungen', locale),
   }
 }

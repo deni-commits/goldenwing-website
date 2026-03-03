@@ -9,40 +9,19 @@ interface ContactFormProps {
     phone: string
     message: string
     send: string
+    privacyLabel: string
+    privacyLink: string
+    privacySuffix: string
+    successTitle: string
+    successMsg: string
+    errorMsg: string
   }
-  locale: string
+  datenschutzHref: string
 }
 
-export function ContactForm({ labels, locale }: ContactFormProps) {
+export function ContactForm({ labels, datenschutzHref }: ContactFormProps) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const [privacyAccepted, setPrivacyAccepted] = useState(false)
-
-  const privacyLabel =
-    locale === 'de'
-      ? 'Ich stimme der Verarbeitung meiner Daten gemaess der'
-      : locale === 'ru'
-        ? 'Я согласен с обработкой моих данных в соответствии с'
-        : 'I agree to the processing of my data according to the'
-
-  const privacyLink =
-    locale === 'de' ? 'Datenschutzerklaerung' : locale === 'ru' ? 'политикой конфиденциальности' : 'Privacy Policy'
-
-  const successTitle =
-    locale === 'de' ? 'Vielen Dank!' : locale === 'ru' ? 'Спасибо!' : 'Thank you!'
-
-  const successMsg =
-    locale === 'de'
-      ? 'Wir melden uns innerhalb von 24 Stunden bei Ihnen.'
-      : locale === 'ru'
-        ? 'Мы свяжемся с вами в течение 24 часов.'
-        : 'We will get back to you within 24 hours.'
-
-  const errorMsg =
-    locale === 'de'
-      ? 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.'
-      : locale === 'ru'
-        ? 'Что-то пошло не так. Пожалуйста, попробуйте ещё раз.'
-        : 'Something went wrong. Please try again.'
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -75,8 +54,8 @@ export function ContactForm({ labels, locale }: ContactFormProps) {
   if (status === 'sent') {
     return (
       <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center">
-        <p className="text-lg font-semibold text-green-800">{successTitle}</p>
-        <p className="mt-2 text-sm text-green-700">{successMsg}</p>
+        <p className="text-lg font-semibold text-green-800">{labels.successTitle}</p>
+        <p className="mt-2 text-sm text-green-700">{labels.successMsg}</p>
       </div>
     )
   }
@@ -116,11 +95,11 @@ export function ContactForm({ labels, locale }: ContactFormProps) {
           className="mt-1 h-4 w-4 rounded border-gray-300 text-gold-500 focus:ring-gold-500"
         />
         <label htmlFor="privacy" className="text-sm text-muted">
-          {privacyLabel}{' '}
-          <a href={`/${locale}/datenschutz`} className="text-gold-600 underline hover:text-gold-700" target="_blank" rel="noopener noreferrer">
-            {privacyLink}
+          {labels.privacyLabel}{' '}
+          <a href={datenschutzHref} className="text-gold-600 underline hover:text-gold-700" target="_blank" rel="noopener noreferrer">
+            {labels.privacyLink}
           </a>
-          {' '}zu.
+          {' '}{labels.privacySuffix}
         </label>
       </div>
 
@@ -132,7 +111,7 @@ export function ContactForm({ labels, locale }: ContactFormProps) {
         {status === 'sending' ? '...' : labels.send}
       </button>
       {status === 'error' && (
-        <p className="text-sm text-red-600">{errorMsg}</p>
+        <p className="text-sm text-red-600">{labels.errorMsg}</p>
       )}
     </form>
   )
