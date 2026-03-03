@@ -38,6 +38,7 @@ export default async function KontaktPage({ params }: { params: Promise<{ locale
 
           <div className="grid gap-12 md:grid-cols-2">
             <ContactForm
+              locale={locale}
               labels={{
                 name: t.contact.name,
                 email: t.contact.email,

@@ -14,11 +14,16 @@ const localeLabels: Record<string, string> = {
   ru: 'RU',
 }
 
+const localeNames: Record<string, string> = {
+  de: 'Deutsch',
+  en: 'English',
+  ru: 'Русский',
+}
+
 export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
   const pathname = usePathname()
 
   function getLocalizedPath(targetLocale: string): string {
-    // Replace /de/ with /en/ etc, keeping the rest of the path
     const segments = pathname.split('/')
     if (segments[1] && locales.includes(segments[1] as any)) {
       segments[1] = targetLocale
@@ -27,20 +32,24 @@ export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
   }
 
   return (
-    <div className="flex items-center gap-1">
+    <nav aria-label="Language" className="flex items-center gap-1">
       {locales.map((loc) => (
         <Link
           key={loc}
           href={getLocalizedPath(loc)}
-          className={`px-2 py-1 text-xs font-medium transition ${
+          hrefLang={loc}
+          lang={loc}
+          aria-label={localeNames[loc]}
+          aria-current={loc === locale ? 'true' : undefined}
+          className={`rounded px-2 py-1 text-xs font-medium transition focus:outline-none focus:ring-2 focus:ring-gold-500 ${
             loc === locale
-              ? 'text-gold-600'
+              ? 'bg-gold-50 text-gold-600'
               : 'text-muted hover:text-dark'
           }`}
         >
           {localeLabels[loc]}
         </Link>
       ))}
-    </div>
+    </nav>
   )
 }

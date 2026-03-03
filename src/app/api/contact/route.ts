@@ -1,16 +1,45 @@
 import { NextResponse } from 'next/server'
+import { headers } from 'next/headers'
 
 function escapeHtml(str: string): string {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
+// In-memory rate limiting (per IP, 3 submissions per 15 minutes)
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>()
+const RATE_LIMIT = 3
+const RATE_WINDOW = 15 * 60 * 1000
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const entry = rateLimitMap.get(ip)
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW })
+    return false
+  }
+  entry.count++
+  return entry.count > RATE_LIMIT
+}
+
 export async function POST(request: Request) {
   try {
+    // Rate limiting
+    const headersList = await headers()
+    const ip = headersList.get('x-forwarded-for')?.split(',')[0]?.trim() || headersList.get('x-real-ip') || 'unknown'
+    if (isRateLimited(ip)) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+    }
+
     const body = await request.json()
     const { name, email, phone, message } = body as Record<string, string>
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+    }
+
+    // Length validation
+    if (name.length > 200 || email.length > 200 || (phone && phone.length > 50) || message.length > 5000) {
+      return NextResponse.json({ error: 'Input too long' }, { status: 400 })
     }
 
     // Basic email validation
