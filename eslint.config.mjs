@@ -11,7 +11,6 @@ export default [
   ...compat.extends('next/core-web-vitals'),
   {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'warn',
       '@next/next/no-img-element': 'off',
     },
   },
