@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: path === '' ? 1 : 0.8,
         alternates: {
           languages: Object.fromEntries(
-            locales.map((l) => [l, `${siteUrl}/${l}${path}`])
+            [...locales.map((l) => [l, `${siteUrl}/${l}${path}`]), ['x-default', `${siteUrl}/de${path}`]]
           ),
         },
       })
@@ -66,7 +66,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           priority: 0.8,
           alternates: {
             languages: Object.fromEntries(
-              locales.map((l) => [l, `${siteUrl}/${l}${path}`])
+              [...locales.map((l) => [l, `${siteUrl}/${l}${path}`]), ['x-default', `${siteUrl}/de${path}`]]
             ),
           },
         })

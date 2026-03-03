@@ -11,8 +11,8 @@ const titles: Record<string, string> = {
   ru: 'Маркетинговое агентство Вена',
 }
 
-export default async function OGImage({ params }: { params: { locale: string } }) {
-  const { locale } = params
+export default async function OGImage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
 
   return new ImageResponse(
     (
