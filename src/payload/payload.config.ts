@@ -12,6 +12,7 @@ import { Posts } from './collections/Posts'
 import { Services } from './collections/Services'
 import { CaseStudies } from './collections/CaseStudies'
 import { LandingPages } from './collections/LandingPages'
+import { Glossary } from './collections/Glossary'
 import { Team } from './collections/Team'
 import { Testimonials } from './collections/Testimonials'
 import { Media } from './collections/Media'
@@ -47,6 +48,7 @@ export default buildConfig({
     Services,
     CaseStudies,
     LandingPages,
+    Glossary,
     Team,
     Testimonials,
     Media,
@@ -72,7 +74,7 @@ export default buildConfig({
   },
   plugins: [
     seoPlugin({
-      collections: ['pages', 'posts', 'services', 'case-studies', 'landing-pages'],
+      collections: ['pages', 'posts', 'services', 'case-studies', 'landing-pages', 'glossary'],
       uploadsCollection: 'media',
       generateTitle: ({ doc }) => `${doc.title} | GoldenWing Creative Studios`,
       generateDescription: ({ doc }) => doc.excerpt || '',
@@ -83,6 +85,7 @@ export default buildConfig({
         if (collectionSlug === 'services') return `${base}/de/leistungen/${doc.slug}`
         if (collectionSlug === 'case-studies') return `${base}/de/referenzen/${doc.slug}`
         if (collectionSlug === 'landing-pages') return `${base}/de/${doc.slug}`
+        if (collectionSlug === 'glossary') return `${base}/de/glossar/${doc.slug}`
         return `${base}/de/${doc.slug}`
       },
     }),
