@@ -3,11 +3,23 @@ import Link from 'next/link'
 import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
+import { getAlternates } from '@/lib/seo'
+import { StructuredData } from '@/components/seo/StructuredData'
+
+const serviceDescriptions: Record<string, string> = {
+  de: 'Webdesign, SEO, Branding und Content Marketing — alle Services von GoldenWing Creative Studios im Ueberblick.',
+  en: 'Web design, SEO, branding and content marketing — all services from GoldenWing Creative Studios at a glance.',
+  ru: 'Веб-дизайн, SEO, брендинг и контент-маркетинг — все услуги GoldenWing Creative Studios.',
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  return { title: t.services.title }
+  return {
+    title: t.services.title,
+    description: serviceDescriptions[locale] || serviceDescriptions.de,
+    alternates: getAlternates('services', locale),
+  }
 }
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -30,7 +42,26 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
     // Tables may not exist yet
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
+
   return (
+    <>
+    <StructuredData data={{
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: t.services.title,
+      itemListElement: services.map((service: any, i: number) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Service',
+          name: service.title as string,
+          url: `${siteUrl}/${locale}/services/${service.slug as string}`,
+          ...(service.excerpt ? { description: service.excerpt as string } : {}),
+          provider: { '@type': 'Organization', name: 'GoldenWing Creative Studios' },
+        },
+      })),
+    }} />
     <section className="px-4 py-24">
       <div className="mx-auto max-w-6xl">
         <h1 className="mb-4 text-4xl font-bold md:text-5xl">{t.services.title}</h1>
@@ -61,5 +92,6 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         )}
       </div>
     </section>
+    </>
   )
 }

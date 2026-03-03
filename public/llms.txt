@@ -1,36 +1,58 @@
 # GoldenWing Creative Studios
 
-> Marketing- und Branding-Agentur aus Wien, Oesterreich.
+> Marketing- und Branding-Agentur aus Wien, Oesterreich. Spezialisiert auf Webentwicklung, SEO, Branding und Content Marketing.
 
 ## Ueberblick
 
-GoldenWing Creative Studios ist eine Wiener Agentur, spezialisiert auf digitales Marketing, Branding, Web Development und Suchmaschinenoptimierung (SEO). Wir arbeiten mit Unternehmen aus verschiedenen Branchen in Oesterreich und dem DACH-Raum.
+GoldenWing Creative Studios ist eine Wiener Agentur fuer digitales Marketing, Branding, Webentwicklung und Suchmaschinenoptimierung (SEO). Wir arbeiten mit Unternehmen aus verschiedenen Branchen in Oesterreich und dem DACH-Raum. Unsere Expertise umfasst moderne Webtechnologien (Next.js, React, Payload CMS), datengetriebene SEO-Strategien und kreatives Branding.
 
 ## Services
 
-- **Web Development**: Moderne Websites und Web-Applikationen mit Fokus auf Performance, UX und Barrierefreiheit. Technologien: Next.js, React, TypeScript, Tailwind CSS.
-- **SEO (Suchmaschinenoptimierung)**: Technisches SEO, On-Page-Optimierung, Content-Strategie, Local SEO fuer Wien und Oesterreich.
-- **Branding**: Markenidentitaet, Logo-Design, Corporate Design, Brand Strategy.
-- **Marketing**: Digitale Kampagnen, Social Media Marketing, Content Marketing, Google Ads.
+- [Webdesign & Entwicklung](/de/services/webdesign-entwicklung): Moderne, blitzschnelle Websites mit Next.js, Headless CMS und responsivem Design. Server-Side Rendering, Core Web Vitals Optimierung.
+- [SEO & Online Marketing](/de/services/seo-online-marketing): Datengetriebene SEO-Strategien fuer nachhaltige Sichtbarkeit. Technical SEO, Local SEO, GEO (Generative Engine Optimization), AEO (Answer Engine Optimization).
+- [Branding & Corporate Design](/de/services/branding-corporate-design): Einzigartige Markenidentitaeten — Logo-Design, Corporate Identity, Brand Guidelines, Print & Digital.
+- [Content Marketing](/de/services/content-marketing): Strategische Inhalte fuer Blog, Social Media, E-Mail und Video. SEO-optimierte Fachbeitraege.
+
+## Team
+
+- **Deni Khachukaev** — Gruender & Creative Director. Vereint strategisches Marketing-Know-how mit technischer Expertise.
+
+## Technologie-Stack
+
+- Frontend: Next.js 15, React, TypeScript, Tailwind CSS v4
+- CMS: Payload CMS v3 (Headless, selbst gehostet)
+- Datenbank: PostgreSQL
+- Medien: Cloudflare R2
+- Hosting: VPS mit Nginx, PM2, Let's Encrypt SSL
+- CI/CD: GitHub Actions
 
 ## Standort
 
-Wien, Oesterreich (DACH-Raum)
+Neubaugasse 25/3, 1070 Wien, Oesterreich
 
 ## Kontakt
 
 - Website: https://goldenwing.at
-- E-Mail: office@goldenwing.at
+- E-Mail: hello@goldenwing.at
+- Telefon: +43 1 234 5678
 
 ## Sprachen
 
-Deutsch, Englisch
+Deutsch, Englisch, Russisch
+
+## Referenzen & Erfolge
+
+- 50+ Projekte abgeschlossen
+- 98% Kundenzufriedenheit
+- Spezialisierung auf DACH-Markt (Deutschland, Oesterreich, Schweiz)
 
 ## Spezialisierungen
 
 - Agentur-Websites und Corporate Websites
 - E-Commerce und Online-Shops
-- SEO fuer lokale Unternehmen in Wien
+- SEO fuer lokale Unternehmen in Wien und Oesterreich
 - Branding fuer Startups und KMUs
-- GEO (Generative Engine Optimization)
+- GEO (Generative Engine Optimization) fuer KI-Suche
+- AEO (Answer Engine Optimization)
+- E-E-A-T Optimierung (Experience, Expertise, Authoritativeness, Trustworthiness)
 - AI-First Marketing Strategien

@@ -3,11 +3,17 @@ import Link from 'next/link'
 import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
+import { getAlternates } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  return { title: t.blog.title }
+  const descriptions: Record<string, string> = {
+    de: 'Fachbeitraege zu SEO, Webdesign, Branding und digitalem Marketing — Insights aus der Praxis.',
+    en: 'Expert articles on SEO, web design, branding and digital marketing — insights from practice.',
+    ru: 'Экспертные статьи о SEO, веб-дизайне, брендинге и цифровом маркетинге.',
+  }
+  return { title: t.blog.title, description: descriptions[locale] || descriptions.de, alternates: getAlternates('blog', locale) }
 }
 
 function formatDate(dateString: string, locale: string): string {

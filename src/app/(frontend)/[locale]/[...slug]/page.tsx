@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { getPayload } from '@/lib/payload'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
 import type { Metadata } from 'next'
+import { getAlternates } from '@/lib/seo'
 
 export async function generateStaticParams() {
   try {
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     const payload = await getPayload()
     const data = await payload.find({ collection: 'landing-pages', locale, where: { slug: { equals: pageSlug } }, limit: 1 })
     const page = data.docs[0] as any | undefined
-    if (page) return { title: page.title as string }
+    if (page) return { title: page.title as string, alternates: getAlternates(pageSlug, locale) }
   } catch {}
   return { title: pageSlug }
 }

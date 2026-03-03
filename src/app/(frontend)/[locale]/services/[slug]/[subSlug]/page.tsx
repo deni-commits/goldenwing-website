@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
+import { getAlternates } from '@/lib/seo'
 
 export async function generateStaticParams() {
   try {
@@ -19,12 +20,12 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string; subSlug: string }> }): Promise<Metadata> {
-  const { locale, subSlug } = await params
+  const { locale, slug, subSlug } = await params
   try {
     const payload = await getPayload()
     const data = await payload.find({ collection: 'services', locale, where: { slug: { equals: subSlug } }, limit: 1 })
     const service = data.docs[0] as any | undefined
-    if (service) return { title: service.title as string }
+    if (service) return { title: service.title as string, alternates: getAlternates(`services/${slug}/${subSlug}`, locale) }
   } catch {}
   return { title: subSlug }
 }

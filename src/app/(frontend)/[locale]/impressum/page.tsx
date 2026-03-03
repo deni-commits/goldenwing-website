@@ -3,11 +3,12 @@ import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
+import { getAlternates } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  return { title: t.nav.impressum }
+  return { title: t.nav.impressum, description: 'Impressum und rechtliche Angaben von GoldenWing Creative Studios, Wien.', alternates: getAlternates('impressum', locale) }
 }
 
 export default async function ImpressumPage({ params }: { params: Promise<{ locale: string }> }) {

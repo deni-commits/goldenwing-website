@@ -2,12 +2,18 @@ import type { Metadata } from 'next'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { LocalBusinessSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
+import { getAlternates } from '@/lib/seo'
 import { ContactForm } from '@/components/kontakt/ContactForm'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  return { title: t.contact.title }
+  const descriptions: Record<string, string> = {
+    de: 'Kontaktiere GoldenWing Creative Studios — deine Marketing-Agentur in Wien. Wir freuen uns auf dein Projekt.',
+    en: 'Contact GoldenWing Creative Studios — your marketing agency in Vienna. We look forward to your project.',
+    ru: 'Свяжитесь с GoldenWing Creative Studios — ваше маркетинговое агентство в Вене.',
+  }
+  return { title: t.contact.title, description: descriptions[locale] || descriptions.de, alternates: getAlternates('kontakt', locale) }
 }
 
 export default async function KontaktPage({ params }: { params: Promise<{ locale: string }> }) {

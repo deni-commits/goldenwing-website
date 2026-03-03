@@ -6,6 +6,7 @@ import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
 import { ServiceSchema, BreadcrumbSchema } from '@/components/seo/StructuredData'
+import { getAlternates } from '@/lib/seo'
 
 export async function generateStaticParams() {
   try {
@@ -23,7 +24,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     const payload = await getPayload()
     const data = await payload.find({ collection: 'services', locale, where: { slug: { equals: slug } }, limit: 1 })
     const service = data.docs[0] as any | undefined
-    if (service) return { title: service.title as string }
+    if (service) return {
+      title: service.title as string,
+      description: (service.excerpt as string) || undefined,
+      alternates: getAlternates(`services/${slug}`, locale),
+    }
   } catch {}
   return { title: slug }
 }

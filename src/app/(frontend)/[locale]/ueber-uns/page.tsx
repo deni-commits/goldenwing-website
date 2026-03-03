@@ -3,11 +3,17 @@ import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
+import { getAlternates } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  return { title: t.about.title }
+  const descriptions: Record<string, string> = {
+    de: 'Lerne das Team hinter GoldenWing Creative Studios kennen — Werte, Vision und Expertise.',
+    en: 'Meet the team behind GoldenWing Creative Studios — values, vision and expertise.',
+    ru: 'Познакомьтесь с командой GoldenWing Creative Studios — ценности, видение и экспертиза.',
+  }
+  return { title: t.about.title, description: descriptions[locale] || descriptions.de, alternates: getAlternates('ueber-uns', locale) }
 }
 
 export default async function UeberUnsPage({ params }: { params: Promise<{ locale: string }> }) {

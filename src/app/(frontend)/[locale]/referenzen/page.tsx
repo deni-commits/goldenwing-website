@@ -3,11 +3,17 @@ import Link from 'next/link'
 import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
 import type { Locale } from '@/i18n/config'
+import { getAlternates } from '@/lib/seo'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getDictionary(locale as Locale)
-  return { title: t.referenzen.title }
+  const descriptions: Record<string, string> = {
+    de: 'Unsere Referenzen und Erfolgsgeschichten — ausgewaehlte Projekte aus Webdesign, SEO und Branding.',
+    en: 'Our references and success stories — selected projects in web design, SEO and branding.',
+    ru: 'Наши кейсы и истории успеха — избранные проекты в веб-дизайне, SEO и брендинге.',
+  }
+  return { title: t.referenzen.title, description: descriptions[locale] || descriptions.de, alternates: getAlternates('referenzen', locale) }
 }
 
 export default async function ReferenzenPage({ params }: { params: Promise<{ locale: string }> }) {

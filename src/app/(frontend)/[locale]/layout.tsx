@@ -40,14 +40,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       locale: ogLocales[locale] || 'de_AT',
       siteName: 'GoldenWing Creative Studios',
     },
-    alternates: {
-      canonical: `${siteUrl}/${locale}`,
-      languages: {
-        de: `${siteUrl}/de`,
-        en: `${siteUrl}/en`,
-        ru: `${siteUrl}/ru`,
-      },
-    },
   }
 }
 
