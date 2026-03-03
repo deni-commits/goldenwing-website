@@ -26,10 +26,10 @@ PREV_COMMIT=$(git rev-parse HEAD)
 log "Previous commit: $PREV_COMMIT"
 
 # Pull latest
-git pull origin "$([ "$ENV" = "prod" ] && echo main || echo develop)" 2>&1 | tee -a "$LOG"
+git pull origin main 2>&1 | tee -a "$LOG"
 
 # Install dependencies
-npm ci --omit=dev 2>&1 | tee -a "$LOG"
+npm install 2>&1 | tee -a "$LOG"
 
 # Build
 NODE_OPTIONS='--max-old-space-size=4096' npm run build 2>&1 | tee -a "$LOG"
