@@ -19,6 +19,7 @@ import { Media } from './collections/Media'
 import { SiteSettings } from './globals/SiteSettings'
 import { Navigation } from './globals/Navigation'
 import { Footer } from './globals/Footer'
+import { Homepage } from './globals/Homepage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -59,7 +60,7 @@ export default buildConfig({
       ],
     },
   ],
-  globals: [SiteSettings, Navigation, Footer],
+  globals: [SiteSettings, Navigation, Footer, Homepage],
   editor: lexicalEditor(),
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || process.env.DATABASE_URI },
@@ -79,7 +80,7 @@ export default buildConfig({
         const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenwing.at'
         if (collectionSlug === 'pages') return `${base}/de/${doc.slug}`
         if (collectionSlug === 'posts') return `${base}/de/blog/${doc.slug}`
-        if (collectionSlug === 'services') return `${base}/de/services/${doc.slug}`
+        if (collectionSlug === 'services') return `${base}/de/leistungen/${doc.slug}`
         if (collectionSlug === 'case-studies') return `${base}/de/referenzen/${doc.slug}`
         if (collectionSlug === 'landing-pages') return `${base}/de/${doc.slug}`
         return `${base}/de/${doc.slug}`

@@ -29,22 +29,41 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   let services: any[] = []
   let testimonials: any[] = []
   let caseStudies: any[] = []
+  let homepage: any = null
 
   try {
     const payload = await getPayload()
-    const [postsData, servicesData, testimonialsData, caseStudiesData] = await Promise.all([
+    const [postsData, servicesData, testimonialsData, caseStudiesData, homepageData] = await Promise.all([
       payload.find({ collection: 'posts', locale, limit: 3, sort: '-publishedDate', where: { _status: { equals: 'published' } } }),
       payload.find({ collection: 'services', locale, limit: 10, where: { parent: { exists: false } }, sort: 'order' }),
       payload.find({ collection: 'testimonials', locale, limit: 6 }),
       payload.find({ collection: 'case-studies', locale, limit: 4, sort: '-publishedDate' }),
+      payload.findGlobal({ slug: 'homepage', locale }),
     ])
     posts = postsData.docs
     services = servicesData.docs
     testimonials = testimonialsData.docs
     caseStudies = caseStudiesData.docs
+    homepage = homepageData
   } catch {
     // Tables may not exist yet on first build
   }
+
+  // CMS values with dictionary fallback
+  const hero = homepage?.hero as any | undefined
+  const heroBadge = hero?.badge || t.home.heroBadge
+  const heroLine1 = hero?.line1 || t.home.heroLine1
+  const heroHighlight = hero?.highlight || t.home.heroHighlight
+  const heroLine2 = hero?.line2 || t.home.heroLine2
+  const heroSub = hero?.subline || t.home.heroSub
+  const heroCtaPrimaryLabel = hero?.ctaPrimaryLabel || t.home.heroCtaPrimary
+  const heroCtaPrimaryLink = hero?.ctaPrimaryLink || `/${locale}/kontakt`
+  const heroCtaSecondaryLabel = hero?.ctaSecondaryLabel || t.home.heroCtaSecondary
+  const heroCtaSecondaryLink = hero?.ctaSecondaryLink || `/${locale}/referenzen`
+
+  const cmsStats = homepage?.stats as any[] | undefined
+  const cmsProcess = homepage?.process as any | undefined
+  const cmsCta = homepage?.cta as any | undefined
 
   return (
     <>
@@ -54,32 +73,46 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="relative flex min-h-[80vh] items-center justify-center bg-dark px-4 text-white">
         <div className="mx-auto max-w-4xl text-center">
           <p className="mb-4 inline-block rounded-full border border-gold-500/30 bg-gold-500/10 px-4 py-1 text-sm text-gold-400">
-            {t.home.heroBadge}
+            {heroBadge}
           </p>
           <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-7xl">
-            {t.home.heroLine1}{' '}
-            <span className="text-gold-400">{t.home.heroHighlight}</span>{' '}
-            {t.home.heroLine2}
+            {heroLine1}{' '}
+            <span className="text-gold-400">{heroHighlight}</span>{' '}
+            {heroLine2}
           </h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300 md:text-xl">
-            {t.home.heroSub}
+            {heroSub}
           </p>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
-              href={`/${locale}/kontakt`}
+              href={heroCtaPrimaryLink}
               className="rounded-lg bg-gold-500 px-8 py-3 font-semibold text-white transition hover:bg-gold-600"
             >
-              {t.home.heroCtaPrimary}
+              {heroCtaPrimaryLabel}
             </Link>
             <Link
-              href={`/${locale}/referenzen`}
+              href={heroCtaSecondaryLink}
               className="rounded-lg border border-white/20 px-8 py-3 font-semibold text-white transition hover:bg-white/10"
             >
-              {t.home.heroCtaSecondary}
+              {heroCtaSecondaryLabel}
             </Link>
           </div>
         </div>
       </section>
+
+      {/* Stats Bar — only shown when CMS has stats */}
+      {cmsStats && cmsStats.length > 0 && (
+        <section className="bg-dark-light px-4 py-12">
+          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 md:grid-cols-4">
+            {cmsStats.map((stat: any, i: number) => (
+              <div key={i} className="text-center">
+                <p className="text-3xl font-bold text-gold-400 md:text-4xl">{stat.value as string}</p>
+                <p className="mt-1 text-sm text-gray-400">{stat.label as string}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Services Section */}
       {services.length > 0 && (
@@ -111,6 +144,35 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               >
                 {t.home.allServices}
               </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Process Section — only shown when CMS has process steps */}
+      {cmsProcess?.steps && (cmsProcess.steps as any[]).length > 0 && (
+        <section className="bg-gray-50 px-4 py-24">
+          <div className="mx-auto max-w-5xl">
+            {cmsProcess.heading && (
+              <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl">
+                {cmsProcess.heading as string}
+              </h2>
+            )}
+            {cmsProcess.subline && (
+              <p className="mx-auto mb-16 max-w-2xl text-center text-muted">
+                {cmsProcess.subline as string}
+              </p>
+            )}
+            <div className="grid gap-8 md:grid-cols-4">
+              {(cmsProcess.steps as any[]).map((step: any, i: number) => (
+                <div key={i} className="text-center">
+                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gold-500 text-lg font-bold text-white">
+                    {step.step as string}
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold">{step.title as string}</h3>
+                  {step.description && <p className="text-sm text-muted">{step.description as string}</p>}
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -219,17 +281,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="bg-dark px-4 py-24 text-white">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="mb-4 text-3xl font-bold md:text-4xl">
-            {t.home.ctaHeading}
+            {(cmsCta?.heading as string) || t.home.ctaHeading}
           </h2>
           <p className="mb-8 text-gray-300">
-            {t.home.ctaSub}
+            {(cmsCta?.subline as string) || t.home.ctaSub}
           </p>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
-              href={`/${locale}/kontakt`}
+              href={(cmsCta?.buttonLink as string) || `/${locale}/kontakt`}
               className="inline-block rounded-lg bg-gold-500 px-8 py-3 font-semibold text-white transition hover:bg-gold-600"
             >
-              {t.home.ctaButton}
+              {(cmsCta?.buttonLabel as string) || t.home.ctaButton}
             </Link>
           </div>
         </div>
