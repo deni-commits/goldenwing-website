@@ -140,7 +140,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               {services.map((service: any) => (
                 <Link
                   key={service.id as string}
-                  href={`/${locale}/services/${service.slug as string}`}
+                  href={`/${locale}/leistungen/${service.slug as string}`}
                   className="group rounded-xl border border-gray-100 p-6 transition hover:border-gold-200 hover:shadow-lg"
                 >
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gold-50 transition group-hover:bg-gold-100">
@@ -159,7 +159,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 { icon: 'search', title: 'SEO', desc: locale === 'de' ? 'Suchmaschinenoptimierung fuer mehr Sichtbarkeit.' : 'Search engine optimization for more visibility.' },
                 { icon: 'code', title: 'Software', desc: locale === 'de' ? 'Web Apps, Mobile Apps & Cloud-Loesungen.' : 'Web apps, mobile apps & cloud solutions.' },
               ].map((service) => (
-                <Link key={service.title} href={`/${locale}/services`} className="group rounded-xl border border-gray-100 p-6 transition hover:border-gold-200 hover:shadow-lg">
+                <Link key={service.title} href={`/${locale}/leistungen`} className="group rounded-xl border border-gray-100 p-6 transition hover:border-gold-200 hover:shadow-lg">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gold-50">
                     <span className="text-2xl text-gold-500">&#9733;</span>
                   </div>
@@ -171,7 +171,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           )}
           <div className="mt-12 text-center">
             <Link
-              href={`/${locale}/services`}
+              href={`/${locale}/leistungen`}
               className="inline-block rounded-lg border border-gold-500 px-8 py-3 font-semibold text-gold-600 transition hover:bg-gold-500 hover:text-white"
             >
               {locale === 'de' ? 'Alle Leistungen entdecken' : locale === 'ru' ? 'Все услуги' : 'Discover All Services'}

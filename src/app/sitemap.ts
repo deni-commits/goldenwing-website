@@ -17,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = []
 
   // Static pages per locale
-  const staticPaths = ['', '/services', '/referenzen', '/blog', '/ueber-uns', '/kontakt', '/impressum', '/datenschutz', '/agb']
+  const staticPaths = ['', '/leistungen', '/referenzen', '/blog', '/ueber-uns', '/kontakt', '/impressum', '/datenschutz', '/agb']
 
   for (const locale of locales) {
     for (const path of staticPaths) {
@@ -58,8 +58,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const s = service as any
       const parentService = s.parent as any | null
       const path = parentService?.slug
-        ? `/services/${parentService.slug}/${s.slug}`
-        : `/services/${s.slug}`
+        ? `/leistungen/${parentService.slug}/${s.slug}`
+        : `/leistungen/${s.slug}`
       for (const locale of locales) {
         entries.push({
           url: `${siteUrl}/${locale}${path}`,

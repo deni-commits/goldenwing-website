@@ -8,10 +8,10 @@ GoldenWing Creative Studios ist eine Wiener Agentur fuer digitales Marketing, Br
 
 ## Services
 
-- [Webdesign & Entwicklung](https://goldenwing.at/de/services/webdesign-entwicklung): Moderne, blitzschnelle Websites mit Next.js, Headless CMS und responsivem Design. Server-Side Rendering, Core Web Vitals Optimierung.
-- [SEO & Online Marketing](https://goldenwing.at/de/services/seo-online-marketing): Datengetriebene SEO-Strategien fuer nachhaltige Sichtbarkeit. Technical SEO, Local SEO, GEO (Generative Engine Optimization), AEO (Answer Engine Optimization).
-- [Branding & Corporate Design](https://goldenwing.at/de/services/branding-corporate-design): Einzigartige Markenidentitaeten — Logo-Design, Corporate Identity, Brand Guidelines, Print & Digital.
-- [Content Marketing](https://goldenwing.at/de/services/content-marketing): Strategische Inhalte fuer Blog, Social Media, E-Mail und Video. SEO-optimierte Fachbeitraege.
+- [Webdesign & Entwicklung](https://goldenwing.at/de/leistungen/webdesign-entwicklung): Moderne, blitzschnelle Websites mit Next.js, Headless CMS und responsivem Design. Server-Side Rendering, Core Web Vitals Optimierung.
+- [SEO & Online Marketing](https://goldenwing.at/de/leistungen/seo-online-marketing): Datengetriebene SEO-Strategien fuer nachhaltige Sichtbarkeit. Technical SEO, Local SEO, GEO (Generative Engine Optimization), AEO (Answer Engine Optimization).
+- [Branding & Corporate Design](https://goldenwing.at/de/leistungen/branding-corporate-design): Einzigartige Markenidentitaeten — Logo-Design, Corporate Identity, Brand Guidelines, Print & Digital.
+- [Content Marketing](https://goldenwing.at/de/leistungen/content-marketing): Strategische Inhalte fuer Blog, Social Media, E-Mail und Video. SEO-optimierte Fachbeitraege.
 
 ## Team
 
@@ -42,7 +42,7 @@ Deutsch, Englisch, Russisch
 
 ## Referenzen & Erfolge
 
-- 50+ Projekte abgeschlossen
+- 120+ Projekte abgeschlossen
 - 98% Kundenzufriedenheit
 - Spezialisierung auf DACH-Markt (Deutschland, Oesterreich, Schweiz)
 

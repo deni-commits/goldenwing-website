@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     const payload = await getPayload()
     const data = await payload.find({ collection: 'services', locale, where: { slug: { equals: subSlug } }, limit: 1 })
     const service = data.docs[0] as any | undefined
-    if (service) return { title: service.title as string, ...getPageSeo(`services/${slug}/${subSlug}`, locale) }
+    if (service) return { title: service.title as string, ...getPageSeo(`leistungen/${slug}/${subSlug}`, locale) }
   } catch {}
   return { title: subSlug }
 }
@@ -55,11 +55,11 @@ export default async function SubServicePage({ params }: { params: Promise<{ loc
           <nav className="mb-6 text-sm text-gray-400">
             <Link href={`/${locale}`} className="hover:text-gold-400">{t.nav.home}</Link>
             {' / '}
-            <Link href={`/${locale}/services`} className="hover:text-gold-400">{t.nav.services}</Link>
+            <Link href={`/${locale}/leistungen`} className="hover:text-gold-400">{t.nav.services}</Link>
             {' / '}
             {parentService && (
               <>
-                <Link href={`/${locale}/services/${slug}`} className="hover:text-gold-400">{parentService.title as string}</Link>
+                <Link href={`/${locale}/leistungen/${slug}`} className="hover:text-gold-400">{parentService.title as string}</Link>
                 {' / '}
               </>
             )}

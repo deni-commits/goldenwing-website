@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     if (service) return {
       title: service.title as string,
       description: (service.excerpt as string) || undefined,
-      ...getPageSeo(`services/${slug}`, locale),
+      ...getPageSeo(`leistungen/${slug}`, locale),
     }
   } catch {}
   return { title: slug }
@@ -60,13 +60,13 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
       <ServiceSchema
         name={service.title as string}
         description={(service.excerpt as string) || undefined}
-        url={`${siteUrl}/${locale}/services/${slug}`}
+        url={`${siteUrl}/${locale}/leistungen/${slug}`}
       />
       <BreadcrumbSchema
         items={[
           { name: t.nav.home, url: `${siteUrl}/${locale}` },
-          { name: t.nav.services, url: `${siteUrl}/${locale}/services` },
-          { name: service.title as string, url: `${siteUrl}/${locale}/services/${slug}` },
+          { name: t.nav.services, url: `${siteUrl}/${locale}/leistungen` },
+          { name: service.title as string, url: `${siteUrl}/${locale}/leistungen/${slug}` },
         ]}
       />
       {/* Service Header */}
@@ -75,7 +75,7 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
           <nav className="mb-6 text-sm text-gray-400">
             <Link href={`/${locale}`} className="hover:text-gold-400">{t.nav.home}</Link>
             {' / '}
-            <Link href={`/${locale}/services`} className="hover:text-gold-400">{t.nav.services}</Link>
+            <Link href={`/${locale}/leistungen`} className="hover:text-gold-400">{t.nav.services}</Link>
             {' / '}
             <span className="text-white">{service.title as string}</span>
           </nav>
@@ -95,7 +95,7 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
               {subServices.map((sub: any) => (
                 <Link
                   key={sub.id as string}
-                  href={`/${locale}/services/${slug}/${sub.slug as string}`}
+                  href={`/${locale}/leistungen/${slug}/${sub.slug as string}`}
                   className="group rounded-xl border border-gray-100 p-6 transition hover:border-gold-200 hover:shadow-lg"
                 >
                   <h3 className="mb-2 text-lg font-semibold group-hover:text-gold-600">{sub.title as string}</h3>

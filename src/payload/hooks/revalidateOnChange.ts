@@ -20,7 +20,7 @@ export const revalidateOnChange: CollectionAfterChangeHook = async ({ doc, colle
         pathsToRevalidate.push(`/${locale}/blog/${slug}`, `/${locale}/blog`)
         break
       case 'services':
-        pathsToRevalidate.push(`/${locale}/services/${slug}`, `/${locale}/services`)
+        pathsToRevalidate.push(`/${locale}/leistungen/${slug}`, `/${locale}/leistungen`)
         break
       case 'case-studies':
         pathsToRevalidate.push(`/${locale}/referenzen/${slug}`, `/${locale}/referenzen`)

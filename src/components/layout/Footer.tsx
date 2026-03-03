@@ -65,10 +65,10 @@ export function Footer({ locale }: FooterProps) {
               {t.services}
             </h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href={`/${locale}/services`} className="hover:text-gold-400">Web Development</Link></li>
-              <li><Link href={`/${locale}/services`} className="hover:text-gold-400">SEO</Link></li>
-              <li><Link href={`/${locale}/services`} className="hover:text-gold-400">Branding</Link></li>
-              <li><Link href={`/${locale}/services`} className="hover:text-gold-400">Marketing</Link></li>
+              <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">Web Development</Link></li>
+              <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">SEO</Link></li>
+              <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">Branding</Link></li>
+              <li><Link href={`/${locale}/leistungen`} className="hover:text-gold-400">Marketing</Link></li>
             </ul>
           </div>
 

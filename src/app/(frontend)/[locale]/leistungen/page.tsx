@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t.services.title,
     description: serviceDescriptions[locale] || serviceDescriptions.de,
-    ...getPageSeo('services', locale),
+    ...getPageSeo('leistungen', locale),
   }
 }
 
@@ -56,7 +56,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         item: {
           '@type': 'Service',
           name: service.title as string,
-          url: `${siteUrl}/${locale}/services/${service.slug as string}`,
+          url: `${siteUrl}/${locale}/leistungen/${service.slug as string}`,
           ...(service.excerpt ? { description: service.excerpt as string } : {}),
           provider: { '@type': 'Organization', name: 'GoldenWing Creative Studios' },
         },
@@ -72,7 +72,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             {services.map((service: any) => (
               <Link
                 key={service.id as string}
-                href={`/${locale}/services/${service.slug as string}`}
+                href={`/${locale}/leistungen/${service.slug as string}`}
                 className="group rounded-xl border border-gray-100 p-6 transition hover:border-gold-200 hover:shadow-lg"
               >
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gold-50">

@@ -12,7 +12,7 @@ export function Header({ locale }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const navItems = [
-    { label: locale === 'de' ? 'Leistungen' : locale === 'ru' ? 'Услуги' : 'Services', href: `/${locale}/services` },
+    { label: locale === 'de' ? 'Leistungen' : locale === 'ru' ? 'Услуги' : 'Services', href: `/${locale}/leistungen` },
     { label: locale === 'de' ? 'Referenzen' : locale === 'ru' ? 'Портфолио' : 'Portfolio', href: `/${locale}/referenzen` },
     { label: 'Blog', href: `/${locale}/blog` },
     { label: locale === 'de' ? 'Ueber uns' : locale === 'ru' ? 'О нас' : 'About Us', href: `/${locale}/ueber-uns` },
