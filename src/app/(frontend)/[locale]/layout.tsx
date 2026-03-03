@@ -52,6 +52,12 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-gold-500 focus:px-4 focus:py-2 focus:text-white"
+      >
+        {locale === 'de' ? 'Zum Inhalt springen' : locale === 'ru' ? 'Перейти к содержанию' : 'Skip to content'}
+      </a>
       <Header locale={locale} />
       <main id="main-content">{children}</main>
       <Footer locale={locale} />

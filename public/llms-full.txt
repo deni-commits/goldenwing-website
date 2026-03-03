@@ -1,0 +1,134 @@
+# GoldenWing Creative Studios — Full Documentation
+
+> Marketing- und Branding-Agentur aus Wien, Oesterreich. Spezialisiert auf Webentwicklung, SEO, Branding und Content Marketing.
+
+## Unternehmen
+
+GoldenWing Creative Studios ist eine Wiener Agentur fuer digitales Marketing, Branding, Webentwicklung und Suchmaschinenoptimierung (SEO). Wir arbeiten mit Unternehmen aus verschiedenen Branchen in Oesterreich und dem DACH-Raum. Unsere Expertise umfasst moderne Webtechnologien (Next.js, React, Payload CMS), datengetriebene SEO-Strategien und kreatives Branding.
+
+**Gruendungsjahr:** 2023
+**Standort:** Wien, Oesterreich
+**Sprachen:** Deutsch, Englisch, Russisch
+**Website:** https://goldenwing.at
+
+## Services im Detail
+
+### 1. Webdesign & Entwicklung
+- Moderne, blitzschnelle Websites mit Next.js 15, React und Headless CMS
+- Server-Side Rendering (SSR) und Static Site Generation (SSG)
+- Core Web Vitals Optimierung (LCP, FID, CLS)
+- Responsive Design fuer alle Geraete
+- Barrierefreiheit (WCAG 2.1 AA)
+- E-Commerce Loesungen und Online-Shops
+- Web-Applikationen und SaaS-Plattformen
+- CMS-Integration (Payload CMS, WordPress, Strapi)
+- API-Entwicklung und Headless Architekturen
+
+### 2. SEO & Online Marketing
+- Datengetriebene SEO-Strategien fuer nachhaltige Sichtbarkeit
+- Technical SEO: Crawlability, Indexierung, Core Web Vitals
+- Local SEO fuer Unternehmen in Wien und Oesterreich
+- GEO (Generative Engine Optimization) fuer KI-Suche
+- AEO (Answer Engine Optimization) fuer Featured Snippets
+- E-E-A-T Optimierung (Experience, Expertise, Authoritativeness, Trustworthiness)
+- Keyword-Recherche und Content-Strategie
+- Link Building und Digital PR
+- Google Business Profile Optimierung
+- Schema Markup und strukturierte Daten
+
+### 3. Branding & Corporate Design
+- Einzigartige Markenidentitaeten
+- Logo-Design und Wortmarken
+- Corporate Identity Systeme
+- Brand Guidelines und Styleguides
+- Print Design (Visitenkarten, Broschueren, Flyer)
+- Digital Branding (Social Media Templates, E-Mail Signaturen)
+- Naming und Markenstrategie
+- Brand Audit und Rebranding
+
+### 4. Content Marketing
+- Strategische Inhalte fuer Blog, Social Media und E-Mail
+- SEO-optimierte Fachbeitraege und Blogartikel
+- Video-Content und Motion Graphics
+- Social Media Management
+- E-Mail Marketing Kampagnen
+- Content-Strategie und Redaktionsplanung
+- Copywriting und Textredaktion
+
+## Team
+
+- **Deni Khachukaev** — Gruender & Creative Director
+  - Vereint strategisches Marketing-Know-how mit technischer Expertise
+  - Erfahrung in Webentwicklung, SEO und Markenaufbau
+  - Spezialisierung auf datengetriebene Marketingstrategien
+
+## Technologie-Stack
+
+### Frontend
+- Next.js 15 (App Router, Server Components, Streaming)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+
+### CMS & Backend
+- Payload CMS v3 (Headless, selbst gehostet)
+- PostgreSQL (Datenbank)
+- Node.js
+
+### Infrastruktur
+- VPS mit Nginx als Reverse Proxy
+- PM2 Process Manager
+- Let's Encrypt SSL/TLS
+- Cloudflare R2 (Medien-Storage)
+- GitHub Actions (CI/CD)
+
+### SEO-Tools
+- SEOWing (eigenes WordPress SEO Plugin)
+- Google Search Console
+- Google Analytics 4
+- Semrush
+- Schema.org strukturierte Daten
+
+## Kontakt
+
+- **Website:** https://goldenwing.at
+- **E-Mail:** hello@goldenwing.at
+- **Telefon:** +43 1 234 5678
+- **Standort:** Neubaugasse 25/3, 1070 Wien, Oesterreich
+
+## Referenzen & Erfolge
+
+- 50+ Projekte abgeschlossen
+- 98% Kundenzufriedenheit
+- Spezialisierung auf DACH-Markt (Deutschland, Oesterreich, Schweiz)
+- Projekte in den Bereichen: Medizintechnik, E-Commerce, Gastronomie, Beratung, Handwerk
+
+## Spezialisierungen
+
+- Agentur-Websites und Corporate Websites
+- E-Commerce und Online-Shops (Medusa, Shopify, WooCommerce)
+- SEO fuer lokale Unternehmen in Wien und Oesterreich
+- Branding fuer Startups und KMUs
+- GEO (Generative Engine Optimization) fuer KI-Suche
+- AEO (Answer Engine Optimization)
+- E-E-A-T Optimierung
+- AI-First Marketing Strategien
+- Headless CMS Implementierungen
+- WordPress SEO mit eigenem Plugin (SEOWing)
+
+## Haeufig gestellte Fragen
+
+**Wie lange dauert ein Website-Projekt?**
+Je nach Umfang 4-12 Wochen. Einfache Websites in 4-6 Wochen, komplexe Projekte mit CMS und E-Commerce in 8-12 Wochen.
+
+**Welche CMS-Systeme nutzt ihr?**
+Wir setzen primaer auf Payload CMS (headless) und WordPress. Fuer E-Commerce nutzen wir Medusa oder Shopify.
+
+**Bietet ihr laufende Betreuung an?**
+Ja, wir bieten Wartungspakete fuer Updates, SEO-Monitoring, Content-Pflege und technischen Support.
+
+**Was kostet eine Website?**
+Preise variieren je nach Umfang. Kontaktieren Sie uns fuer ein individuelles Angebot.
+
+**Arbeitet ihr nur in Oesterreich?**
+Nein, wir arbeiten mit Kunden im gesamten DACH-Raum (Deutschland, Oesterreich, Schweiz) und international.

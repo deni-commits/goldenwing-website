@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server'
 
+function escapeHtml(str: string): string {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json()
@@ -43,11 +47,11 @@ export async function POST(request: Request) {
         text: `Name: ${name}\nE-Mail: ${email}\nTelefon: ${phone || '-'}\n\nNachricht:\n${message}`,
         html: `
           <h2>Neue Kontaktanfrage</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>E-Mail:</strong> ${email}</p>
-          <p><strong>Telefon:</strong> ${phone || '-'}</p>
+          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+          <p><strong>E-Mail:</strong> ${escapeHtml(email)}</p>
+          <p><strong>Telefon:</strong> ${escapeHtml(phone || '-')}</p>
           <hr/>
-          <p>${message.replace(/\n/g, '<br/>')}</p>
+          <p>${escapeHtml(message).replace(/\n/g, '<br/>')}</p>
         `,
       })
     } catch (mailError) {
