@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 interface TestimonialBlockProps {
   block: {
     style?: 'single' | 'slider' | 'grid'
@@ -30,7 +32,7 @@ export function TestimonialBlock({ block }: TestimonialBlockProps) {
           </blockquote>
           <div className="flex items-center justify-center gap-3">
             {t.photo?.url && (
-              <img src={t.photo.url} alt={t.photo.alt || t.name} className="h-12 w-12 rounded-full object-cover" />
+              <Image src={t.photo.url} alt={t.photo.alt || t.name} width={48} height={48} className="h-12 w-12 rounded-full object-cover" />
             )}
             <div className="text-left">
               <p className="font-semibold">{t.name}</p>
@@ -57,7 +59,7 @@ export function TestimonialBlock({ block }: TestimonialBlockProps) {
               </blockquote>
               <div className="flex items-center gap-3">
                 {t.photo?.url && (
-                  <img src={t.photo.url} alt={t.photo.alt || t.name} className="h-10 w-10 rounded-full object-cover" />
+                  <Image src={t.photo.url} alt={t.photo.alt || t.name} width={40} height={40} className="h-10 w-10 rounded-full object-cover" />
                 )}
                 <div>
                   <p className="text-sm font-semibold">{t.name}</p>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getPayload } from '@/lib/payload'
 import { getDictionary } from '@/i18n/getDictionary'
+import Image from 'next/image'
 import type { Locale } from '@/i18n/config'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
 import { getAlternates } from '@/lib/seo'
@@ -56,9 +57,9 @@ export default async function UeberUnsPage({ params }: { params: Promise<{ local
                 const photo = member.photo as any | null
                 return (
                   <div key={member.id as string} className="rounded-xl border border-gray-100 p-6 transition hover:border-gold-200 hover:shadow-lg">
-                    <div className="mb-4 h-24 w-24 overflow-hidden rounded-full bg-gradient-to-br from-gold-100 to-gold-200">
+                    <div className="relative mb-4 h-24 w-24 overflow-hidden rounded-full bg-gradient-to-br from-gold-100 to-gold-200">
                       {photo && (photo.url as string) ? (
-                        <img src={photo.url as string} alt={(photo.alt as string) || (member.name as string)} className="h-full w-full object-cover" />
+                        <Image src={photo.url as string} alt={(photo.alt as string) || (member.name as string)} fill className="object-cover" sizes="96px" />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">
                           <span className="text-3xl text-gold-400">&#9786;</span>

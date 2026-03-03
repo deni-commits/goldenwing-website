@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 interface BeforeAfterBlockProps {
   block: {
     headline?: string
@@ -20,9 +22,9 @@ export function BeforeAfterBlock({ block }: BeforeAfterBlockProps) {
             <p className="mb-3 text-center text-sm font-semibold uppercase tracking-wider text-muted">
               {block.beforeLabel || 'Vorher'}
             </p>
-            <div className="aspect-video overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
+            <div className="relative aspect-video overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
               {block.beforeImage?.url ? (
-                <img src={block.beforeImage.url} alt={block.beforeImage.alt || ''} className="h-full w-full object-cover" />
+                <Image src={block.beforeImage.url} alt={block.beforeImage.alt || ''} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-muted">Vorher</div>
               )}
@@ -32,9 +34,9 @@ export function BeforeAfterBlock({ block }: BeforeAfterBlockProps) {
             <p className="mb-3 text-center text-sm font-semibold uppercase tracking-wider text-muted">
               {block.afterLabel || 'Nachher'}
             </p>
-            <div className="aspect-video overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
+            <div className="relative aspect-video overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
               {block.afterImage?.url ? (
-                <img src={block.afterImage.url} alt={block.afterImage.alt || ''} className="h-full w-full object-cover" />
+                <Image src={block.afterImage.url} alt={block.afterImage.alt || ''} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-muted">Nachher</div>
               )}
