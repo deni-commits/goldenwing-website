@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getPayload } from '@/lib/payload'
 import { locales } from '@/i18n/config'
+import { getAllLandingPageSlugs } from '@/lib/landing-pages'
 
 function alternatesFor(siteUrl: string, path: string) {
   return {
@@ -17,7 +18,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = []
 
   // Static pages per locale
-  const staticPaths = ['', '/leistungen', '/referenzen', '/blog', '/ueber-uns', '/kontakt', '/impressum', '/datenschutz', '/agb']
+  const staticPaths = [
+    '',
+    '/leistungen',
+    '/referenzen',
+    '/blog',
+    '/glossar',
+    '/ueber-uns',
+    '/kontakt',
+    '/impressum',
+    '/datenschutz',
+    '/agb',
+  ]
 
   for (const locale of locales) {
     for (const path of staticPaths) {
@@ -57,9 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const service of services.docs) {
       const s = service as any
       const parentService = s.parent as any | null
-      const path = parentService?.slug
-        ? `/leistungen/${parentService.slug}/${s.slug}`
-        : `/leistungen/${s.slug}`
+      const path = parentService?.slug ? `/leistungen/${parentService.slug}/${s.slug}` : `/leistungen/${s.slug}`
       for (const locale of locales) {
         entries.push({
           url: `${siteUrl}/${locale}${path}`,
@@ -96,8 +106,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         })
       }
     }
+    // Glossary detail pages
+    const glossaryEntries = await payload.find({ collection: 'glossary', limit: 500 })
+    for (const entry of glossaryEntries.docs) {
+      const path = `/glossar/${(entry as any).slug}`
+      for (const locale of locales) {
+        entries.push({
+          url: `${siteUrl}/${locale}${path}`,
+          lastModified: new Date((entry as any).updatedAt),
+          changeFrequency: 'monthly',
+          priority: 0.6,
+          alternates: alternatesFor(siteUrl, path),
+        })
+      }
+    }
   } catch {
     // Tables may not exist yet
+  }
+
+  // Template-based landing pages (code-driven, not CMS)
+  for (const slug of getAllLandingPageSlugs()) {
+    const path = `/${slug}`
+    for (const locale of locales) {
+      entries.push({
+        url: `${siteUrl}/${locale}${path}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly',
+        priority: 0.6,
+        alternates: alternatesFor(siteUrl, path),
+      })
+    }
   }
 
   return entries
