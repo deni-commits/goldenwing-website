@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Section } from '@/components/ui/Container'
-import { MotionSection } from '@/components/ui/AnimatedSection'
 import { LucideIcon, CheckCircle, ChevronDown, ArrowRight, Phone } from '@/lib/icon-map'
 import type { LandingPageContent } from '@/lib/landing-pages/types'
 
@@ -69,7 +68,7 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
       {/* Hero */}
       <section className="bg-foreground text-background relative flex min-h-[70vh] items-center px-4 py-24">
         <div className="mx-auto max-w-4xl text-center">
-          <MotionSection variant="fadeUp">
+          <div>
             <span className="border-primary/30 bg-primary/10 text-primary mb-4 inline-block rounded-full border px-4 py-1.5 text-sm font-medium">
               {hero.badge}
             </span>
@@ -103,14 +102,14 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
                 ))}
               </div>
             )}
-          </MotionSection>
+          </div>
         </div>
       </section>
 
       {/* Benefits */}
       {benefits && benefits.length > 0 && (
         <Section padding="lg">
-          <MotionSection variant="fadeUp" stagger={0.08}>
+          <div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {benefits.map((benefit, i) => (
                 <div
@@ -125,17 +124,17 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
                 </div>
               ))}
             </div>
-          </MotionSection>
+          </div>
         </Section>
       )}
 
       {/* Results */}
       {results && results.length > 0 && (
         <Section variant="light" padding="lg">
-          <MotionSection variant="fadeUp">
+          <div>
             <h2 className="mb-12 text-center text-3xl font-bold">{labels.resultsTitle}</h2>
-          </MotionSection>
-          <MotionSection variant="fadeUp" stagger={0.1}>
+          </div>
+          <div>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {results.map((result, i) => (
                 <div key={i} className="text-center">
@@ -145,18 +144,18 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
                 </div>
               ))}
             </div>
-          </MotionSection>
+          </div>
         </Section>
       )}
 
       {/* Services */}
       {services && services.length > 0 && (
         <Section padding="lg">
-          <MotionSection variant="fadeUp">
+          <div>
             <h2 className="mb-2 text-center text-3xl font-bold">{labels.servicesTitle}</h2>
             <p className="text-muted-foreground mb-12 text-center">{labels.servicesDescription}</p>
-          </MotionSection>
-          <MotionSection variant="fadeUp" stagger={0.08}>
+          </div>
+          <div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {services.map((service, i) => (
                 <div
@@ -171,18 +170,18 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
                 </div>
               ))}
             </div>
-          </MotionSection>
+          </div>
         </Section>
       )}
 
       {/* Packages */}
       {packages && packages.length > 0 && (
         <Section id="packages" variant="light" padding="lg">
-          <MotionSection variant="fadeUp">
+          <div>
             <h2 className="mb-2 text-center text-3xl font-bold">{labels.pricingTitle}</h2>
             <p className="text-muted-foreground mb-12 text-center">{labels.pricingDescription}</p>
-          </MotionSection>
-          <MotionSection variant="fadeUp" stagger={0.1}>
+          </div>
+          <div>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {packages.map((pkg, i) => (
                 <div
@@ -223,18 +222,18 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
                 </div>
               ))}
             </div>
-          </MotionSection>
+          </div>
         </Section>
       )}
 
       {/* Process */}
       {process && process.length > 0 && (
         <Section padding="lg">
-          <MotionSection variant="fadeUp">
+          <div>
             <h2 className="mb-2 text-center text-3xl font-bold">{labels.processTitle}</h2>
             <p className="text-muted-foreground mb-12 text-center">{labels.processSubtitle}</p>
-          </MotionSection>
-          <MotionSection variant="fadeUp" stagger={0.1}>
+          </div>
+          <div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {process.map((step, i) => (
                 <div
@@ -253,18 +252,18 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
                 </div>
               ))}
             </div>
-          </MotionSection>
+          </div>
         </Section>
       )}
 
       {/* Technologies */}
       {technologies && technologies.length > 0 && (
         <Section variant="light" padding="lg">
-          <MotionSection variant="fadeUp">
+          <div>
             <h2 className="mb-2 text-center text-3xl font-bold">{labels.technologiesTitle}</h2>
             <p className="text-muted-foreground mb-12 text-center">{labels.technologiesDescription}</p>
-          </MotionSection>
-          <MotionSection variant="fadeUp">
+          </div>
+          <div>
             <div className="flex flex-wrap justify-center gap-3">
               {technologies.map((tech, i) => (
                 <span
@@ -275,7 +274,7 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
                 </span>
               ))}
             </div>
-          </MotionSection>
+          </div>
         </Section>
       )}
 
@@ -283,15 +282,15 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
       {faqs && faqs.length > 0 && (
         <Section padding="lg">
           <div className="grid gap-12 lg:grid-cols-[1fr_2fr]">
-            <MotionSection variant="fadeUp">
+            <div>
               <div className="lg:sticky lg:top-24">
                 <h2 className="mb-4 text-3xl font-bold">{labels.faqTitle}</h2>
                 <p className="text-muted-foreground">{labels.faqSubtitle}</p>
               </div>
-            </MotionSection>
-            <MotionSection variant="fadeUp" delay={0.1}>
+            </div>
+            <div>
               <FAQAccordion faqs={faqs} />
-            </MotionSection>
+            </div>
           </div>
         </Section>
       )}
@@ -299,10 +298,10 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
       {/* Related Services */}
       {relatedServices && relatedServices.length > 0 && (
         <Section variant="light" padding="lg">
-          <MotionSection variant="fadeUp">
+          <div>
             <h2 className="mb-12 text-center text-3xl font-bold">{labels.relatedServicesTitle}</h2>
-          </MotionSection>
-          <MotionSection variant="fadeUp" stagger={0.08}>
+          </div>
+          <div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {relatedServices.map((service, i) => (
                 <Link
@@ -319,14 +318,14 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
                 </Link>
               ))}
             </div>
-          </MotionSection>
+          </div>
         </Section>
       )}
 
       {/* CTA - Neon Green */}
       <section className="bg-primary text-primary-foreground py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <MotionSection variant="fadeUp">
+          <div>
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="mb-4 text-3xl font-bold">{labels.ctaTitle}</h2>
               <p className="mb-8 opacity-90">{labels.ctaDescription}</p>
@@ -347,7 +346,7 @@ export function LandingPageTemplate({ content, locale }: LandingPageTemplateProp
                 </a>
               </div>
             </div>
-          </MotionSection>
+          </div>
         </div>
       </section>
     </>
